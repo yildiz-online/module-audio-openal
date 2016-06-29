@@ -174,4 +174,12 @@
       </build>
     </profile>
   </profiles>
+  
+  <repositories>
+    <repository>
+      <id>ossrh</id>
+      <name>OSS repository snapshot</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+  </repositories>
 </project>
