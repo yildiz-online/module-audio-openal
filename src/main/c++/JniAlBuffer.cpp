@@ -1,0 +1,92 @@
+//        This file is part of the Yildiz-Online project, licenced under the MIT License
+//        (MIT)
+//
+//        Copyright (c) 2016 Grégory Van den Borre
+//
+//        More infos available: http://yildiz.bitbucket.org
+//
+//        Permission is hereby granted, free of charge, to any person obtaining a copy
+//        of this software and associated documentation files (the "Software"), to deal
+//        in the Software without restriction, including without limitation the rights
+//        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//        copies of the Software, and to permit persons to whom the Software is
+//        furnished to do so, subject to the following conditions:
+//
+//        The above copyright notice and this permission notice shall be included in all
+//        copies or substantial portions of the Software.
+//
+//        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//        SOFTWARE.
+
+#include "../includes/JniAlBuffer.h"
+#include "../includes/StbAlBuffer.h"
+#include "../includes/AlutAlBuffer.h"
+#include "../includes/AlSource.h"
+#include "../includes/JniUtil.h"
+#include <exception>
+#include "../includes/wrapperphysfs.hpp"
+
+/**
+*@author Grégory Van den Borre
+*/
+
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject, jstring jfile) {
+    const char* file = env->GetStringUTFChars(jfile, 0);
+	try {
+	    YZ::AlutAlBuffer* buffer = new YZ::AlutAlBuffer(file);
+	    env->ReleaseStringUTFChars(jfile, file);
+	    return reinterpret_cast<jlong>(buffer);
+    } catch(std::exception& e) {
+        env->ReleaseStringUTFChars(jfile, file);
+        throwException(env, e.what());
+    }
+    return -1L;
+}
+
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadStream
+(JNIEnv *env, jobject, jstring jfile) {
+    const char* file = env->GetStringUTFChars(jfile, 0);
+	try {
+	    YZ::StbAlBuffer* buffer = new YZ::StbAlBuffer(file, 1);
+	    buffer->read(0);
+	    env->ReleaseStringUTFChars(jfile, file);
+	    return reinterpret_cast<jlong>(buffer);
+    } catch(std::exception& e) {
+        env->ReleaseStringUTFChars(jfile, file);
+        throwException(env, e.what());
+    }
+    return -1L;
+}
+
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs
+(JNIEnv *env, jobject, jstring jfile) {
+    const char* file = env->GetStringUTFChars(jfile, 0);
+    try {
+
+        YZ::StbAlBuffer* buffer = new YZ::StbAlBuffer(new YZ::physfs(file), 1);
+        buffer->read(0);
+        env->ReleaseStringUTFChars(jfile, file);
+        return reinterpret_cast<jlong>(buffer);
+    } catch(std::exception& e) {
+        env->ReleaseStringUTFChars(jfile, file);
+        throwException(env, e.what());
+    }
+    return -1L;
+}
+
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createSource
+(JNIEnv*, jobject, jlong pointer) {
+	YZ::AlutAlBuffer* buffer = reinterpret_cast<YZ::AlutAlBuffer*>(pointer);
+	return reinterpret_cast<jlong>(new YZ::AlSource(buffer));
+}
+
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createStreamSource
+(JNIEnv*, jobject, jlong pointer) {
+	YZ::StbAlBuffer* buffer = reinterpret_cast<YZ::StbAlBuffer*>(pointer);
+	return reinterpret_cast<jlong>(new YZ::AlSource(buffer));
+}

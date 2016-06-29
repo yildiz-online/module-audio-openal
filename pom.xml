@@ -1,0 +1,177 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>Yildiz Module Audio OpenAL</name>
+  <description>OpenAL implementation for the module audio.</description>
+
+  <groupId>be.yildiz-games</groupId>
+  <artifactId>module-audio-openal</artifactId>
+  <version>1.0.0-0-SNAPSHOT</version>
+
+  <packaging>jar</packaging>
+  <inceptionYear>2014</inceptionYear>
+  <parent>
+    <groupId>be.yildiz-games</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0.0-0-SNAPSHOT</version>
+  </parent>
+
+  <properties>
+    <version.bom-junit>1.0.0-0-SNAPSHOT</version.bom-junit>
+    <version.module-audio>1.0.0-0-SNAPSHOT</version.module-audio>
+    <nativeEnv>none</nativeEnv>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>be.yildiz-games</groupId>
+        <artifactId>bom-junit</artifactId>
+        <version>${version.bom-junit}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>be.yildiz-games</groupId>
+      <artifactId>module-audio</artifactId>
+      <version>${version.module-audio}</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.10</version>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/main/c++</source>
+                <source>src/main/includes</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>linux64</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>linux64</value>
+        </property>
+      </activation>
+      <properties>
+        <nativeEnv>linux64</nativeEnv>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <classifier>linux64</classifier>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>win64</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>win64</value>
+        </property>
+      </activation>
+      <properties>
+        <nativeEnv>win64</nativeEnv>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <classifier>win64</classifier>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>native</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>exec-maven-plugin</artifactId>
+            <groupId>org.codehaus.mojo</groupId>
+            <executions>
+              <execution>
+                <id>Build PhysFS library for ${nativeEnv}</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>${basedir}/src/main/scripts/${nativeEnv}/build_physfs.sh</executable>
+                </configuration>
+              </execution>
+              <execution>
+                <id>Build Freealut library for ${nativeEnv}</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>${basedir}/src/main/scripts/${nativeEnv}/build_freealut.sh</executable>
+                </configuration>
+              </execution>
+              <execution>
+                <id>Build OpenAL library for ${nativeEnv}</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>${basedir}/src/main/scripts/${nativeEnv}/build_openal.sh</executable>
+                </configuration>
+              </execution>
+              <execution>
+                <id>Build Yildiz-OpenAL binding library for ${nativeEnv}</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>${basedir}/src/main/scripts/${nativeEnv}/build_yildiz-openal.sh</executable>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
