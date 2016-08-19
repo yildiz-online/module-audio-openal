@@ -32,7 +32,10 @@ import be.yildiz.common.nativeresources.NativePointer;
 import be.yildiz.common.nativeresources.NativeResourceLoader;
 import be.yildiz.common.resource.FileResource.FileType;
 import be.yildiz.common.vector.Point3D;
-import be.yildiz.module.sound.*;
+import be.yildiz.module.sound.Playlist;
+import be.yildiz.module.sound.SoundBuilder;
+import be.yildiz.module.sound.SoundEngine;
+import be.yildiz.module.sound.SoundSource;
 import jni.OpenAlSoundEngineNative;
 import lombok.Getter;
 
@@ -62,7 +65,7 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
     public OpenAlSoundEngine() {
         super();
         Logger.info("Initializing OpenAL audio engine...");
-        NativeResourceLoader.loadLibrary("libopenal", "libalut", "libyildizopenal");
+        NativeResourceLoader.loadLibrary("libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
         Logger.info("OpenAL audio engine initialized.");
     }
@@ -81,28 +84,16 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
         this.setListenerOrientation(this.listener.getAbsoluteDirection());
     }
 
-
     @Override
     public Playlist createPlaylist(final String name) {
         return new Playlist(name, this);
     }
 
-    @Deprecated
-    //Use createStream instead.
-    @Override
-    public StreamSource buildStream(final String file) {
-        return new ALVorbisStream(file, FileType.FILE);
-    }
-
-    @Override
-    public StreamSource createStream(final String file) {
-        return new ALVorbisStream(file, FileType.FILE);
-    }
-
     @Override
     public SoundSource createSound(final String file) {
-        this.bufferList.putIfAbsent(file, new ALBuffer(file, FileType.FILE));
-        return this.bufferList.get(file).createSource();
+        //this.bufferList.putIfAbsent(file, new ALBuffer(file, FileType.FILE));
+        //return this.bufferList.get(file).createSource();
+        return new ALSoundSource(file, FileType.FILE);
     }
 
     @Override

@@ -33,27 +33,21 @@ namespace YZ {
 /**
 * @Grégory Van den Borre
 */
-class physfs {
 
-public:
-    mutable bool error;
+    class physfs {
+        private:
+            PHYSFS_File *file;
+        public:
+            mutable bool error;
+        public:
+            physfs(const char *);
+            ~physfs();
+            int read(char *, int);
+            int seek(int);
+            int tell();
+            int getSize();
+    };
 
-    physfs(const char *);
-
-    ~physfs();
-
-    int read(char *, int);
-
-    int seek(int);
-
-    int tell();
-
-    int getSize();
-
-    private:
-        PHYSFS_File *file;
-        
-};
 }
 
 #endif

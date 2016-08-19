@@ -67,6 +67,14 @@ JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_setListenerPosition(
     jfloat y,
     jfloat z);
 
+JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_setListenerOrientation(
+    JNIEnv *env,
+    jobject object,
+    jlong pointer,
+    jfloat x,
+    jfloat y,
+    jfloat z);
+
 /**
  * Close the engine.
  * @param env JNI environment.

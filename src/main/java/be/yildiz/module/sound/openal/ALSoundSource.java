@@ -29,9 +29,10 @@ import be.yildiz.common.collections.Sets;
 import be.yildiz.common.exeption.ResourceMissingException;
 import be.yildiz.common.nativeresources.NativePointer;
 import be.yildiz.common.resource.FileResource.FileType;
+import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.sound.EndPlayListener;
-import be.yildiz.module.sound.StreamSource;
-import jni.ALVorbisStreamNative;
+import be.yildiz.module.sound.SoundSource;
+import jni.ALSoundSourceNative;
 
 import java.io.File;
 import java.util.Set;
@@ -41,7 +42,7 @@ import java.util.Set;
  *
  * @author Grégory Van Den Borre
  */
-public final class ALVorbisStream implements StreamSource, Runnable {
+public final class ALSoundSource implements SoundSource, Runnable {
 
     /**
      * Pointer to the native object.
@@ -75,18 +76,24 @@ public final class ALVorbisStream implements StreamSource, Runnable {
      * @param file Sound file to load and play.
      * @param type Type of file to load.
      */
-    public ALVorbisStream(final String file, final FileType type) {
+    ALSoundSource(final String file, final FileType type) {
         super();
         long address;
         if (type == FileType.VFS) {
-            address = ALVorbisStreamNative.loadFromVfs(file);
+            address = ALSoundSourceNative.loadFromVfs(file);
         } else {
             if (!new File(file).exists()) {
                 throw new ResourceMissingException(file + " does not exists.");
             }
-            address = ALVorbisStreamNative.load(file);
+            address = ALSoundSourceNative.load(file);
         }
         this.pointer = NativePointer.create(address);
+        this.thread = new Thread(this);
+    }
+
+    ALSoundSource(final NativePointer pointer) {
+        super();
+        this.pointer = pointer;
         this.thread = new Thread(this);
     }
 
@@ -104,14 +111,12 @@ public final class ALVorbisStream implements StreamSource, Runnable {
 
     @Override
     public void run() {
-        ALVorbisStreamNative.play(this.pointer.address);
+        ALSoundSourceNative.play(this.pointer.address);
         this.playing = true;
         while (!this.mustBeStopped) {
-            this.playing = ALVorbisStreamNative.update(this.pointer.address);
+            this.playing = ALSoundSourceNative.update(this.pointer.address);
             if (!this.playing) {
-                for (EndPlayListener epl : this.endPlayListeners) {
-                    epl.soundFinished();
-                }
+                this.endPlayListeners.forEach(EndPlayListener::soundFinished);
             }
         }
     }
@@ -128,5 +133,39 @@ public final class ALVorbisStream implements StreamSource, Runnable {
     public synchronized void stop() {
         this.mustBeStopped = true;
         this.playing = false;
+    }
+
+    /**
+     * @return true if the sound is playing or paused, false otherwise.
+     */
+    @Override
+    public boolean isPlaying() {
+        return ALSoundSourceNative.isPlaying(this.pointer.address);
+    }
+
+    /**
+     * Set the sound position in the 3d space.
+     *
+     * @param pos New position.
+     */
+    @Override
+    public void setPosition(Point3D pos) {
+        ALSoundSourceNative.setPosition(this.pointer.address, pos.x, pos.y, pos.z);
+    }
+
+    /**
+     * The sound will be played in loop until stop is called.
+     */
+    @Override
+    public void loop() {
+        ALSoundSourceNative.loop(this.pointer.address);
+    }
+
+    /**
+     * Reset the sound at its beginning.
+     */
+    @Override
+    public void rewind() {
+        ALSoundSourceNative.rewind(this.pointer.address);
     }
 }

@@ -29,24 +29,25 @@
 #define _JNI_AL_BUFFER_H_
 
 /**
-* @author Grégory Van den Borre
+*@author Grégory Van den Borre
 */
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject object, jstring jfile);
-
-JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadStream(JNIEnv *env, jobject object, jstring jfile);
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(
+    JNIEnv *env,
+    jobject object,
+    jstring jfile);
 
 JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(
     JNIEnv *env,
     jobject object,
     jstring jfile);
 
-JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createStreamSource(JNIEnv *env, jobject object, jlong pointer);
-
-JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createSource(JNIEnv *env, jobject object, jlong pointer);
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createSource(
+    JNIEnv *env,
+    jobject object,
+    jlong pointer);
 
 #ifdef __cplusplus
 }

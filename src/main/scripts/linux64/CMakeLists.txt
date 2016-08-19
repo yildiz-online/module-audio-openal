@@ -3,17 +3,17 @@ project (yildiz_native_openal)
 
 set(CMAKE_CXX_FLAGS "-O2 -fPIC")
 
-set(OPENAL "${CMAKE_SOURCE_DIR}/../openal-soft/release/linux64")
-set(ALUT "${CMAKE_SOURCE_DIR}/../freealut/release/linux64")
-set(PHYSFS "${CMAKE_SOURCE_DIR}/../physicsFS/release/linux64")
+find_package(OpenAL REQUIRED)
+find_package(PhysFS REQUIRED)
+find_package(Java REQUIRED)
+find_package(JNI REQUIRED)
+find_package(LibSndFile REQUIRED)
 
-include_directories("${OPENAL}/include/AL")
-include_directories("${ALUT}/include/AL")
-include_directories("${PHYSFS}/include")
-
-include_directories("/home/moussa/dev/tools/java-linux64/include")
-include_directories("/home/moussa/dev/tools/java-linux64/include/linux")
-
+include_directories(${OpenAL_INCLUDE_DIRS})
+include_directories(${PhysFS_INCLUDE_DIRS})
+include_directories(${JNI_INCLUDE_DIRS})
+include_directories(${JNI_INCLUDE_DIRS}/linux)
+include_directories(${LibSndFile_INCLUDE_DIRS})
 
 file(
         GLOB_RECURSE
@@ -26,6 +26,6 @@ file(
 
 add_library(yildizopenal SHARED ${source_files})
 
-target_link_libraries(yildizopenal ${OPENAL}/lib/libopenal.so)
-target_link_libraries(yildizopenal ${ALUT}/lib/libalut.so)
-target_link_libraries(yildizopenal ${PHYSFS}/lib/libphysfs.a)
+target_link_libraries(yildizopenal ${OPENAL_LIBRARY})
+target_link_libraries(yildizopenal ${PHYSFS_LIBRARY})
+target_link_libraries(yildizopenal ${LIBSNDFILE_LIBRARY})

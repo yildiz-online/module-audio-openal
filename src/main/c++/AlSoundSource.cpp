@@ -23,25 +23,36 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-#include "../includes/AlVorbisStream.h"
+#include "../includes/AlSoundSource.h"
 
 /**
 *@author Grégory Van den Borre
 */
 
-YZ::AlVorbisStream::AlVorbisStream(const char* file) {
-    this->initialize(new YZ::StbAlBuffer(file, BUFFER_NUMBER));
-}
-
-YZ::AlVorbisStream::AlVorbisStream(YZ::physfs* file) {
-    this->initialize(new YZ::StbAlBuffer(file, BUFFER_NUMBER));
-}
-
-YZ::AlVorbisStream::~AlVorbisStream() {
-}
-
-void YZ::AlVorbisStream::initialize(YZ::StbAlBuffer* buffer) {
+YZ::AlSoundSource::AlSoundSource(YZ::AlBuffer* buffer) {
     this->buffer = buffer;
+	alGenSources(1, &this->source);
+
+    alSource3f(this->source, AL_POSITION, 0.0, 0.0, 0.0);
+    alSource3f(this->source, AL_VELOCITY, 0.0, 0.0, 0.0);
+    alSource3f(this->source, AL_DIRECTION, 0.0, 0.0, 0.0);
+    alSourcef(this->source, AL_ROLLOFF_FACTOR, 0.0);
+    alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
+}
+
+YZ::AlSoundSource::AlSoundSource(const char* file) {
+	this->buffer = new YZ::AlBuffer(file, BUFFER_NUMBER);
+	alGenSources(1, &this->source);
+
+    alSource3f(this->source, AL_POSITION, 0.0, 0.0, 0.0);
+    alSource3f(this->source, AL_VELOCITY, 0.0, 0.0, 0.0);
+    alSource3f(this->source, AL_DIRECTION, 0.0, 0.0, 0.0);
+    alSourcef(this->source, AL_ROLLOFF_FACTOR, 0.0);
+    alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
+}
+
+YZ::AlSoundSource::AlSoundSource(YZ::physfs* file) {
+    this->buffer = new YZ::AlBuffer(file, BUFFER_NUMBER);
     alGenSources(1, &this->source);
 
     alSource3f(this->source, AL_POSITION, 0.0, 0.0, 0.0);
@@ -51,55 +62,62 @@ void YZ::AlVorbisStream::initialize(YZ::StbAlBuffer* buffer) {
     alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
 }
 
-void YZ::AlVorbisStream::close() {
+YZ::AlSoundSource::~AlSoundSource() {
+}
+
+void YZ::AlSoundSource::close() {
     alSourceStop(this->source);
     this->empty();
     alDeleteSources(1, &this->source);
     this->check();
 }
 
-bool YZ::AlVorbisStream::play() {
-    if (this->isPlaying()) {
+bool YZ::AlSoundSource::play() {
+	if(this->isPlaying()) {
         return true;
-    }
-    for (int i = 0; i < BUFFER_NUMBER; i++) {
-        if (!this->buffer->read(i)) {
-            return false;
-        }
-    }
+	}
+	for (int i = 0; i < BUFFER_NUMBER; i++) {
+	    if(!this->buffer->read(i)) {
+	            return false;
+	    }
+	}
     this->buffer->sourceQueue(this->source);
     alSourcePlay(this->source);
     return true;
 }
 
-bool YZ::AlVorbisStream::isPlaying() {
+bool YZ::AlSoundSource::isPlaying() {
     ALenum state;
     alGetSourcei(this->source, AL_SOURCE_STATE, &state);
     return (state == AL_PLAYING);
 }
 
-bool YZ::AlVorbisStream::update() {
+bool YZ::AlSoundSource::update() {
     int processed;
     bool active = true;
     alGetSourcei(this->source, AL_BUFFERS_PROCESSED, &processed);
-    while (processed--) {
+    while(processed--) {
         ALuint bufferIndex;
         alSourceUnqueueBuffers(this->source, 1, &bufferIndex);
         active = this->buffer->readIndex(bufferIndex);
         alSourceQueueBuffers(this->source, 1, &bufferIndex);
     }
-    if(!this->isPlaying()) {
-        alSourcePlay(this->source);
-    }
+	if(!this->isPlaying()) {
+		alSourcePlay(this->source);
+	}
     return active;
 }
 
-void YZ::AlVorbisStream::empty() {
+void YZ::AlSoundSource::empty() {
     int queued;
     alGetSourcei(this->source, AL_BUFFERS_QUEUED, &queued);
     while(queued--) {
         ALuint buffer;
         alSourceUnqueueBuffers(this->source, 1, &buffer);
     }
+}
+
+void YZ::AlSoundSource::stop() {
+    alSourceStop(this->source);
 }
 

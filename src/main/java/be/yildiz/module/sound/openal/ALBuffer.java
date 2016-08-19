@@ -27,6 +27,7 @@ package be.yildiz.module.sound.openal;
 
 import be.yildiz.common.nativeresources.NativePointer;
 import be.yildiz.common.resource.FileResource.FileType;
+import be.yildiz.module.sound.SoundSource;
 import jni.ALBufferNative;
 
 /**
@@ -68,8 +69,8 @@ final class ALBuffer {
      * @return The built sound source.
      * @Ensures result != null
      */
-    AlSource createSource() {
+    SoundSource createSource() {
         NativePointer sourcePointer = NativePointer.create(ALBufferNative.createSource(this.pointer.address));
-        return new AlSource(sourcePointer);
+        return new ALSoundSource(sourcePointer);
     }
 }

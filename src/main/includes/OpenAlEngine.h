@@ -26,9 +26,8 @@
 #ifndef _AL_ENGINE_H_
 #define _AL_ENGINE_H_
 
-#include <al.h>
-#include <alc.h>
-#include <alut.h>
+#include <AL/al.h>
+#include <AL/alc.h>
 #include "OpenAlException.h"
 
 namespace YZ {
@@ -46,7 +45,7 @@ public:
      * @param deviceName Name of the device to use, optional parameter.
      */
     OpenAlEngine(const char* deviceName = NULL) {
-        /*ALCdevice* device = alcOpenDevice(deviceName);
+        ALCdevice* device = alcOpenDevice(deviceName);
         if (!device) {
             throw YZ::OpenAlException("Unable to open audio device");
         }
@@ -61,45 +60,17 @@ public:
             alcCloseDevice(device);
             throw YZ::OpenAlException("Unable to activate the context.");
         }
-        if(alGetError() != AL_NO_ERROR) {
-            throw OpenAlException("Error starting the engine.");
-        }*/
-        if(alutInit (NULL, NULL) == AL_FALSE) {
-            throw OpenAlException("Error Initializing alut.");
-        }
-       /* ALuint buffer = alutCreateBufferFromFile("/home/moussa/test.wav");
-        ALuint source;
-        alGenSources(1, &source);
-        if(alGetError() != AL_NO_ERROR) {
-            throw OpenAlException("Error starting the engine.");
-        }
-        alSourcei(source, AL_BUFFER, buffer);
-        if(alGetError() != AL_NO_ERROR) {
-            throw OpenAlException("Error starting the engine.");
-        }
-        alSourcePlay(source);
-        if(alGetError() != AL_NO_ERROR) {
-
-            throw OpenAlException("Error starting the engine.");
-
-        }
-        ALenum state;
-        alGetSourcei(source, AL_SOURCE_STATE, &state);
-        while(state == AL_PLAYING) {
-             alGetSourcei(source, AL_SOURCE_STATE, &state);
-        }*/
     }
 
     /**
      * Destroy the context and close the device.
      */
     ~OpenAlEngine(void) {
-        /*ALCcontext* context = alcGetCurrentContext();
+        ALCcontext* context = alcGetCurrentContext();
         ALCdevice* device = alcGetContextsDevice(context);
         alcMakeContextCurrent(NULL);
         alcDestroyContext(context);
-        alcCloseDevice(device);*/
-        alutExit();
+        alcCloseDevice(device);
     }
 
     /**

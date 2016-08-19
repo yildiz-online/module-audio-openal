@@ -23,21 +23,21 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-#include "../includes/JniAlVorbisStream.h"
-#include "../includes/AlVorbisStream.h"
+#include "../includes/JniAlSoundSource.h"
+#include "../includes/AlSoundSource.h"
 #include "../includes/JniUtil.h"
 
 /**
 *@author Grégory Van den Borre
 */
 
-JNIEXPORT jlong JNICALL Java_jni_ALVorbisStreamNative_load(
+JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(
     JNIEnv *env,
     jobject,
     jstring jfile) {
     const char* file = env->GetStringUTFChars(jfile, 0);
     try {
-        YZ::AlVorbisStream* stream = new YZ::AlVorbisStream(file);
+        YZ::AlSoundSource* stream = new YZ::AlSoundSource(file);
         env->ReleaseStringUTFChars(jfile, file);
         return reinterpret_cast<jlong>(stream);
     } catch (std::exception& e) {
@@ -47,13 +47,13 @@ JNIEXPORT jlong JNICALL Java_jni_ALVorbisStreamNative_load(
     return -1L;
 }
 
-JNIEXPORT jlong JNICALL Java_jni_ALVorbisStreamNative_loadFromVfs(
+JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(
     JNIEnv *env,
     jobject,
     jstring jfile) {
     const char* file = env->GetStringUTFChars(jfile, 0);
     try {
-        YZ::AlVorbisStream* stream = new YZ::AlVorbisStream(
+        YZ::AlSoundSource* stream = new YZ::AlSoundSource(
                 new YZ::physfs(file));
         env->ReleaseStringUTFChars(jfile, file);
         return reinterpret_cast<jlong>(stream);
@@ -64,25 +64,78 @@ JNIEXPORT jlong JNICALL Java_jni_ALVorbisStreamNative_loadFromVfs(
     return -1L;
 }
 
-JNIEXPORT void Java_jni_ALVorbisStreamNative_play(
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(
     JNIEnv* env,
     jobject,
     jlong pointer) {
     try {
-        YZ::AlVorbisStream* stream = reinterpret_cast<YZ::AlVorbisStream*>(pointer);
+        YZ::AlSoundSource* stream =
+                reinterpret_cast<YZ::AlSoundSource*>(pointer);
         stream->play();
     } catch (std::exception& e) {
         throwException(env, e.what());
     }
 }
 
-JNIEXPORT jboolean JNICALL Java_jni_ALVorbisStreamNative_update(JNIEnv* env, jobject, jlong pointer) {
+JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update(
+    JNIEnv* env,
+    jobject,
+    jlong pointer) {
     try {
-        YZ::AlVorbisStream* stream = reinterpret_cast<YZ::AlVorbisStream*>(pointer);
+        YZ::AlSoundSource* stream =
+                reinterpret_cast<YZ::AlSoundSource*>(pointer);
         return stream->update();
     } catch (std::exception& e) {
         throwException(env, e.what());
     }
     return 0;
+}
+
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_stop(
+    JNIEnv*,
+    jobject,
+    jlong pointer) {
+    YZ::AlSoundSource* stream =
+                    reinterpret_cast<YZ::AlSoundSource*>(pointer);
+    stream->stop();
+}
+
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_loop(
+    JNIEnv*,
+    jobject,
+    jlong pointer) {
+    YZ::AlSoundSource* stream =
+                    reinterpret_cast<YZ::AlSoundSource*>(pointer);
+    stream->loop();
+}
+
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_rewind(
+    JNIEnv*,
+    jobject,
+    jlong pointer) {
+    YZ::AlSoundSource* stream =
+                    reinterpret_cast<YZ::AlSoundSource*>(pointer);
+                    stream->rewind();
+}
+
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setPosition(
+    JNIEnv*,
+    jobject,
+    jlong pointer,
+    jfloat x,
+    jfloat y,
+    jfloat z) {
+    YZ::AlSoundSource* stream =
+                    reinterpret_cast<YZ::AlSoundSource*>(pointer);
+                    stream->setPosition(x, y, z);
+}
+
+JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_isPlaying(
+    JNIEnv*,
+    jobject,
+    jlong pointer) {
+    YZ::AlSoundSource* stream =
+                    reinterpret_cast<YZ::AlSoundSource*>(pointer);
+                    stream->isPlaying();
 }
 

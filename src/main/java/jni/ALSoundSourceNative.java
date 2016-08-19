@@ -23,26 +23,45 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
+
 package jni;
 
 /**
  * @author Grégory Van den Borre
  */
-public class ALSourceNative {
+public class ALSoundSourceNative {
 
     /**
-     * Call the native code to play the sound.
+     * Load the file in the openAL native code.
      *
-     * @param pointerAddress The pointer address to the native object(YZ::AlSource*).
+     * @param file Path to the file to load.
+     * @return The native address pointer.
      */
-    public static native void play(final long pointerAddress);
+    public static native long load(final String file);
 
     /**
-     * Call the native code to stop playing the sound.
+     * Load the virtual file in the openAL native code.
      *
-     * @param pointerAddress The pointer address to the native object(YZ::AlSource*).
+     * @param file Path to the virtual file to load.
+     * @return The native address pointer.
      */
-    public static native void stop(final long pointerAddress);
+    public static native long loadFromVfs(final String file);
+
+    /**
+     * Start playing the file.
+     *
+     * @param pointerAddress Address to the native object.
+     * @return <code>true</code> if the sound is playing.
+     */
+    public static native boolean play(final long pointerAddress);
+
+    /**
+     * Update the stream status in native code.
+     *
+     * @param pointerAddress Address to the native object.
+     * @return <code>true</code> if the sound is playing.
+     */
+    public static native boolean update(final long pointerAddress);
 
     /**
      * Call the native code to play the sound in loop.

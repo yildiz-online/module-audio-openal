@@ -23,52 +23,61 @@
 //        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //        SOFTWARE.
 
-#include "../includes/AlutAlBuffer.h"
-#include "alut.h"
-#include "../includes/OpenAlException.h"
+#include <jni.h>
+
+#ifndef _JNI_AL_VORBIS_STREAM_H_
+#define _JNI_AL_VORBIS_STREAM_H_
 
 /**
 *@author Grégory Van den Borre
 */
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-YZ::AlutAlBuffer::AlutAlBuffer(YZ::physfs* file) {
-    /*this->number = 1;
-     SF_INFO fileInfo;
-        SF_VIRTUAL_IO io;
-        io.get_filelen = &YZ::AlBuffer::Stream::getLength;
-        io.read        = &YZ::AlBuffer::Stream::read;
-        io.seek        = &YZ::AlBuffer::Stream::seek;
-        io.tell        = &YZ::AlBuffer::Stream::tell;
+JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load
+(JNIEnv *env, jobject object, jstring jfile);
 
-        this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, file);
-        if (!soundFile) {
-            throw new OpenAlException("Error opening file");
-        }
-        this->sampleRate = fileInfo.samplerate;
-        this->channelsCount = fileInfo.channels;
-        this->nbSamples = this->sampleRate * this->channelsCount;
-        switch (this->channelsCount) {
-        case 1:
-            this->format = AL_FORMAT_MONO16;
-            break;
-        case 2:
-            this->format = AL_FORMAT_STEREO16;
-            break;
-        default:
-            this->format = 0;
-            break;
-        }
-        this->buffer = new ALuint[this->number];
-        alGenBuffers(this->number, this->buffer);*/
+JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs
+(JNIEnv *env, jobject object, jstring jfile);
+
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play
+(JNIEnv *env, jobject object, jlong pointer);
+
+JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update
+(JNIEnv *env, jobject object, jlong pointer);
+
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_stop(
+    JNIEnv*,
+    jobject,
+    jlong pointer);
+
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_loop(
+    JNIEnv*,
+    jobject,
+    jlong pointer);
+
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_rewind(
+    JNIEnv*,
+    jobject,
+    jlong pointer);
+
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setPosition(
+    JNIEnv*,
+    jobject,
+    jlong pointer,
+    jfloat x,
+    jfloat y,
+    jfloat z);
+
+JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_isPlaying(
+    JNIEnv*,
+    jobject,
+    jlong pointer);
+
+
+#ifdef __cplusplus
 }
+#endif
 
-YZ::AlutAlBuffer::AlutAlBuffer(const char* file) {
-    this->buffer = alutCreateBufferFromFile(file);
-    ALenum error = alutGetError();
-    if(error != ALUT_ERROR_NO_ERROR) {
-        throw OpenAlException("Error loading file.");
-    }
-}
-
-YZ::AlutAlBuffer::~AlutAlBuffer() {
-}
+#endif

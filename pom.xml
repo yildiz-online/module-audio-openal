@@ -4,9 +4,8 @@
   <name>Yildiz Module Audio OpenAL</name>
   <description>OpenAL implementation for the module audio.</description>
 
-  <groupId>be.yildiz-games</groupId>
   <artifactId>module-audio-openal</artifactId>
-  <version>1.0.0-0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
 
   <packaging>jar</packaging>
   <inceptionYear>2014</inceptionYear>
@@ -18,12 +17,12 @@
   <parent>
     <groupId>be.yildiz-games</groupId>
     <artifactId>parent</artifactId>
-    <version>1.0.0-0-SNAPSHOT</version>
+    <version>1.0.4</version>
   </parent>
 
   <properties>
-    <version.bom-junit>1.0.0-0-SNAPSHOT</version.bom-junit>
-    <version.module-audio>1.0.0-0-SNAPSHOT</version.module-audio>
+    <version.bom-junit>1.0.0</version.bom-junit>
+    <version.module-audio>1.0.2</version.module-audio>
     <nativeEnv>none</nativeEnv>
   </properties>
 
@@ -133,36 +132,6 @@
             <groupId>org.codehaus.mojo</groupId>
             <executions>
               <execution>
-                <id>Build PhysFS library for ${nativeEnv}</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-                <configuration>
-                  <executable>${basedir}/src/main/scripts/${nativeEnv}/build_physfs.sh</executable>
-                </configuration>
-              </execution>
-              <execution>
-                <id>Build Freealut library for ${nativeEnv}</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-                <configuration>
-                  <executable>${basedir}/src/main/scripts/${nativeEnv}/build_freealut.sh</executable>
-                </configuration>
-              </execution>
-              <execution>
-                <id>Build OpenAL library for ${nativeEnv}</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>exec</goal>
-                </goals>
-                <configuration>
-                  <executable>${basedir}/src/main/scripts/${nativeEnv}/build_openal.sh</executable>
-                </configuration>
-              </execution>
-              <execution>
                 <id>Build Yildiz-OpenAL binding library for ${nativeEnv}</id>
                 <phase>compile</phase>
                 <goals>
@@ -170,6 +139,7 @@
                 </goals>
                 <configuration>
                   <executable>${basedir}/src/main/scripts/${nativeEnv}/build_yildiz-openal.sh</executable>
+                  <workingDirectory>${basedir}/src/main/scripts/${nativeEnv}</workingDirectory>
                 </configuration>
               </execution>
             </executions>
@@ -178,12 +148,5 @@
       </build>
     </profile>
   </profiles>
-  
-  <repositories>
-    <repository>
-      <id>ossrh</id>
-      <name>OSS repository snapshot</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-  </repositories>
+
 </project>
