@@ -7,6 +7,6 @@ rm CMakeCache.txt
 rm cmake_install.cmake
 rm Makefile
 
-
-
-
+cp libsndfile/bin/libsndfile-1.dll ../../../../target/classes/win64/libsndfile-1.dll
+cp openal/bin/soft_oal.dll ../../../../target/classes/win64/libopenal.dll
+cp physfs/bin/libphysfs.dll ../../../../target/classes/win64/libphysfs.dll
