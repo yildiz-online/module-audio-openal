@@ -1,4 +1,4 @@
-image: maven:3.3.9-jdk-8
+image: moussavdb/yildiz-build-env
 
 pipelines:
   default:
@@ -6,5 +6,5 @@ pipelines:
         script:
           - openssl aes-256-cbc -pass pass:$OPENSSL_PWD -in private-key.gpg.enc -out private-key.gpg -d
           - gpg --import private-key.gpg
-          - mvn -V -B -s settings.xml -Denv=linux64 org.jacoco:jacoco-maven-plugin:prepare-agent deploy sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR
-          - mvn -V -B -s settings.xml -Denv=win64 deploy
+          - mvn -V -B -s settings.xml -Pnative -Denv=linux64 org.jacoco:jacoco-maven-plugin:prepare-agent deploy sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR
+          - mvn -V -B -s settings.xml -Pnative -Denv=win64 deploy
