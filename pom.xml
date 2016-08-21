@@ -102,22 +102,22 @@
       </build>
     </profile>
     <profile>
-      <id>win64</id>
+      <id>win32</id>
       <activation>
         <property>
           <name>env</name>
-          <value>win64</value>
+          <value>win32</value>
         </property>
       </activation>
       <properties>
-        <nativeEnv>win64</nativeEnv>
+        <nativeEnv>win32</nativeEnv>
       </properties>
       <build>
         <plugins>
           <plugin>
             <artifactId>maven-jar-plugin</artifactId>
             <configuration>
-              <classifier>win64</classifier>
+              <classifier>win32</classifier>
             </configuration>
           </plugin>
         </plugins>

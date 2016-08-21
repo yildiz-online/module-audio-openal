@@ -40,7 +40,7 @@ Then invoke maven
 
 for windows:
 
-	mvn clean install -Denv=win64 -Pnative
+	mvn clean install -Denv=win32 -Pnative
 	
 for linux:
 
@@ -70,7 +70,7 @@ for windows:
     <groupId>be.yildiz-games</groupId>
     <artifactId>module-audio-openal</artifactId>
     <version>1.0.0</version>
-	<classifier>win64</classifier>
+	<classifier>win32</classifier>
 </dependency>
 ```
 
