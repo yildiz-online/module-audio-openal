@@ -14,6 +14,7 @@
     <developerConnection>scm:git:https://bitbucket.org/yildiz-engine-team/module-audio-openal</developerConnection>
     <url>https://bitbucket.org/yildiz-engine-team/module-audio-openal</url>
   </scm>
+
   <parent>
     <groupId>be.yildiz-games</groupId>
     <artifactId>parent</artifactId>
