@@ -6,5 +6,5 @@ pipelines:
         script:
           - openssl aes-256-cbc -pass pass:$OPENSSL_PWD -in private-key.gpg.enc -out private-key.gpg -d
           - gpg --import private-key.gpg
-          - mvn -V -B -s settings.xml -Pnative -Denv=linux64 org.jacoco:jacoco-maven-plugin:prepare-agent deploy sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR -Dsonar.cfamily.build-wrapper-output.bypass=true
-          - mvn -V -B -s settings.xml -Pnative -Denv=win32 deploy
+          - mvn -V -B -s settings.xml -Pnative -Dclassifier=linux64 -Denv=linux64 org.jacoco:jacoco-maven-plugin:prepare-agent deploy sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR -Dsonar.cfamily.build-wrapper-output.bypass=true
+          - mvn -V -B -s settings.xml -Pnative -Dclassifier=win32 -Denv=win32 deploy
