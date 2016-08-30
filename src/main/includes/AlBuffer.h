@@ -99,6 +99,9 @@ namespace YZ {
          */
         ALenum format;
 
+        /**
+         * File to play.
+        */
         SNDFILE* soundFile;
 
         struct Stream {
