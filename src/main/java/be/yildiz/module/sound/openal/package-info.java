@@ -29,4 +29,3 @@
  * @author Grégory Van den Borre
  */
 package be.yildiz.module.sound.openal;
-
