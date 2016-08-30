@@ -38,7 +38,7 @@ import java.io.File;
 import java.util.Set;
 
 /**
- * OpenAl implementation for a vorbis streaming source.
+ * OpenAl implementation for a source.
  *
  * @author Grégory Van Den Borre
  */
@@ -71,6 +71,11 @@ public final class ALSoundSource implements SoundSource, Runnable {
     private boolean mustBeStopped;
 
     /**
+     * Flag to tell if the sound must be played again after being completed.
+     */
+    private boolean looping;
+
+    /**
      * Full constructor.
      *
      * @param file Sound file to load and play.
@@ -98,8 +103,9 @@ public final class ALSoundSource implements SoundSource, Runnable {
     }
 
     /**
-     * Start playing the sound in a new thread. When the sound finishes playing,
+     * Start playing the sound in a specific thread. When the sound finishes playing,
      * the EndPlayListener are notified.
+     * If the sound was previously played then stopped, it is rewinded before starting.
      */
     @Override
     public void play() {
@@ -109,13 +115,18 @@ public final class ALSoundSource implements SoundSource, Runnable {
         }
     }
 
+    /**
+     * Do not call this directly, this is used with an internal thread.
+     */
     @Override
     public void run() {
+        this.rewind();
         ALSoundSourceNative.play(this.pointer.address);
         this.playing = true;
         while (!this.mustBeStopped) {
             this.playing = ALSoundSourceNative.update(this.pointer.address);
-            if (!this.playing) {
+            if (!this.playing && !this.looping) {
+                this.stop();
                 this.endPlayListeners.forEach(EndPlayListener::soundFinished);
             }
         }
@@ -158,6 +169,7 @@ public final class ALSoundSource implements SoundSource, Runnable {
      */
     @Override
     public void loop() {
+        this.looping = true;
         ALSoundSourceNative.loop(this.pointer.address);
     }
 
