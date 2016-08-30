@@ -34,7 +34,9 @@
 
 JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env, jobject) {
     try {
-        PHYSFS_init(NULL);
+        if(PHYSFS_isInit == 0) {
+            PHYSFS_init(NULL);
+        }
         return reinterpret_cast<jlong>(new TYPE());
     } catch (YZ::OpenAlException& e) {
         throwException(env, e.what());
