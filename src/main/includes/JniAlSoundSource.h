@@ -79,5 +79,4 @@ JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_isPlaying(
 #ifdef __cplusplus
 }
 #endif
-
 #endif

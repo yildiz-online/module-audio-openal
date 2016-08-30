@@ -89,5 +89,4 @@ JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_close(
 #ifdef __cplusplus
 }
 #endif
-
 #endif

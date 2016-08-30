@@ -35,5 +35,4 @@
         jclass exception = env->FindClass("be/yildiz/common/exeption/NativeException");
         env->ThrowNew(exception, message);
     }
-
 #endif
