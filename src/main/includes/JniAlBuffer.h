@@ -52,5 +52,4 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createSource(
 #ifdef __cplusplus
 }
 #endif
-
 #endif
