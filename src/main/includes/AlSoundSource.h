@@ -42,66 +42,67 @@ class AlSoundSource
 {
 public:
 
-	/**
-	 * Constructor, initialize the sound from a given file path.
-	 * @param file Sound path name.
-	 */
-	AlSoundSource(const char* file);
+    /**
+     * Constructor, initialize the sound from a given file path.
+     * @param file Sound path name.
+     */
+    AlSoundSource(const char* file);
 
-	AlSoundSource(YZ::physfs* file);
+    AlSoundSource(YZ::physfs* file);
 
-	AlSoundSource(YZ::AlBuffer* buffer);
+    AlSoundSource(YZ::AlBuffer* buffer);
 
-	~AlSoundSource();
+    ~AlSoundSource();
 
-	bool play();
+    bool play();
 
-	void close();
+    void close();
 
-	bool update();
+    bool update();
 
-			/**
-    		 * The source will restart playing when finished.
-    		 */
-    		inline void loop() {
-    			alSourcei(this->source, AL_LOOPING ,AL_TRUE);
-    		}
+    /**
+     * The source will restart playing when finished.
+     */
+    inline void loop() {
+        alSourcei(this->source, AL_LOOPING ,AL_TRUE);
+    }
 
-    				inline void setPosition(const float x, const float y, const float z) {
-            			alSource3f(this->source, AL_POSITION, x, y, z);
-            		}
+    inline void setPosition(const float x, const float y, const float z) {
+        alSource3f(this->source, AL_POSITION, x, y, z);
+    }
 
-            		inline void rewind() {
-            			 alSourceRewind(this->source);
-            		}
+    inline void rewind() {
+        alSourceRewind(this->source);
+     }
 
-     bool isPlaying();
+    bool isPlaying();
 
-     void stop();
+    void stop();
 
 private :
 
-	static int const BUFFER_NUMBER = 3;
+    static int const BUFFER_NUMBER = 3;
 
-	bool stream(ALuint buffer);
+    YZ::AlBuffer* buffer;
+
+    ALuint source;
+
+    bool stream(ALuint buffer);
+
 	void empty();
-	bool playBack();
 
+    bool playBack();
 
-	/**
-	 * Check openAl state if an error occured.
-	 * @throw An OpenAlException if an error occured.
-	 */
-	inline void check() {
-		int error = alGetError();
-		if(error != AL_NO_ERROR) {
-			throw YZ::OpenAlException(error);
-		}
-	}
-
-
-	YZ::AlBuffer* buffer;
-	ALuint source;
+    /**
+     * Check openAl state if an error occurred.
+     * @throw An OpenAlException if an error occurred.
+     */
+    inline void check() {
+        int error = alGetError();
+        if(error != AL_NO_ERROR) {
+            throw YZ::OpenAlException(error);
+        }
+    }
 };
 };
 
