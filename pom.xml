@@ -5,7 +5,7 @@
   <description>OpenAL implementation for the module audio.</description>
 
   <artifactId>module-audio-openal</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
 
   <packaging>jar</packaging>
   <inceptionYear>2014</inceptionYear>
