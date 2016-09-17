@@ -28,6 +28,7 @@
 
 #include <AL/al.h>
 #include <AL/alc.h>
+#include <physfs.h>
 #include "OpenAlException.h"
 
 namespace YZ {
@@ -88,7 +89,7 @@ private:
     void initPhysFS(const char* argv0, bool symLinks) {
         if(PHYSFS_isInit == 0) {
             if (!PHYSFS_init(argv0)) {
-                throw Exception(PHYSFS_getLastError());
+                throw YZ::OpenAlException(PHYSFS_getLastError());
             }
         PHYSFS_permitSymbolicLinks(symLinks);
         }

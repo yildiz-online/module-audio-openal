@@ -26,7 +26,6 @@
 #include "../includes/JniOpenAl.h"
 #include "../includes/JniUtil.h"
 #include "../includes/OpenAlEngine.h"
-#include <physfs.h>
 
 /**
 *@author Grégory Van den Borre
