@@ -45,6 +45,7 @@ public:
      * @param deviceName Name of the device to use, optional parameter.
      */
     OpenAlEngine(const char* deviceName = NULL) {
+        initPhysFS(NULL, false);
         ALCdevice* device = alcOpenDevice(deviceName);
         if (!device) {
             throw YZ::OpenAlException("Unable to open audio device");
@@ -65,7 +66,7 @@ public:
     /**
      * Destroy the context and close the device.
      */
-    ~OpenAlEngine(void) {
+    ~OpenAlEngine() {
         ALCcontext* context = alcGetCurrentContext();
         ALCdevice* device = alcGetContextsDevice(context);
         alcMakeContextCurrent(NULL);
@@ -79,15 +80,20 @@ public:
      * @param y Listener new Y position value.
      * @param z Listener new Z position value.
      */
-    inline void setListenerPosition(
-        const float x,
-        const float y,
-        const float z) {
+    inline void setListenerPosition(const float x, const float y, const float z) {
         alListener3f(AL_POSITION, x, y, z);
+    }
+
+private:
+    void initPhysFS(const char* argv0, bool symLinks) {
+        if(PHYSFS_isInit == 0) {
+            if (!PHYSFS_init(argv0)) {
+                throw Exception(PHYSFS_getLastError());
+            }
+        PHYSFS_permitSymbolicLinks(symLinks);
+        }
     }
 };
 
 }
-;
-
 #endif
