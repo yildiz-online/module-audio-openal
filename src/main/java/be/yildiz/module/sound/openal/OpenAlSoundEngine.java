@@ -105,9 +105,8 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
                 break;
             }
         }
-        return new ALSoundSource(toLoad, FileType.FILE);
-        //this.bufferList.putIfAbsent(toLoad, new ALBuffer(toLoad, FileType.FILE));
-        //return this.bufferList.get(toLoad).createSource();
+        this.bufferList.putIfAbsent(toLoad, new ALBuffer(toLoad, FileType.FILE));
+        return this.bufferList.get(toLoad).createSource();
     }
 
     @Override
