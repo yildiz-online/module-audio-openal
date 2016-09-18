@@ -25,6 +25,7 @@
 
 package be.yildiz.module.sound.openal;
 
+import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.log.Logger;
 import be.yildiz.common.nativeresources.Native;
@@ -39,6 +40,8 @@ import be.yildiz.module.sound.SoundSource;
 import jni.OpenAlSoundEngineNative;
 import lombok.Getter;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,6 +61,8 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
      * List of existing buffers.
      */
     private final Map<String, ALBuffer> bufferList = Maps.newMap();
+
+    private final List<String> paths = Lists.newList();
 
     /**
      * Simple constructor, load all libraries and initialize the engine.
@@ -92,13 +97,22 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
 
     @Override
     public SoundSource createSound(final String file) {
-        //this.bufferList.putIfAbsent(file, new ALBuffer(file, FileType.FILE));
-        //return this.bufferList.get(file).createSource();
-        return new ALSoundSource(file, FileType.FILE);
+        String toLoad = file;
+        for(String path : this.paths) {
+            String p = path + File.separator + file;
+            if(new File(p).exists()) {
+                toLoad = p;
+                break;
+            }
+        }
+        return new ALSoundSource(toLoad, FileType.FILE);
+        //this.bufferList.putIfAbsent(toLoad, new ALBuffer(toLoad, FileType.FILE));
+        //return this.bufferList.get(toLoad).createSource();
     }
 
     @Override
     public void addResourcePath(String path) {
+        this.paths.add(new File(path).getAbsolutePath());
         OpenAlSoundEngineNative.addResourcePath(path);
     }
 
