@@ -1,4 +1,4 @@
-image: moussavdb/yildiz-build-env
+image: moussavdb/yildiz-build-image
 
 pipelines:
   default:
