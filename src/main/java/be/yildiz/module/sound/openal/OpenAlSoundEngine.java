@@ -77,11 +77,11 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
     }
 
     private void setListenerPosition(final Point3D pos) {
-        OpenAlSoundEngineNative.setListenerPosition(this.pointer.address, pos.x, pos.y, pos.z);
+        OpenAlSoundEngineNative.setListenerPosition(this.pointer.getPointerAddress(), pos.x, pos.y, pos.z);
     }
 
     private void setListenerOrientation(final Point3D dir) {
-        OpenAlSoundEngineNative.setListenerOrientation(this.pointer.address, dir.x, dir.y, dir.z);
+        OpenAlSoundEngineNative.setListenerOrientation(this.pointer.getPointerAddress(), dir.x, dir.y, dir.z);
     }
 
     @Override
@@ -117,11 +117,12 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
 
     @Override
     protected void closeImpl() {
-        OpenAlSoundEngineNative.close(this.pointer.address);
+        OpenAlSoundEngineNative.close(this.pointer.getPointerAddress());
     }
 
     @Override
     public void delete() {
-        OpenAlSoundEngineNative.delete(this.pointer.address);
+        OpenAlSoundEngineNative.delete(this.pointer.getPointerAddress());
+        this.pointer.delete();
     }
 }

@@ -105,7 +105,7 @@ public final class ALSoundSource implements SoundSource, Runnable {
     /**
      * Start playing the sound in a specific thread. When the sound finishes playing,
      * the EndPlayListener are notified.
-     * If the sound was previously played then stopped, it is rewinded before starting.
+     * If the sound was previously played then stopped, it is rewind before starting.
      */
     @Override
     public void play() {
@@ -121,15 +121,15 @@ public final class ALSoundSource implements SoundSource, Runnable {
     @Override
     public void run() {
         this.rewind();
-        ALSoundSourceNative.play(this.pointer.address);
+        ALSoundSourceNative.play(this.pointer.getPointerAddress());
         this.playing = true;
         while (!this.mustBeStopped) {
-            this.playing = ALSoundSourceNative.isPlaying(this.pointer.address);
+            this.playing = ALSoundSourceNative.isPlaying(this.pointer.getPointerAddress());
             if (!this.playing && !this.looping) {
                 this.stop();
                 this.endPlayListeners.forEach(EndPlayListener::soundFinished);
             } else {
-                ALSoundSourceNative.update(this.pointer.address);
+                ALSoundSourceNative.update(this.pointer.getPointerAddress());
             }
         }
     }
@@ -153,7 +153,7 @@ public final class ALSoundSource implements SoundSource, Runnable {
      */
     @Override
     public boolean isPlaying() {
-        return ALSoundSourceNative.isPlaying(this.pointer.address);
+        return ALSoundSourceNative.isPlaying(this.pointer.getPointerAddress());
     }
 
     /**
@@ -163,7 +163,7 @@ public final class ALSoundSource implements SoundSource, Runnable {
      */
     @Override
     public void setPosition(Point3D pos) {
-        ALSoundSourceNative.setPosition(this.pointer.address, pos.x, pos.y, pos.z);
+        ALSoundSourceNative.setPosition(this.pointer.getPointerAddress(), pos.x, pos.y, pos.z);
     }
 
     /**
@@ -172,7 +172,7 @@ public final class ALSoundSource implements SoundSource, Runnable {
     @Override
     public void loop() {
         this.looping = true;
-        ALSoundSourceNative.loop(this.pointer.address);
+        ALSoundSourceNative.loop(this.pointer.getPointerAddress());
     }
 
     /**
@@ -180,6 +180,6 @@ public final class ALSoundSource implements SoundSource, Runnable {
      */
     @Override
     public void rewind() {
-        ALSoundSourceNative.rewind(this.pointer.address);
+        ALSoundSourceNative.rewind(this.pointer.getPointerAddress());
     }
 }
