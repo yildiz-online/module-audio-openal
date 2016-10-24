@@ -54,11 +54,7 @@ final class ALBuffer {
         if (type == FileType.VFS) {
             address = ALBufferNative.loadFromVfs(file);
         } else {
-            if (file.endsWith(".wav")) {
-                address = ALBufferNative.load(file);
-            } else if (file.endsWith("ogg")) {
-                address = ALBufferNative.loadStream(file);
-            }
+            address = ALBufferNative.load(file);
         }
         this.pointer = NativePointer.create(address);
     }

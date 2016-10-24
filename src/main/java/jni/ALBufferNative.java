@@ -39,14 +39,6 @@ public class ALBufferNative {
     public static native long load(final String file);
 
     /**
-     * Build the buffer from a sound file to be played as stream.
-     *
-     * @param file Sound file to use.
-     * @return The pointer address to the buffer.
-     */
-    public static native long loadStream(final String file);
-
-    /**
      * Build the buffer from a sound virtual file.
      *
      * @param file Sound virtual file to use.
