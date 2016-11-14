@@ -9,3 +9,4 @@ pipelines:
           - mvn -V -B -s settings.xml deploy
           - mvn -V -B -s settings.xml -Pnative-sonar -Denv=linux64 org.jacoco:jacoco-maven-plugin:prepare-agent deploy sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR -Dsonar.cfamily.build-wrapper-output=target/sonar-cpp
           - mvn -V -B -s settings.xml -Pnative -Denv=win32 deploy
+          - curl -sSL https://download.sourceclear.com/ci.sh | bash
