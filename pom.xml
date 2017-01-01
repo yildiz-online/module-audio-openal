@@ -26,6 +26,7 @@
   <modelVersion>4.0.0</modelVersion>
   <name>Yildiz Module Audio OpenAL</name>
   <description>OpenAL implementation for the module audio.</description>
+  <url>https://bitbucket.org/yildiz-engine-team/module-audio-openal</url>
 
   <artifactId>module-audio-openal</artifactId>
   <version>1.0.4-SNAPSHOT</version>
@@ -45,8 +46,6 @@
   </parent>
 
   <properties>
-    <version.bom-junit>1.0.4-SNAPSHOT</version.bom-junit>
-    <version.module-audio>1.0.5-SNAPSHOT</version.module-audio>
     <nativeEnv>none</nativeEnv>
   </properties>
 
@@ -66,7 +65,6 @@
     <dependency>
       <groupId>be.yildiz-games</groupId>
       <artifactId>module-audio</artifactId>
-      <version>${version.module-audio}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
