@@ -1,4 +1,7 @@
 language: java
 jdk:
   - oraclejdk8
-script: mvn clean install -s settings.xml -Denv=linux64
+script:
+  - mvn -V -B -s settings.xml test -Denv=linux64
+install:
+  - mvn -V -B -s settings.xml clean install -Denv=linux64
