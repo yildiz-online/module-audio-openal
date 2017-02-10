@@ -65,11 +65,11 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
     /**
      * Simple constructor, load all libraries and initialize the engine.
      */
-    public OpenAlSoundEngine() {
+    public OpenAlSoundEngine(NativeResourceLoader nativeResourceLoader) {
         super();
         Logger.info("Initializing OpenAL audio engine...");
-        NativeResourceLoader.loadBaseLibrary("libgcc_s_sjlj-1", "libstdc++-6", "libphysfs", "libsndfile-1", "OpenAL32");
-        NativeResourceLoader.loadLibrary("libyildizopenal");
+        nativeResourceLoader.loadBaseLibrary("libgcc_s_sjlj-1", "libstdc++-6", "libphysfs", "libsndfile-1", "OpenAL32");
+        nativeResourceLoader.loadLibrary("libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
         Logger.info("OpenAL audio engine initialized.");
     }
