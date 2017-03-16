@@ -29,7 +29,7 @@
 #include <physfs.h>
 #include "OpenAlException.h"
 
-namespace YZ {
+namespace yz {
 
 /**
  * Initialize the openAl context and manage the listener.
@@ -47,18 +47,18 @@ public:
         initPhysFS(NULL, false);
         ALCdevice* device = alcOpenDevice(deviceName);
         if (!device) {
-            throw YZ::OpenAlException("Unable to open audio device");
+            throw yz::OpenAlException("Unable to open audio device");
         }
         ALCcontext* context = alcCreateContext(device, NULL);
         if (!context) {
             alcCloseDevice(device);
-            throw YZ::OpenAlException("Unable to create the context.");
+            throw yz::OpenAlException("Unable to create the context.");
         }
         if (!alcMakeContextCurrent(context)) {
             alcMakeContextCurrent(NULL);
             alcDestroyContext(context);
             alcCloseDevice(device);
-            throw YZ::OpenAlException("Unable to activate the context.");
+            throw yz::OpenAlException("Unable to activate the context.");
         }
     }
 
@@ -87,7 +87,7 @@ private:
     void initPhysFS(const char* argv0, bool symLinks) {
         if(PHYSFS_isInit == 0) {
             if (!PHYSFS_init(argv0)) {
-                throw YZ::OpenAlException(PHYSFS_getLastError());
+                throw yz::OpenAlException(PHYSFS_getLastError());
             }
         PHYSFS_permitSymbolicLinks(symLinks);
         }

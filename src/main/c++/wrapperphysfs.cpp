@@ -28,7 +28,7 @@
 *@author Grégory Van den Borre
 */
 
-YZ::physfs::physfs(const char *filename){
+yz::physfs::physfs(const char *filename){
     file = PHYSFS_openRead(filename);
     error = false;
     if (file == NULL){
@@ -37,7 +37,7 @@ YZ::physfs::physfs(const char *filename){
     }
 }
 
-YZ::physfs::~physfs(){
+yz::physfs::~physfs(){
     if (error){
         return;}
     if (PHYSFS_close(file) == 0 ){
@@ -45,7 +45,7 @@ YZ::physfs::~physfs(){
     }
 }
 
-int YZ::physfs::read(char *data, int size){
+int yz::physfs::read(char *data, int size){
     if (error){
         return 0;
     }
@@ -57,7 +57,7 @@ int YZ::physfs::read(char *data, int size){
     return readed;
 }
 
-int YZ::physfs::seek(int position){
+int yz::physfs::seek(int position){
     if (error){
         return -1;}
     if ( PHYSFS_seek(file, position) == 0 ){
@@ -67,7 +67,7 @@ int YZ::physfs::seek(int position){
     return position;
 }
 
-int YZ::physfs::tell(){
+int yz::physfs::tell(){
     if (error){
         return -1;}
     int position = PHYSFS_tell(file);
@@ -77,7 +77,7 @@ int YZ::physfs::tell(){
     return position;
 }
 
-int YZ::physfs::getSize(){
+int yz::physfs::getSize(){
     if (error){
         return -1;}
     int size = PHYSFS_fileLength(file);

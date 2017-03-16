@@ -39,7 +39,7 @@ public class OpenAlSoundEngineNative {
     /**
      * Close the engine in native code.
      *
-     * @param pointerAddress The pointer address to the native object(YZ::OpenAlEngine*)
+     * @param pointerAddress The pointer address to the native object(yz::OpenAlEngine*)
      */
     public static native void close(final long pointerAddress);
 
@@ -53,7 +53,7 @@ public class OpenAlSoundEngineNative {
     /**
      * Set the listener(player) position.
      *
-     * @param address The pointer address to the native object(YZ::OpenAlEngine*)
+     * @param address The pointer address to the native object(yz::OpenAlEngine*)
      * @param x       Position X value.
      * @param y       Position Y value.
      * @param z       Position Z value.
@@ -63,7 +63,7 @@ public class OpenAlSoundEngineNative {
     /**
      * Set the listener(player) orientation.
      *
-     * @param address The pointer address to the native object(YZ::OpenAlEngine*)
+     * @param address The pointer address to the native object(yz::OpenAlEngine*)
      * @param x       Direction X value.
      * @param y       Direction Y value.
      * @param z       Direction Z value.

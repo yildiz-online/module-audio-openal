@@ -27,7 +27,7 @@
 *@author Grégory Van den Borre
 */
 
-YZ::AlSoundSource::AlSoundSource(YZ::AlBuffer* buffer) {
+yz::AlSoundSource::AlSoundSource(yz::AlBuffer* buffer) {
     this->buffer = buffer;
 	alGenSources(1, &this->source);
 
@@ -38,8 +38,8 @@ YZ::AlSoundSource::AlSoundSource(YZ::AlBuffer* buffer) {
     alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
 }
 
-YZ::AlSoundSource::AlSoundSource(const char* file) {
-	this->buffer = new YZ::AlBuffer(file, BUFFER_NUMBER);
+yz::AlSoundSource::AlSoundSource(const char* file) {
+	this->buffer = new yz::AlBuffer(file, BUFFER_NUMBER);
 	alGenSources(1, &this->source);
 
     alSource3f(this->source, AL_POSITION, 0.0, 0.0, 0.0);
@@ -49,8 +49,8 @@ YZ::AlSoundSource::AlSoundSource(const char* file) {
     alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
 }
 
-YZ::AlSoundSource::AlSoundSource(YZ::physfs* file) {
-    this->buffer = new YZ::AlBuffer(file, BUFFER_NUMBER);
+yz::AlSoundSource::AlSoundSource(yz::physfs* file) {
+    this->buffer = new yz::AlBuffer(file, BUFFER_NUMBER);
     alGenSources(1, &this->source);
 
     alSource3f(this->source, AL_POSITION, 0.0, 0.0, 0.0);
@@ -60,17 +60,17 @@ YZ::AlSoundSource::AlSoundSource(YZ::physfs* file) {
     alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
 }
 
-YZ::AlSoundSource::~AlSoundSource() {
+yz::AlSoundSource::~AlSoundSource() {
 }
 
-void YZ::AlSoundSource::close() {
+void yz::AlSoundSource::close() {
     alSourceStop(this->source);
     this->empty();
     alDeleteSources(1, &this->source);
     this->check();
 }
 
-bool YZ::AlSoundSource::play() {
+bool yz::AlSoundSource::play() {
 	if(this->isPlaying()) {
         return true;
 	}
@@ -84,13 +84,13 @@ bool YZ::AlSoundSource::play() {
     return true;
 }
 
-bool YZ::AlSoundSource::isPlaying() {
+bool yz::AlSoundSource::isPlaying() {
     ALenum state;
     alGetSourcei(this->source, AL_SOURCE_STATE, &state);
     return (state == AL_PLAYING);
 }
 
-bool YZ::AlSoundSource::update() {
+bool yz::AlSoundSource::update() {
     int processed;
     bool active = true;
     alGetSourcei(this->source, AL_BUFFERS_PROCESSED, &processed);
@@ -106,7 +106,7 @@ bool YZ::AlSoundSource::update() {
     return active;
 }
 
-void YZ::AlSoundSource::empty() {
+void yz::AlSoundSource::empty() {
     int queued;
     alGetSourcei(this->source, AL_BUFFERS_QUEUED, &queued);
     while(queued--) {
@@ -115,7 +115,7 @@ void YZ::AlSoundSource::empty() {
     }
 }
 
-void YZ::AlSoundSource::stop() {
+void yz::AlSoundSource::stop() {
     alSourceStop(this->source);
 }
 

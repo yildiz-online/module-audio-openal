@@ -26,7 +26,7 @@
 
 #include <physfs.h>
 
-namespace YZ {
+namespace yz {
 
 /**
 * @Grégory Van den Borre

@@ -36,7 +36,7 @@ import jni.ALBufferNative;
 final class ALBuffer {
 
     /**
-     * Pointer to the native YZ::AlBuffer* object.
+     * Pointer to the native yz::AlBuffer* object.
      */
     private final NativePointer pointer;
 

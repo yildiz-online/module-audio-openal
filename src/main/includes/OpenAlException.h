@@ -25,7 +25,7 @@
 #include <sstream>
 #include <stdexcept>
 
-namespace YZ {
+namespace yz {
 
 /**
 *@author Grégory Van den Borre

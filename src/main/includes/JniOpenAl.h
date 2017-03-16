@@ -26,7 +26,7 @@
 #ifndef _JNI_OPENAL_H_
 #define _JNI_OPENAL_H_
 
-#define TYPE YZ::OpenAlEngine
+#define TYPE yz::OpenAlEngine
 #define GET_POINTER reinterpret_cast <TYPE*>(pointer)
 
 #ifdef __cplusplus

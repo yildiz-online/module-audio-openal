@@ -28,14 +28,14 @@
 *@author Grégory Van den Borre
 */
 
-YZ::AlBuffer::AlBuffer(YZ::physfs* file, const int number) {
+yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
     this->number = number;
         SF_INFO fileInfo;
         SF_VIRTUAL_IO io;
-        io.get_filelen = &YZ::AlBuffer::Stream::getLength;
-        io.read        = &YZ::AlBuffer::Stream::read;
-        io.seek        = &YZ::AlBuffer::Stream::seek;
-        io.tell        = &YZ::AlBuffer::Stream::tell;
+        io.get_filelen = &yz::AlBuffer::Stream::getLength;
+        io.read        = &yz::AlBuffer::Stream::read;
+        io.seek        = &yz::AlBuffer::Stream::seek;
+        io.tell        = &yz::AlBuffer::Stream::tell;
 
         this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, file);
         if (!soundFile) {
@@ -59,7 +59,7 @@ YZ::AlBuffer::AlBuffer(YZ::physfs* file, const int number) {
         alGenBuffers(this->number, this->buffer);
 }
 
-YZ::AlBuffer::AlBuffer(const char* file, const int number) {
+yz::AlBuffer::AlBuffer(const char* file, const int number) {
     this->number = number;
     SF_INFO fileInfo;
 
@@ -85,11 +85,11 @@ YZ::AlBuffer::AlBuffer(const char* file, const int number) {
     alGenBuffers(this->number, this->buffer);
 }
 
-YZ::AlBuffer::~AlBuffer() {
+yz::AlBuffer::~AlBuffer() {
     alDeleteBuffers(this->number, this->buffer);
 }
 
-bool YZ::AlBuffer::readIndex(const int bufferIndex) {
+bool yz::AlBuffer::readIndex(const int bufferIndex) {
     ALshort samples[nbSamples];
         ALsizei read(
                 static_cast<ALsizei>(sf_read_short(this->soundFile, samples,
@@ -103,22 +103,22 @@ bool YZ::AlBuffer::readIndex(const int bufferIndex) {
         return true;
 }
 
-bool YZ::AlBuffer::read(const int bufferNumber) {
+bool yz::AlBuffer::read(const int bufferNumber) {
     return this->readIndex(this->buffer[bufferNumber]);
 }
 
-sf_count_t YZ::AlBuffer::Stream::getLength(void* userData) {
-    YZ::physfs* stream = static_cast<YZ::physfs*>(userData);
+sf_count_t yz::AlBuffer::Stream::getLength(void* userData) {
+    yz::physfs* stream = static_cast<yz::physfs*>(userData);
     return stream->getSize();
 }
 
-sf_count_t  YZ::AlBuffer::Stream::read(void* ptr, sf_count_t count, void* userData) {
-    YZ::physfs* stream = static_cast<YZ::physfs*>(userData);
+sf_count_t  yz::AlBuffer::Stream::read(void* ptr, sf_count_t count, void* userData) {
+    yz::physfs* stream = static_cast<yz::physfs*>(userData);
     return stream->read(reinterpret_cast<char*>(ptr), count);
 }
 
-sf_count_t YZ::AlBuffer::Stream::seek(sf_count_t offset, int whence, void* userData) {
-        YZ::physfs* stream = static_cast<YZ::physfs*>(userData);
+sf_count_t yz::AlBuffer::Stream::seek(sf_count_t offset, int whence, void* userData) {
+        yz::physfs* stream = static_cast<yz::physfs*>(userData);
     switch (whence) {
         case SEEK_SET : return stream->seek(offset);
         case SEEK_CUR : return stream->seek(stream->tell() + offset);
@@ -127,7 +127,7 @@ sf_count_t YZ::AlBuffer::Stream::seek(sf_count_t offset, int whence, void* userD
     }
 }
 
-sf_count_t YZ::AlBuffer::Stream::tell(void* userData) {
-    YZ::physfs* stream = static_cast<YZ::physfs*>(userData);
+sf_count_t yz::AlBuffer::Stream::tell(void* userData) {
+    yz::physfs* stream = static_cast<yz::physfs*>(userData);
     return stream->tell();
 }

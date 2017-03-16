@@ -31,7 +31,7 @@
 
 #define BUFFER_SIZE (4096 * 8)
 
-namespace YZ {
+namespace yz {
 
 /**
 * @author Grégory Van den Borre
@@ -46,9 +46,9 @@ public:
      */
     AlSoundSource(const char* file);
 
-    AlSoundSource(YZ::physfs* file);
+    AlSoundSource(yz::physfs* file);
 
-    AlSoundSource(YZ::AlBuffer* buffer);
+    AlSoundSource(yz::AlBuffer* buffer);
 
     ~AlSoundSource();
 
@@ -81,7 +81,7 @@ private :
 
     static int const BUFFER_NUMBER = 3;
 
-    YZ::AlBuffer* buffer;
+    yz::AlBuffer* buffer;
 
     ALuint source;
 
@@ -98,7 +98,7 @@ private :
     inline void check() {
         int error = alGetError();
         if(error != AL_NO_ERROR) {
-            throw YZ::OpenAlException(error);
+            throw yz::OpenAlException(error);
         }
     }
 };

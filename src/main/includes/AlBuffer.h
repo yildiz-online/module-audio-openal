@@ -31,7 +31,7 @@ extern "C" {
 }
 #include "wrapperphysfs.hpp"
 
-namespace YZ {
+namespace yz {
 
     /**
     * Create and wrap an OpenAL buffer object.
@@ -48,7 +48,7 @@ namespace YZ {
         */
         AlBuffer(const char* file, const int number);
 
-        AlBuffer(YZ::physfs* file, const int number);
+        AlBuffer(yz::physfs* file, const int number);
 
         /**
         * Destructor.

@@ -32,7 +32,7 @@
 JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env, jobject) {
     try {
         return reinterpret_cast<jlong>(new TYPE());
-    } catch (YZ::OpenAlException& e) {
+    } catch (yz::OpenAlException& e) {
         throwException(env, e.what());
     }
     return -1L;
@@ -43,7 +43,7 @@ JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_addResourcePath(JNIEnv *
     try {
     PHYSFS_mount(path, NULL, true);
     env->ReleaseStringUTFChars(jpath, path);
-    } catch (YZ::OpenAlException& e) {
+    } catch (yz::OpenAlException& e) {
             throwException(env, e.what());
         }
 }
