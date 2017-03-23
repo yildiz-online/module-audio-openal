@@ -36,7 +36,6 @@ import be.yildiz.module.sound.SoundBuilder;
 import be.yildiz.module.sound.SoundEngine;
 import be.yildiz.module.sound.SoundSource;
 import jni.OpenAlSoundEngineNative;
-import lombok.Getter;
 
 import java.io.File;
 import java.util.List;
@@ -52,7 +51,6 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
     /**
      * Object native pointer address.
      */
-    @Getter
     private final NativePointer pointer;
 
     /**
@@ -123,5 +121,10 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
     public void delete() {
         OpenAlSoundEngineNative.delete(this.pointer.getPointerAddress());
         this.pointer.delete();
+    }
+
+    @Override
+    public NativePointer getPointer() {
+        return pointer;
     }
 }
