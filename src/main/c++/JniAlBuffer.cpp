@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-#include "../includes/JniAlBuffer.h"
-#include "../includes/AlBuffer.h"
-#include "../includes/JniUtil.h"
-#include "../includes/AlSoundSource.h"
+#include "JniAlBuffer.h"
+#include "AlBuffer.h"
+#include "JniUtil.h"
+#include "AlSoundSource.h"
 #include <exception>
-#include "../includes/wrapperphysfs.hpp"
+#include "wrapperphysfs.hpp"
 
 /**
 *@author Grégory Van den Borre

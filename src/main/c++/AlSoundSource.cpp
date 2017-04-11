@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-#include "../includes/AlSoundSource.h"
+#include "AlSoundSource.h"
 
 /**
 *@author Grégory Van den Borre

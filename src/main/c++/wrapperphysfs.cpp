@@ -22,7 +22,7 @@
  */
 
 #include <iostream>
-#include "../includes/wrapperphysfs.hpp"
+#include "wrapperphysfs.hpp"
 
 /**
 *@author Grégory Van den Borre
