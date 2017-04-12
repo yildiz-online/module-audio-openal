@@ -26,13 +26,11 @@
 #include "JniUtil.h"
 
 /**
-*@author Grégory Van den Borre
+ * Implementation for JniAlSoundSource.h
+ *@author Grégory Van den Borre
 */
 
-JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(
-    JNIEnv *env,
-    jobject o,
-    jstring jfile) {
+JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(JNIEnv *env, jobject o, jstring jfile) {
     const char* file = env->GetStringUTFChars(jfile, 0);
     try {
         yz::AlSoundSource* stream = new yz::AlSoundSource(file);
@@ -45,10 +43,7 @@ JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(
     return -1L;
 }
 
-JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(
-    JNIEnv *env,
-    jobject o,
-    jstring jfile) {
+JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(JNIEnv *env, jobject o, jstring jfile) {
     const char* file = env->GetStringUTFChars(jfile, 0);
     try {
         yz::AlSoundSource* stream = new yz::AlSoundSource(new yz::physfs(file));
@@ -61,10 +56,7 @@ JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(
     return -1L;
 }
 
-JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(
-    JNIEnv* env,
-    jobject o,
-    jlong pointer) {
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv* env, jobject o, jlong pointer) {
     try {
         yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
         stream->play();
@@ -73,10 +65,7 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(
     }
 }
 
-JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update(
-    JNIEnv* env,
-    jobject o,
-    jlong pointer) {
+JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update(JNIEnv* env, jobject o, jlong pointer) {
     try {
         yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
         return stream->update();
@@ -102,20 +91,12 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_rewind(JNIEnv* env, jobject 
 }
 
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setPosition(
-    JNIEnv* env,
-    jobject o,
-    jlong pointer,
-    jfloat x,
-    jfloat y,
-    jfloat z) {
+        JNIEnv* env, jobject o, jlong pointer, jfloat x, jfloat y, jfloat z) {
     yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
     stream->setPosition(x, y, z);
 }
 
-JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_isPlaying(
-    JNIEnv* env,
-    jobject o,
-    jlong pointer) {
+JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_isPlaying(JNIEnv* env, jobject o, jlong pointer) {
     yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
     stream->isPlaying();
 }

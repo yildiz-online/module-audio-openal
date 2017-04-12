@@ -27,6 +27,7 @@
 #define _JNI_AL_VORBIS_STREAM_H_
 
 /**
+ * JNI interface for a yz::AlSoundSource.
 *@author Grégory Van den Borre
 */
 #ifdef __cplusplus
@@ -40,7 +41,7 @@ extern "C" {
  * @return The pointer of the loaded yz::AlSoundSource.
  * @throw A NativeException if an error occurred.
  */
-JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(JNIEnv *env, jobject object, jstring jfile);
+JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(JNIEnv* env, jobject object, jstring jfile);
 
 /**
  * @param env Environment provided by the JVM.
@@ -49,7 +50,7 @@ JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(JNIEnv *env, jobject o
  * @return The pointer of the loaded yz::AlSoundSource.
  * @throw A NativeException if an error occurred.
  */
-JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(JNIEnv *env, jobject object, jstring jfile);
+JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(JNIEnv* env, jobject object, jstring jfile);
 
 /**
  * Start playing a sound source.
@@ -58,7 +59,7 @@ JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(JNIEnv *env, jo
  * @param pointer Pointer of a yz::AlSoundSource to be used.
  * @throw A NativeException if an error occurred.
  */
-JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv *env, jobject object, jlong pointer);
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv* env, jobject object, jlong pointer);
 
 /**
  * Update the state of a sound source.
@@ -68,7 +69,7 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv *env, jobject ob
  * @return True if the file is still to be read, false otherwise.
  * @throw A NativeException if an error occurred.
  */
-JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update(JNIEnv *env, jobject object, jlong pointer);
+JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update(JNIEnv* env, jobject object, jlong pointer);
 
 /**
  * Stop playing a sound source.
@@ -95,9 +96,25 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_loop(JNIEnv* env, jobject o,
  */
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_rewind(JNIEnv* env, jobject o, jlong pointer);
 
+/**
+ * Set a sound source position.
+ * @param env Environment provided by the JVM.
+ * @param object Associated object, never used for performance reason.
+ * @param pointer Pointer of a yz::AlSoundSource to be used.
+ * @param x Source new X position.
+ * @param y Source new Y position.
+ * @param z Source new Z position.
+ */
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setPosition(
-    JNIEnv* env, jobject o, jlong pointer, jfloat x, jfloat y, jfloat z);
+        JNIEnv* env, jobject o, jlong pointer, jfloat x, jfloat y, jfloat z);
 
+/**
+ * Check if a sound source is currently playing.
+ * @param env Environment provided by the JVM.
+ * @param object Associated object, never used for performance reason.
+ * @param pointer Pointer of a yz::AlSoundSource to be used.
+ * @return True if the sound source is playing, false otherwise.
+ */
 JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_isPlaying(JNIEnv* env, jobject o, jlong pointer);
 
 #ifdef __cplusplus

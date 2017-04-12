@@ -21,23 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-#ifndef _AL_VORBIS_STREAM_H_
-#define _AL_VORBIS_STREAM_H_
+#ifndef YZ_SOUND_SOURCE_H
+#define YZ_SOUND_SOURCE_H
 
 #include "AlBuffer.h"
 #include "OpenAlException.h"
 
 #include <AL/al.h>
 
-#define BUFFER_SIZE (4096 * 8)
-
 namespace yz {
 
 /**
 * @author Grégory Van den Borre
 */
-class AlSoundSource
-{
+class AlSoundSource {
+
 public:
 
     /**
@@ -46,15 +44,21 @@ public:
      */
     AlSoundSource(const char* file);
 
+    /**
+     * Constructor, initialize the sound from a given virtual file.
+     * @param file Virtual file to use.
+     */
     AlSoundSource(yz::physfs* file);
 
+    /**
+    * Constructor, initialize the sound from a shared buffer.
+    * @param buffer Buffer containing the sound data.
+    */
     AlSoundSource(yz::AlBuffer* buffer);
 
     ~AlSoundSource();
 
     bool play();
-
-    void close();
 
     bool update();
 
@@ -62,7 +66,7 @@ public:
      * The source will restart playing when finished.
      */
     inline void loop() {
-        alSourcei(this->source, AL_LOOPING ,AL_TRUE);
+        alSourcei(this->source, AL_LOOPING, AL_TRUE);
     }
 
     inline void setPosition(const float x, const float y, const float z) {
@@ -85,11 +89,7 @@ private :
 
     ALuint source;
 
-    bool stream(ALuint buffer);
-
 	void empty();
-
-    bool playBack();
 
     /**
      * Check openAl state if an error occurred.
@@ -102,6 +102,6 @@ private :
         }
     }
 };
-};
+}
 
 #endif

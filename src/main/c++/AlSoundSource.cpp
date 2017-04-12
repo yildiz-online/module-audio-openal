@@ -61,9 +61,6 @@ yz::AlSoundSource::AlSoundSource(yz::physfs* file) {
 }
 
 yz::AlSoundSource::~AlSoundSource() {
-}
-
-void yz::AlSoundSource::close() {
     alSourceStop(this->source);
     this->empty();
     alDeleteSources(1, &this->source);
