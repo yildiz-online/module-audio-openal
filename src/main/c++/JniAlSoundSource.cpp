@@ -31,7 +31,7 @@
 
 JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(
     JNIEnv *env,
-    jobject,
+    jobject o,
     jstring jfile) {
     const char* file = env->GetStringUTFChars(jfile, 0);
     try {
@@ -47,12 +47,11 @@ JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(
 
 JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(
     JNIEnv *env,
-    jobject,
+    jobject o,
     jstring jfile) {
     const char* file = env->GetStringUTFChars(jfile, 0);
     try {
-        yz::AlSoundSource* stream = new yz::AlSoundSource(
-                new yz::physfs(file));
+        yz::AlSoundSource* stream = new yz::AlSoundSource(new yz::physfs(file));
         env->ReleaseStringUTFChars(jfile, file);
         return reinterpret_cast<jlong>(stream);
     } catch (std::exception& e) {
@@ -64,11 +63,10 @@ JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(
 
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(
     JNIEnv* env,
-    jobject,
+    jobject o,
     jlong pointer) {
     try {
-        yz::AlSoundSource* stream =
-                reinterpret_cast<yz::AlSoundSource*>(pointer);
+        yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
         stream->play();
     } catch (std::exception& e) {
         throwException(env, e.what());
@@ -77,11 +75,10 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(
 
 JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update(
     JNIEnv* env,
-    jobject,
+    jobject o,
     jlong pointer) {
     try {
-        yz::AlSoundSource* stream =
-                reinterpret_cast<yz::AlSoundSource*>(pointer);
+        yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
         return stream->update();
     } catch (std::exception& e) {
         throwException(env, e.what());
@@ -89,51 +86,37 @@ JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update(
     return 0;
 }
 
-JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_stop(
-    JNIEnv*,
-    jobject,
-    jlong pointer) {
-    yz::AlSoundSource* stream =
-                    reinterpret_cast<yz::AlSoundSource*>(pointer);
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_stop(JNIEnv* env, jobject o, jlong pointer) {
+    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
     stream->stop();
 }
 
-JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_loop(
-    JNIEnv*,
-    jobject,
-    jlong pointer) {
-    yz::AlSoundSource* stream =
-                    reinterpret_cast<yz::AlSoundSource*>(pointer);
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_loop(JNIEnv* env, jobject o, jlong pointer) {
+    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
     stream->loop();
 }
 
-JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_rewind(
-    JNIEnv*,
-    jobject,
-    jlong pointer) {
-    yz::AlSoundSource* stream =
-                    reinterpret_cast<yz::AlSoundSource*>(pointer);
-                    stream->rewind();
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_rewind(JNIEnv* env, jobject o, jlong pointer) {
+    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    stream->rewind();
 }
 
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setPosition(
-    JNIEnv*,
-    jobject,
+    JNIEnv* env,
+    jobject o,
     jlong pointer,
     jfloat x,
     jfloat y,
     jfloat z) {
-    yz::AlSoundSource* stream =
-                    reinterpret_cast<yz::AlSoundSource*>(pointer);
-                    stream->setPosition(x, y, z);
+    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    stream->setPosition(x, y, z);
 }
 
 JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_isPlaying(
-    JNIEnv*,
-    jobject,
+    JNIEnv* env,
+    jobject o,
     jlong pointer) {
-    yz::AlSoundSource* stream =
-                    reinterpret_cast<yz::AlSoundSource*>(pointer);
-                    stream->isPlaying();
+    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    stream->isPlaying();
 }
 

@@ -46,9 +46,9 @@ public:
 		this->message = os.str().c_str();
 	}
 
-	~OpenAlException(void) throw () {}
+	~OpenAlException() throw () {}
 
-	 virtual const char * what() const throw() {
+	 virtual const char* what() const throw() {
         return this->message;
     }
 

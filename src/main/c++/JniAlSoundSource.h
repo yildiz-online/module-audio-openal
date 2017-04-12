@@ -33,17 +33,13 @@
 extern "C" {
 #endif
 
-JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load
-(JNIEnv *env, jobject object, jstring jfile);
+JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(JNIEnv *env, jobject object, jstring jfile);
 
-JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs
-(JNIEnv *env, jobject object, jstring jfile);
+JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(JNIEnv *env, jobject object, jstring jfile);
 
-JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play
-(JNIEnv *env, jobject object, jlong pointer);
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv *env, jobject object, jlong pointer);
 
-JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update
-(JNIEnv *env, jobject object, jlong pointer);
+JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update(JNIEnv *env, jobject object, jlong pointer);
 
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_stop(
     JNIEnv*,
