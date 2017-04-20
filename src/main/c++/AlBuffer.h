@@ -26,6 +26,7 @@
 
 #include <AL/al.h>
 #include <AL/alc.h>
+#include "stdafx.h"
 extern "C" {
     #include <sndfile.h>
 }
@@ -55,23 +56,14 @@ namespace yz {
         */
         ~AlBuffer();
 
-        bool read(const int bufferNumber);
-
-        bool readIndex(const int bufferIndex);
+        void read(const ALuint bufferNumber);
 
         /**
         * @return The wrapped buffer value.
         */
         inline ALuint* getBuffer() const {
+            LOG_FUNCTION
             return this->buffer;
-        }
-
-        inline int getNumber() const {
-            return this->number;
-        }
-
-        inline void sourceQueue(const ALuint source) {
-            alSourceQueueBuffers(source, this->number, this->buffer);
         }
 
     private:

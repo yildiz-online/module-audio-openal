@@ -32,8 +32,8 @@
 *@author Grégory Van den Borre
 */
 
-JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load
-(JNIEnv *env, jobject, jstring jfile) {
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject, jstring jfile) {
+    LOG_FUNCTION
     const char* file = env->GetStringUTFChars(jfile, 0);
 	try {
 	    yz::AlBuffer* buffer = new yz::AlBuffer(file, 3);
@@ -46,8 +46,8 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load
     return -1L;
 }
 
-JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs
-(JNIEnv *env, jobject, jstring jfile) {
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject, jstring jfile) {
+    LOG_FUNCTION
     const char* file = env->GetStringUTFChars(jfile, 0);
     try {
 
@@ -61,8 +61,8 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs
     return -1L;
 }
 
-JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createSource
-(JNIEnv*, jobject, jlong pointer) {
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createSource(JNIEnv*, jobject, jlong pointer) {
+    LOG_FUNCTION
 	yz::AlBuffer* buffer = reinterpret_cast<yz::AlBuffer*>(pointer);
 	return reinterpret_cast<jlong>(new yz::AlSoundSource(buffer));
 }

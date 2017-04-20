@@ -28,6 +28,7 @@
 #include <AL/alc.h>
 #include <physfs.h>
 #include "OpenAlException.h"
+#include "stdafx.h"
 
 namespace yz {
 
@@ -44,6 +45,7 @@ public:
      * @param deviceName Name of the device to use, optional parameter.
      */
     OpenAlEngine(const char* deviceName = NULL) {
+        LOG_FUNCTION
         initPhysFS(NULL, false);
         ALCdevice* device = alcOpenDevice(deviceName);
         if (!device) {
@@ -66,6 +68,7 @@ public:
      * Destroy the context and close the device.
      */
     ~OpenAlEngine() {
+        LOG_FUNCTION
         ALCcontext* context = alcGetCurrentContext();
         ALCdevice* device = alcGetContextsDevice(context);
         alcMakeContextCurrent(NULL);
@@ -80,11 +83,13 @@ public:
      * @param z Listener new Z position value.
      */
     inline void setListenerPosition(const float x, const float y, const float z) {
+        LOG_FUNCTION
         alListener3f(AL_POSITION, x, y, z);
     }
 
 private:
     void initPhysFS(const char* argv0, bool symLinks) {
+        LOG_FUNCTION
         if(PHYSFS_isInit == 0) {
             if (!PHYSFS_init(argv0)) {
                 throw yz::OpenAlException(PHYSFS_getLastError());

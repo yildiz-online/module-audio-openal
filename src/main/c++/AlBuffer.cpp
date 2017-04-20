@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
+#include <vector>
 #include "AlBuffer.h"
 #include "OpenAlException.h"
 
@@ -29,22 +30,23 @@
 */
 
 yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
+    LOG_FUNCTION
     this->number = number;
-        SF_INFO fileInfo;
-        SF_VIRTUAL_IO io;
-        io.get_filelen = &yz::AlBuffer::Stream::getLength;
-        io.read        = &yz::AlBuffer::Stream::read;
-        io.seek        = &yz::AlBuffer::Stream::seek;
-        io.tell        = &yz::AlBuffer::Stream::tell;
+    SF_INFO fileInfo;
+    SF_VIRTUAL_IO io;
+    io.get_filelen = &yz::AlBuffer::Stream::getLength;
+    io.read = &yz::AlBuffer::Stream::read;
+    io.seek = &yz::AlBuffer::Stream::seek;
+    io.tell = &yz::AlBuffer::Stream::tell;
 
-        this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, file);
-        if (!soundFile) {
-            throw new OpenAlException("Error opening file");
-        }
-        this->sampleRate = fileInfo.samplerate;
-        this->channelsCount = fileInfo.channels;
-        this->nbSamples = this->sampleRate * this->channelsCount;
-        switch (this->channelsCount) {
+    this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, file);
+    if (!soundFile) {
+        throw new OpenAlException("Error opening file");
+    }
+    this->sampleRate = fileInfo.samplerate;
+    this->channelsCount = fileInfo.channels;
+    this->nbSamples = this->sampleRate * this->channelsCount;
+    switch (this->channelsCount) {
         case 1:
             this->format = AL_FORMAT_MONO16;
             break;
@@ -55,17 +57,19 @@ yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
             this->format = 0;
             break;
         }
-        this->buffer = new ALuint[this->number];
-        alGenBuffers(this->number, this->buffer);
+    this->buffer = new ALuint[this->number];
+    alGenBuffers(this->number, this->buffer);
+
 }
 
 yz::AlBuffer::AlBuffer(const char* file, const int number) {
+    LOG_FUNCTION
     this->number = number;
     SF_INFO fileInfo;
 
     this->soundFile = sf_open(file, SFM_READ, &fileInfo);
     if (!soundFile) {
-        throw new OpenAlException("Error opening file");
+        throw new OpenAlException("Error opening file.");
     }
     this->sampleRate = fileInfo.samplerate;
     this->channelsCount = fileInfo.channels;
@@ -78,47 +82,43 @@ yz::AlBuffer::AlBuffer(const char* file, const int number) {
         this->format = AL_FORMAT_STEREO16;
         break;
     default:
-        this->format = 0;
-        break;
+        throw new OpenAlException("Cannot define sound format.");
     }
     this->buffer = new ALuint[this->number];
     alGenBuffers(this->number, this->buffer);
+    for(int i = 0; i < this->number; i++) {
+        this->read(this->buffer[i]);
+    }
 }
 
 yz::AlBuffer::~AlBuffer() {
+    LOG_FUNCTION
     alDeleteBuffers(this->number, this->buffer);
 }
 
-bool yz::AlBuffer::readIndex(const int bufferIndex) {
-    ALshort samples[nbSamples];
-        ALsizei read(
-                static_cast<ALsizei>(sf_read_short(this->soundFile, samples,
-                        this->nbSamples)));
-        ALsizei size = read * sizeof(short);
-        if (size == 0) {
-            return false;
-        }
-        alBufferData(bufferIndex, this->format, samples, size,
-                this->sampleRate);
-        return true;
-}
 
-bool yz::AlBuffer::read(const int bufferNumber) {
-    return this->readIndex(this->buffer[bufferNumber]);
+void yz::AlBuffer::read(ALuint buffer) {
+    LOG_FUNCTION
+    std::vector<ALshort> samples(this->nbSamples);
+    ALsizei read(static_cast<ALsizei>(sf_read_short(this->soundFile, &samples[0], this->nbSamples)));
+    alBufferData(buffer, this->format, &samples[0], read * sizeof(short), this->sampleRate);
 }
 
 sf_count_t yz::AlBuffer::Stream::getLength(void* userData) {
+    LOG_FUNCTION
     yz::physfs* stream = static_cast<yz::physfs*>(userData);
     return stream->getSize();
 }
 
 sf_count_t  yz::AlBuffer::Stream::read(void* ptr, sf_count_t count, void* userData) {
+    LOG_FUNCTION
     yz::physfs* stream = static_cast<yz::physfs*>(userData);
     return stream->read(reinterpret_cast<char*>(ptr), count);
 }
 
 sf_count_t yz::AlBuffer::Stream::seek(sf_count_t offset, int whence, void* userData) {
-        yz::physfs* stream = static_cast<yz::physfs*>(userData);
+    LOG_FUNCTION
+    yz::physfs* stream = static_cast<yz::physfs*>(userData);
     switch (whence) {
         case SEEK_SET : return stream->seek(offset);
         case SEEK_CUR : return stream->seek(stream->tell() + offset);
@@ -128,6 +128,7 @@ sf_count_t yz::AlBuffer::Stream::seek(sf_count_t offset, int whence, void* userD
 }
 
 sf_count_t yz::AlBuffer::Stream::tell(void* userData) {
+    LOG_FUNCTION
     yz::physfs* stream = static_cast<yz::physfs*>(userData);
     return stream->tell();
 }

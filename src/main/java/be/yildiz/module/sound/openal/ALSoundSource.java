@@ -118,18 +118,8 @@ public final class ALSoundSource implements SoundSource, Runnable {
      */
     @Override
     public void run() {
-        this.rewind();
         ALSoundSourceNative.play(this.pointer.getPointerAddress());
-        this.playing = true;
-        while (!this.mustBeStopped) {
-            this.playing = ALSoundSourceNative.isPlaying(this.pointer.getPointerAddress());
-            if (!this.playing && !this.looping) {
-                this.stop();
-                this.endPlayListeners.forEach(EndPlayListener::soundFinished);
-            } else {
-                ALSoundSourceNative.update(this.pointer.getPointerAddress());
-            }
-        }
+        this.endPlayListeners.forEach(EndPlayListener::soundFinished);
     }
 
     @Override

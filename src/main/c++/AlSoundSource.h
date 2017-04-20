@@ -26,6 +26,7 @@
 
 #include "AlBuffer.h"
 #include "OpenAlException.h"
+#include "stdafx.h"
 
 #include <AL/al.h>
 
@@ -60,20 +61,21 @@ public:
 
     bool play();
 
-    bool update();
-
     /**
      * The source will restart playing when finished.
      */
     inline void loop() {
+        LOG_FUNCTION
         alSourcei(this->source, AL_LOOPING, AL_TRUE);
     }
 
     inline void setPosition(const float x, const float y, const float z) {
+        LOG_FUNCTION
         alSource3f(this->source, AL_POSITION, x, y, z);
     }
 
     inline void rewind() {
+        LOG_FUNCTION
         alSourceRewind(this->source);
      }
 
@@ -96,6 +98,7 @@ private :
      * @throw An OpenAlException if an error occurred.
      */
     inline void check() {
+        LOG_FUNCTION
         int error = alGetError();
         if(error != AL_NO_ERROR) {
             throw yz::OpenAlException(error);

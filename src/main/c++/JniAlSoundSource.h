@@ -62,16 +62,6 @@ JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(JNIEnv* env, jo
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv* env, jobject object, jlong pointer);
 
 /**
- * Update the state of a sound source.
- * @param env Environment provided by the JVM.
- * @param object Associated object, never used for performance reason.
- * @param pointer Pointer of a yz::AlSoundSource to be used.
- * @return True if the file is still to be read, false otherwise.
- * @throw A NativeException if an error occurred.
- */
-JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_update(JNIEnv* env, jobject object, jlong pointer);
-
-/**
  * Stop playing a sound source.
  * @param env Environment provided by the JVM.
  * @param object Associated object, never used for performance reason.

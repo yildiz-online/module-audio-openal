@@ -54,14 +54,6 @@ public class ALSoundSourceNative {
     public static native boolean play(final long pointerAddress);
 
     /**
-     * Update the stream status in native code.
-     *
-     * @param pointerAddress Address to the native object.
-     * @return <code>true</code> if the sound is playing.
-     */
-    public static native boolean update(final long pointerAddress);
-
-    /**
      * Call the native code to play the sound in loop.
      *
      * @param pointerAddress The pointer address to the native object(yz::AlSource*).

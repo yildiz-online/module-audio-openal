@@ -60,6 +60,8 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
 
     private final List<String> paths = Lists.newList();
 
+    private FileType fileType = FileType.FILE;
+
     /**
      * Simple constructor, load all libraries and initialize the engine.
      */
@@ -101,7 +103,7 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
                 break;
             }
         }
-        return new ALSoundSource(file, FileType.VFS);
+        return new ALSoundSource(file, this.fileType);
         //this.bufferList.putIfAbsent(toLoad, new ALBuffer(toLoad, FileType.FILE));
         //return this.bufferList.get(toLoad).createSource();
     }
@@ -110,6 +112,7 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
     public void addResourcePath(String path) {
         this.paths.add(new File(path).getAbsolutePath());
         OpenAlSoundEngineNative.addResourcePath(path);
+        this.fileType = FileType.VFS;
     }
 
     @Override

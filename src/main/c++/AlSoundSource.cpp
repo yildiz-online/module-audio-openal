@@ -28,39 +28,26 @@
 */
 
 yz::AlSoundSource::AlSoundSource(yz::AlBuffer* buffer) {
+    LOG_FUNCTION
     this->buffer = buffer;
-	alGenSources(1, &this->source);
-
-    alSource3f(this->source, AL_POSITION, 0.0, 0.0, 0.0);
-    alSource3f(this->source, AL_VELOCITY, 0.0, 0.0, 0.0);
-    alSource3f(this->source, AL_DIRECTION, 0.0, 0.0, 0.0);
-    alSourcef(this->source, AL_ROLLOFF_FACTOR, 0.0);
-    alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
-}
-
-yz::AlSoundSource::AlSoundSource(const char* file) {
-	this->buffer = new yz::AlBuffer(file, BUFFER_NUMBER);
-	alGenSources(1, &this->source);
-
-    alSource3f(this->source, AL_POSITION, 0.0, 0.0, 0.0);
-    alSource3f(this->source, AL_VELOCITY, 0.0, 0.0, 0.0);
-    alSource3f(this->source, AL_DIRECTION, 0.0, 0.0, 0.0);
-    alSourcef(this->source, AL_ROLLOFF_FACTOR, 0.0);
-    alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
-}
-
-yz::AlSoundSource::AlSoundSource(yz::physfs* file) {
-    this->buffer = new yz::AlBuffer(file, BUFFER_NUMBER);
     alGenSources(1, &this->source);
+    alSourceQueueBuffers(this->source, BUFFER_NUMBER, this->buffer->getBuffer());
 
     alSource3f(this->source, AL_POSITION, 0.0, 0.0, 0.0);
     alSource3f(this->source, AL_VELOCITY, 0.0, 0.0, 0.0);
     alSource3f(this->source, AL_DIRECTION, 0.0, 0.0, 0.0);
     alSourcef(this->source, AL_ROLLOFF_FACTOR, 0.0);
     alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
+}
+
+yz::AlSoundSource::AlSoundSource(const char* file) : AlSoundSource(new yz::AlBuffer(file, BUFFER_NUMBER)){
+}
+
+yz::AlSoundSource::AlSoundSource(yz::physfs* file) : AlSoundSource(new yz::AlBuffer(file, BUFFER_NUMBER)){
 }
 
 yz::AlSoundSource::~AlSoundSource() {
+    LOG_FUNCTION
     alSourceStop(this->source);
     this->empty();
     alDeleteSources(1, &this->source);
@@ -68,42 +55,32 @@ yz::AlSoundSource::~AlSoundSource() {
 }
 
 bool yz::AlSoundSource::play() {
-	if(this->isPlaying()) {
-        return true;
-	}
-	for (int i = 0; i < BUFFER_NUMBER; i++) {
-	    if(!this->buffer->read(i)) {
-	            return false;
-	    }
-	}
-    this->buffer->sourceQueue(this->source);
+    LOG_FUNCTION
     alSourcePlay(this->source);
+    ALenum state;
+    do {
+        ALint processed;
+        alGetSourcei(this->source, AL_BUFFERS_PROCESSED, &processed);
+        for(ALint i = 0; i < processed; i++) {
+            ALuint buffer;
+            alSourceUnqueueBuffers(this->source, 1, &buffer);
+            this->buffer->read(buffer);
+            alSourceQueueBuffers(this->source, 1, &buffer);
+        }
+        alGetSourcei(this->source, AL_SOURCE_STATE, &state);
+    } while (state == AL_PLAYING);
     return true;
 }
 
 bool yz::AlSoundSource::isPlaying() {
+    LOG_FUNCTION
     ALenum state;
     alGetSourcei(this->source, AL_SOURCE_STATE, &state);
     return (state == AL_PLAYING);
 }
 
-bool yz::AlSoundSource::update() {
-    int processed;
-    bool active = true;
-    alGetSourcei(this->source, AL_BUFFERS_PROCESSED, &processed);
-    while(processed--) {
-        ALuint bufferIndex;
-        alSourceUnqueueBuffers(this->source, 1, &bufferIndex);
-        active = this->buffer->readIndex(bufferIndex);
-        alSourceQueueBuffers(this->source, 1, &bufferIndex);
-    }
-	if(!this->isPlaying()) {
-		alSourcePlay(this->source);
-	}
-    return active;
-}
-
 void yz::AlSoundSource::empty() {
+    LOG_FUNCTION
     int queued;
     alGetSourcei(this->source, AL_BUFFERS_QUEUED, &queued);
     while(queued--) {
@@ -113,6 +90,7 @@ void yz::AlSoundSource::empty() {
 }
 
 void yz::AlSoundSource::stop() {
+    LOG_FUNCTION
     alSourceStop(this->source);
 }
 
