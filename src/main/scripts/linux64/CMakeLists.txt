@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.0.0)
 
 project (yildiz_native_openal)
 
-set(CMAKE_CXX_FLAGS "-O2 -fPIC")
+set(CMAKE_CXX_FLAGS "-O2 -fPIC -std=gnu++11")
 
 find_package(OpenAL REQUIRED)
 find_package(PhysFS REQUIRED)
