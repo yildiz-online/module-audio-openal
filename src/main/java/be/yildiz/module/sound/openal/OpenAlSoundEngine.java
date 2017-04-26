@@ -30,6 +30,7 @@ import be.yildiz.common.nativeresources.Native;
 import be.yildiz.common.nativeresources.NativePointer;
 import be.yildiz.common.nativeresources.NativeResourceLoader;
 import be.yildiz.common.resource.FileResource.FileType;
+import be.yildiz.common.resource.ResourcePath;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.sound.Playlist;
 import be.yildiz.module.sound.SoundBuilder;
@@ -40,6 +41,7 @@ import jni.OpenAlSoundEngineNative;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * OpenAL implementation for the sound engine.
@@ -58,9 +60,7 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
      */
     private final Map<String, ALBuffer> bufferList = Maps.newMap();
 
-    private final List<String> paths = Lists.newList();
-
-    private FileType fileType = FileType.FILE;
+    private final List<ResourcePath> paths = Lists.newList();
 
     /**
      * Simple constructor, load all libraries and initialize the engine.
@@ -95,24 +95,25 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
 
     @Override
     public SoundSource createSound(final String file) {
-        String toLoad = file;
-        for(String path : this.paths) {
-            String p = path + File.separator + file;
-            if(new File(p).exists()) {
-                toLoad = p;
-                break;
-            }
+        Optional<ResourcePath> path = this.paths
+                .stream()
+                .filter(p -> p.exists(file))
+                .findFirst();
+        String toLoad = path.map(r -> r.getPath() + File.separator + file).orElse(file);
+        FileType type = path.isPresent() ? FileType.VFS : FileType.DIRECTORY;
+        if(!this.bufferList.containsKey(toLoad)) {
+            this.bufferList.put(toLoad, new ALBuffer(toLoad, type));
         }
-        return new ALSoundSource(file, this.fileType);
-        //this.bufferList.putIfAbsent(toLoad, new ALBuffer(toLoad, FileType.FILE));
-        //return this.bufferList.get(toLoad).createSource();
+        return this.bufferList.get(toLoad).createSource();
     }
 
     @Override
-    public void addResourcePath(String path) {
-        this.paths.add(new File(path).getAbsolutePath());
-        OpenAlSoundEngineNative.addResourcePath(path);
-        this.fileType = FileType.VFS;
+    public void addResourcePath(ResourcePath path) {
+        if(path.getType() == FileType.VFS) {
+            OpenAlSoundEngineNative.addResourcePath(path.getPath());
+        } else if (path.getType() == FileType.DIRECTORY){
+            this.paths.add(path);
+        }
     }
 
     @Override

@@ -59,9 +59,8 @@ final class ALBuffer {
 
     /**
      * Build a new source from the buffer.
-     *
+     * Ensures return != null.
      * @return The built sound source.
-     * @Ensures result != null
      */
     SoundSource createSource() {
         NativePointer sourcePointer = NativePointer.create(ALBufferNative.createSource(this.pointer.getPointerAddress()));

@@ -38,8 +38,6 @@ public class OggPlayTest {
         try (SoundEngine engine = new OpenAlSoundEngine(NativeResourceLoader.inJar(new SystemLinux64()))) {
             SoundSource s = engine.createSound("/home/moussa/test.ogg");
             s.play();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
