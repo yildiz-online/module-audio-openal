@@ -64,9 +64,11 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
 
     /**
      * Simple constructor, load all libraries and initialize the engine.
+     * @param nativeResourceLoader Loader for the native code cannot be null.
      */
     public OpenAlSoundEngine(NativeResourceLoader nativeResourceLoader) {
         super();
+        assert nativeResourceLoader != null;
         Logger.info("Initializing OpenAL audio engine...");
         nativeResourceLoader.loadBaseLibrary("libgcc_s_sjlj-1", "libstdc++-6", "libphysfs", "libsndfile-1", "OpenAL32");
         nativeResourceLoader.loadLibrary("libyildizopenal");
@@ -99,8 +101,8 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
                 .stream()
                 .filter(p -> p.exists(file))
                 .findFirst();
-        String toLoad = path.map(r -> r.getPath() + File.separator + file).orElse(file);
-        FileType type = path.isPresent() ? FileType.VFS : FileType.DIRECTORY;
+        String toLoad = path.map(r -> r.getPath().isEmpty() ? file : r.getPath() + File.separator + file).orElse(file);
+        FileType type = path.isPresent() ? FileType.DIRECTORY : FileType.VFS;
         if(!this.bufferList.containsKey(toLoad)) {
             this.bufferList.put(toLoad, new ALBuffer(toLoad, type));
         }

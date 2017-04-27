@@ -23,6 +23,7 @@
 
 #include <iostream>
 #include "wrapperphysfs.hpp"
+#include "OpenAlException.h"
 
 /**
 *@author Grégory Van den Borre
@@ -30,10 +31,8 @@
 
 yz::physfs::physfs(const char *filename){
     file = PHYSFS_openRead(filename);
-    error = false;
     if (file == NULL){
-        std::cout << "Physfs file: " << filename <<" - "<< PHYSFS_getLastError() << std::endl;
-        error = true;
+        throw yz::OpenAlException("File not found");
     }
 }
 
