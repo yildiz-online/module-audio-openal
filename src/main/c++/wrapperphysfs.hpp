@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-#ifndef _wpphysfs_
+#ifndef _wrapphysfs_
 #define _wpphysfs_
 
 #include <physfs.h>
@@ -35,8 +35,6 @@ namespace yz {
     class physfs {
         private:
             PHYSFS_File *file;
-        public:
-            mutable bool error;
         public:
             physfs(const char *);
             ~physfs();

@@ -41,7 +41,7 @@ yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
 
     this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, file);
     if (!soundFile) {
-        throw new OpenAlException("Error opening file");
+        throw yz::OpenAlException("Error opening file");
     }
     this->sampleRate = fileInfo.samplerate;
     this->channelsCount = fileInfo.channels;
@@ -56,7 +56,11 @@ yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
         default:
             this->format = 0;
             break;
-        }
+    }
+    std::cout << "format " << this->format << std::endl;
+    std::cout << "rate " << this->sampleRate << std::endl;
+    std::cout << "file " << this->soundFile << std::endl;
+    std::cout << "number " << this->number << std::endl;
     this->buffer = new ALuint[this->number];
     alGenBuffers(this->number, this->buffer);
 
@@ -69,7 +73,7 @@ yz::AlBuffer::AlBuffer(const char* file, const int number) {
 
     this->soundFile = sf_open(file, SFM_READ, &fileInfo);
     if (!soundFile) {
-        throw new OpenAlException("Error opening file.");
+        throw OpenAlException("Error opening file.");
     }
     this->sampleRate = fileInfo.samplerate;
     this->channelsCount = fileInfo.channels;
@@ -82,7 +86,7 @@ yz::AlBuffer::AlBuffer(const char* file, const int number) {
         this->format = AL_FORMAT_STEREO16;
         break;
     default:
-        throw new OpenAlException("Cannot define sound format.");
+        throw OpenAlException("Cannot define sound format.");
     }
     this->buffer = new ALuint[this->number];
     alGenBuffers(this->number, this->buffer);
@@ -110,7 +114,7 @@ sf_count_t yz::AlBuffer::Stream::getLength(void* userData) {
     return stream->getSize();
 }
 
-sf_count_t  yz::AlBuffer::Stream::read(void* ptr, sf_count_t count, void* userData) {
+sf_count_t yz::AlBuffer::Stream::read(void* ptr, sf_count_t count, void* userData) {
     LOG_FUNCTION
     yz::physfs* stream = static_cast<yz::physfs*>(userData);
     return stream->read(reinterpret_cast<char*>(ptr), count);

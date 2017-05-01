@@ -46,7 +46,7 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject, jstri
     return -1L;
 }
 
-JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject, jstring jfile) {
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject o, jstring jfile) {
     LOG_FUNCTION
     const char* file = env->GetStringUTFChars(jfile, 0);
     try {

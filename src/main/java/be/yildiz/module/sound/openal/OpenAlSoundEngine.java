@@ -25,6 +25,7 @@ package be.yildiz.module.sound.openal;
 
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
+import be.yildiz.common.exeption.NativeException;
 import be.yildiz.common.log.Logger;
 import be.yildiz.common.nativeresources.Native;
 import be.yildiz.common.nativeresources.NativePointer;
@@ -36,6 +37,7 @@ import be.yildiz.module.sound.Playlist;
 import be.yildiz.module.sound.SoundBuilder;
 import be.yildiz.module.sound.SoundEngine;
 import be.yildiz.module.sound.SoundSource;
+import be.yildiz.module.sound.exception.SoundCreationException;
 import jni.OpenAlSoundEngineNative;
 
 import java.io.File;
@@ -103,10 +105,14 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
                 .findFirst();
         String toLoad = path.map(r -> r.getPath().isEmpty() ? file : r.getPath() + File.separator + file).orElse(file);
         FileType type = path.isPresent() ? FileType.DIRECTORY : FileType.VFS;
-        if(!this.bufferList.containsKey(toLoad)) {
-            this.bufferList.put(toLoad, new ALBuffer(toLoad, type));
+        try {
+            if (!this.bufferList.containsKey(toLoad)) {
+                this.bufferList.put(toLoad, new ALBuffer(toLoad, type));
+            }
+            return this.bufferList.get(toLoad).createSource();
+        } catch (NativeException e) {
+            throw new SoundCreationException(e);
         }
-        return this.bufferList.get(toLoad).createSource();
     }
 
     @Override

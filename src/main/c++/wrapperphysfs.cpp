@@ -24,6 +24,7 @@
 #include <iostream>
 #include "wrapperphysfs.hpp"
 #include "OpenAlException.h"
+#include "stdafx.h"
 
 /**
 *@author Grégory Van den Borre
@@ -37,28 +38,23 @@ yz::physfs::physfs(const char *filename){
 }
 
 yz::physfs::~physfs(){
-    if (error){
-        return;}
+    LOG_FUNCTION
     if (PHYSFS_close(file) == 0 ){
         std::cout << PHYSFS_getLastError() << std::endl;
     }
 }
 
 int yz::physfs::read(char *data, int size){
-    if (error){
-        return 0;
+    LOG_FUNCTION
+    PHYSFS_sint64 read = PHYSFS_read(file, data, size, 1);
+    if (read == -1){
+        throw yz::OpenAlException("Error reading file");
     }
-    int readed = PHYSFS_read(file, data, 1, size);
-    if (readed == -1){
-        std::cout << PHYSFS_getLastError() << std::endl;
-        return 0;
-    }
-    return readed;
+    return read;
 }
 
 int yz::physfs::seek(int position){
-    if (error){
-        return -1;}
+    LOG_FUNCTION
     if ( PHYSFS_seek(file, position) == 0 ){
         std::cout << PHYSFS_getLastError() << std::endl;
         return -1;
@@ -67,8 +63,7 @@ int yz::physfs::seek(int position){
 }
 
 int yz::physfs::tell(){
-    if (error){
-        return -1;}
+    LOG_FUNCTION
     int position = PHYSFS_tell(file);
     if (position == -1){
         std::cout << PHYSFS_getLastError() << std::endl;
@@ -77,8 +72,7 @@ int yz::physfs::tell(){
 }
 
 int yz::physfs::getSize(){
-    if (error){
-        return -1;}
+    LOG_FUNCTION
     int size = PHYSFS_fileLength(file);
     if (size == -1){
         std::cout << PHYSFS_getLastError() << std::endl;
