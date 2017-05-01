@@ -100,6 +100,8 @@ namespace yz {
             static sf_count_t seek(sf_count_t offset, int whence, void* user);
             static sf_count_t tell(void* user);
         };
+
+        void init(SF_INFO& fileInfo);
     };
 };
 

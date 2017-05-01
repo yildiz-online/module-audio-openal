@@ -34,7 +34,8 @@ namespace yz {
 
     class physfs {
         private:
-            PHYSFS_File *file;
+            PHYSFS_File* file;
+
             const char* fileName;
         public:
             physfs(const char *);

@@ -30,11 +30,11 @@
 *@author Grégory Van den Borre
 */
 
-yz::physfs::physfs(const char *filename){
+yz::physfs::physfs(const char* filename){
     LOG_FUNCTION
     this->fileName = filename;
-    file = PHYSFS_openRead(filename);
-    if (file == NULL){
+    this->file = PHYSFS_openRead(this->fileName);
+    if (this->file == NULL){
         throw yz::OpenAlException("File not found");
     }
 }
@@ -46,9 +46,9 @@ yz::physfs::~physfs(){
     }
 }
 
-int yz::physfs::read(char *data, int size){
+int yz::physfs::read(char* data, int count){
     LOG_FUNCTION
-    PHYSFS_sint64 read = PHYSFS_read(file, data, size, 1);
+    PHYSFS_sint64 read = PHYSFS_read(file, data, 1, count);
     if (read == -1){
         throw yz::OpenAlException("Error reading file");
     }
@@ -66,7 +66,7 @@ int yz::physfs::seek(int position){
 
 int yz::physfs::tell(){
     LOG_FUNCTION
-    int position = PHYSFS_tell(file);
+    int position = PHYSFS_tell(this->file);
     if (position == -1){
         std::cout << PHYSFS_getLastError() << std::endl;
     }

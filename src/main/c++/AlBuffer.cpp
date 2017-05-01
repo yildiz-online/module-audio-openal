@@ -37,9 +37,24 @@ yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
     SF_VIRTUAL_IO io;
     io.get_filelen = &yz::AlBuffer::Stream::getLength;
     io.read = &yz::AlBuffer::Stream::read;
+    io.seek = &yz::AlBuffer::Stream::seek;
+    io.tell = &yz::AlBuffer::Stream::tell;
     this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, file);
+    this->init(fileInfo);
+}
+
+yz::AlBuffer::AlBuffer(const char* file, const int number) {
+    LOG_FUNCTION
+    this->number = number;
+    SF_INFO fileInfo;
+    this->soundFile = sf_open(file, SFM_READ, &fileInfo);
+    this->init(fileInfo);
+}
+
+void yz::AlBuffer::init(SF_INFO& fileInfo) {
+    LOG_FUNCTION
     if (!soundFile) {
-        throw yz::OpenAlFileLoadingException(file->getFileName());
+        throw OpenAlException("Error opening file.");
     }
     this->sampleRate = fileInfo.samplerate;
     this->channelsCount = fileInfo.channels;
@@ -52,39 +67,7 @@ yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
             this->format = AL_FORMAT_STEREO16;
             break;
         default:
-            this->format = 0;
-            break;
-    }
-    std::cout << "format " << this->format << std::endl;
-    std::cout << "rate " << this->sampleRate << std::endl;
-    std::cout << "file " << this->soundFile << std::endl;
-    std::cout << "number " << this->number << std::endl;
-    this->buffer = new ALuint[this->number];
-    alGenBuffers(this->number, this->buffer);
-
-}
-
-yz::AlBuffer::AlBuffer(const char* file, const int number) {
-    LOG_FUNCTION
-    this->number = number;
-    SF_INFO fileInfo;
-
-    this->soundFile = sf_open(file, SFM_READ, &fileInfo);
-    if (!soundFile) {
-        throw OpenAlException("Error opening file.");
-    }
-    this->sampleRate = fileInfo.samplerate;
-    this->channelsCount = fileInfo.channels;
-    this->nbSamples = this->sampleRate * this->channelsCount;
-    switch (this->channelsCount) {
-    case 1:
-        this->format = AL_FORMAT_MONO16;
-        break;
-    case 2:
-        this->format = AL_FORMAT_STEREO16;
-        break;
-    default:
-        throw OpenAlException("Cannot define sound format.");
+            throw OpenAlException("Cannot define sound format.");
     }
     this->buffer = new ALuint[this->number];
     alGenBuffers(this->number, this->buffer);
