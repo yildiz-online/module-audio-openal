@@ -24,6 +24,7 @@
 #include <vector>
 #include "AlBuffer.h"
 #include "OpenAlException.h"
+#include "OpenAlFileLoadingException.h"
 
 /**
 *@author Grégory Van den Borre
@@ -36,12 +37,9 @@ yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
     SF_VIRTUAL_IO io;
     io.get_filelen = &yz::AlBuffer::Stream::getLength;
     io.read = &yz::AlBuffer::Stream::read;
-    io.seek = &yz::AlBuffer::Stream::seek;
-    io.tell = &yz::AlBuffer::Stream::tell;
-
     this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, file);
     if (!soundFile) {
-        throw yz::OpenAlException("Error opening file");
+        throw yz::OpenAlFileLoadingException(file->getFileName());
     }
     this->sampleRate = fileInfo.samplerate;
     this->channelsCount = fileInfo.channels;

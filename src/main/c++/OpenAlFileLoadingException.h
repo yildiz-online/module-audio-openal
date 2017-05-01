@@ -21,34 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-#ifndef _wpphysfs_
-#define _wpphysfs_
-
-#include <physfs.h>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
 
 namespace yz {
 
 /**
-* @Grégory Van den Borre
+*@author Grégory Van den Borre
 */
+class OpenAlFileLoadingException : public std::exception {
+public:
+	OpenAlFileLoadingException(const char* file) {
+        std::ostringstream oss;
+        oss << "Error loading file: " << file;
+        this->message = oss.str();
+    }
 
-    class physfs {
-        private:
-            PHYSFS_File *file;
-            const char* fileName;
-        public:
-            physfs(const char *);
-            ~physfs();
-            int read(char *, int);
-            int seek(int);
-            int tell();
-            int getSize();
+    OpenAlFileLoadingException(const std::string& file) {
+		std::ostringstream oss;
+		oss << "Error loading file: " << file;
+		this->message = oss.str();
+	}
 
-            inline const char* getFileName() const {
-                return this->fileName;
-            }
-    };
 
-}
+	~OpenAlFileLoadingException() throw () {}
 
-#endif
+	 virtual const char* what() const throw() {
+        return this->message.c_str();
+    }
+
+private:
+
+    std::string message;
+};
+};

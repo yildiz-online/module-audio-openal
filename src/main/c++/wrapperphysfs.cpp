@@ -31,6 +31,8 @@
 */
 
 yz::physfs::physfs(const char *filename){
+    LOG_FUNCTION
+    this->fileName = filename;
     file = PHYSFS_openRead(filename);
     if (file == NULL){
         throw yz::OpenAlException("File not found");
