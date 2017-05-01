@@ -25,8 +25,6 @@
 #include "AlBuffer.h"
 #include "JniUtil.h"
 #include "AlSoundSource.h"
-#include <exception>
-#include "wrapperphysfs.hpp"
 
 /**
 *@author Grégory Van den Borre

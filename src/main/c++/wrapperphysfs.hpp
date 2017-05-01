@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-#ifndef _wrapphysfs_
+#ifndef _wpphysfs_
 #define _wpphysfs_
 
 #include <physfs.h>
