@@ -24,15 +24,12 @@
 package be.yildiz.module.sound.openal;
 
 import be.yildiz.common.collections.Sets;
-import be.yildiz.common.exeption.ResourceMissingException;
 import be.yildiz.common.nativeresources.NativePointer;
-import be.yildiz.common.resource.FileResource.FileType;
 import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.sound.EndPlayListener;
 import be.yildiz.module.sound.SoundSource;
 import jni.ALSoundSourceNative;
 
-import java.io.File;
 import java.util.Set;
 
 /**
@@ -63,37 +60,6 @@ public final class ALSoundSource implements SoundSource, Runnable {
      */
     private boolean playing;
 
-    /**
-     * Flag to check if the stream must still be player or stopped.
-     */
-    private boolean mustBeStopped;
-
-    /**
-     * Flag to tell if the sound must be played again after being completed.
-     */
-    private boolean looping;
-
-    /**
-     * Full constructor.
-     *
-     * @param file Sound file to load and play.
-     * @param type Type of file to load.
-     */
-    ALSoundSource(final String file, final FileType type) {
-        super();
-        long address;
-        if (type == FileType.VFS) {
-            address = ALSoundSourceNative.loadFromVfs(file);
-        } else {
-            if (!new File(file).exists()) {
-                throw new ResourceMissingException(file + " does not exists.");
-            }
-            address = ALSoundSourceNative.load(file);
-        }
-        this.pointer = NativePointer.create(address);
-        this.thread = new Thread(this);
-    }
-
     ALSoundSource(final NativePointer pointer) {
         super();
         this.pointer = pointer;
@@ -108,7 +74,6 @@ public final class ALSoundSource implements SoundSource, Runnable {
     @Override
     public void play() {
         if (!this.playing) {
-            this.mustBeStopped = false;
             this.thread.start();
         }
     }
@@ -132,7 +97,6 @@ public final class ALSoundSource implements SoundSource, Runnable {
      */
     @Override
     public synchronized void stop() {
-        this.mustBeStopped = true;
         this.playing = false;
     }
 
@@ -159,7 +123,6 @@ public final class ALSoundSource implements SoundSource, Runnable {
      */
     @Override
     public void loop() {
-        this.looping = true;
         ALSoundSourceNative.loop(this.pointer.getPointerAddress());
     }
 

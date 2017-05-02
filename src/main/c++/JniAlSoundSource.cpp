@@ -30,34 +30,6 @@
  *@author Grégory Van den Borre
 */
 
-JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(JNIEnv *env, jobject o, jstring jfile) {
-    LOG_FUNCTION
-    const char* file = env->GetStringUTFChars(jfile, 0);
-    try {
-        yz::AlSoundSource* stream = new yz::AlSoundSource(file);
-        env->ReleaseStringUTFChars(jfile, file);
-        return reinterpret_cast<jlong>(stream);
-    } catch (std::exception& e) {
-        env->ReleaseStringUTFChars(jfile, file);
-        throwException(env, e.what());
-    }
-    return -1L;
-}
-
-JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(JNIEnv *env, jobject o, jstring jfile) {
-    LOG_FUNCTION
-    const char* file = env->GetStringUTFChars(jfile, 0);
-    try {
-        yz::AlSoundSource* stream = new yz::AlSoundSource(new yz::physfs(file));
-        env->ReleaseStringUTFChars(jfile, file);
-        return reinterpret_cast<jlong>(stream);
-    } catch (std::exception& e) {
-        env->ReleaseStringUTFChars(jfile, file);
-        throwException(env, e.what());
-    }
-    return -1L;
-}
-
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv* env, jobject o, jlong pointer) {
     LOG_FUNCTION
     try {

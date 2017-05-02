@@ -30,22 +30,6 @@ package jni;
 public class ALSoundSourceNative {
 
     /**
-     * Load the file in the openAL native code.
-     *
-     * @param file Path to the file to load.
-     * @return The native address pointer.
-     */
-    public static native long load(final String file);
-
-    /**
-     * Load the virtual file in the openAL native code.
-     *
-     * @param file Path to the virtual file to load.
-     * @return The native address pointer.
-     */
-    public static native long loadFromVfs(final String file);
-
-    /**
      * Start playing the file.
      *
      * @param pointerAddress Address to the native object.

@@ -40,18 +40,6 @@ class AlSoundSource {
 public:
 
     /**
-     * Constructor, initialize the sound from a given file path.
-     * @param file Sound path name.
-     */
-    AlSoundSource(const char* file);
-
-    /**
-     * Constructor, initialize the sound from a given virtual file.
-     * @param file Virtual file to use.
-     */
-    AlSoundSource(yz::physfs* file);
-
-    /**
     * Constructor, initialize the sound from a shared buffer.
     * @param buffer Buffer containing the sound data.
     */

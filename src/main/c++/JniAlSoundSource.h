@@ -35,24 +35,6 @@ extern "C" {
 #endif
 
 /**
- * @param env Environment provided by the JVM.
- * @param object Associated object, never used for performance reason.
- * @param jfile Path of the file to load from the file system.
- * @return The pointer of the loaded yz::AlSoundSource.
- * @throw A NativeException if an error occurred.
- */
-JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_load(JNIEnv* env, jobject object, jstring jfile);
-
-/**
- * @param env Environment provided by the JVM.
- * @param object Associated object, never used for performance reason.
- * @param jfile Path of the file to load from the virtual file system.
- * @return The pointer of the loaded yz::AlSoundSource.
- * @throw A NativeException if an error occurred.
- */
-JNIEXPORT jlong JNICALL Java_jni_ALSoundSourceNative_loadFromVfs(JNIEnv* env, jobject object, jstring jfile);
-
-/**
  * Start playing a sound source.
  * @param env Environment provided by the JVM.
  * @param object Associated object, never used for performance reason.

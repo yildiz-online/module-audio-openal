@@ -51,13 +51,4 @@ public class ALBufferNative {
      * @return The pointer address to the source.
      */
     public static native long createSource(final long pointerAddress);
-
-    /**
-     * Build a source in native code.
-     *
-     * @param pointerAddress Buffer native address.
-     * @return The pointer address to the source.
-     */
-    public static native long createSourceStream(final long pointerAddress);
-
 }

@@ -40,12 +40,6 @@ yz::AlSoundSource::AlSoundSource(yz::AlBuffer* buffer) {
     alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
 }
 
-yz::AlSoundSource::AlSoundSource(const char* file) : AlSoundSource(new yz::AlBuffer(file, BUFFER_NUMBER)){
-}
-
-yz::AlSoundSource::AlSoundSource(yz::physfs* file) : AlSoundSource(new yz::AlBuffer(file, BUFFER_NUMBER)){
-}
-
 yz::AlSoundSource::~AlSoundSource() {
     LOG_FUNCTION
     alSourceStop(this->source);

@@ -32,6 +32,10 @@
 
 JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject, jstring jfile) {
     LOG_FUNCTION
+    if(jfile == NULL) {
+        throwException(env, "File is null.");
+        return -1L;
+    }
     const char* file = env->GetStringUTFChars(jfile, 0);
 	try {
 	    yz::AlBuffer* buffer = new yz::AlBuffer(file, 3);
@@ -46,6 +50,10 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject, jstri
 
 JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject o, jstring jfile) {
     LOG_FUNCTION
+    if(jfile == NULL) {
+        throwException(env, "File is null.");
+        return -1L;
+    }
     const char* file = env->GetStringUTFChars(jfile, 0);
     try {
         yz::AlBuffer* buffer = new yz::AlBuffer(new yz::physfs(file), 3);
