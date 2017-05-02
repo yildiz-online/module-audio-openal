@@ -24,6 +24,7 @@
 package jni;
 
 import be.yildiz.common.exeption.NativeException;
+import be.yildiz.common.log.Logger;
 import be.yildiz.common.nativeresources.NativeResourceLoader;
 import be.yildiz.common.nativeresources.SystemLinux64;
 import be.yildiz.common.nativeresources.SystemWin32;
@@ -43,6 +44,7 @@ public class AlBufferNativeTest {
 
         @Before
         public void init() {
+            Logger.disable();
             new OpenAlSoundEngine(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
         }
 
@@ -53,6 +55,7 @@ public class AlBufferNativeTest {
 
         @Test(expected = NativeException.class)
         public void fileNotExisting() {
+
             ALBufferNative.load("");
         }
 
@@ -66,6 +69,7 @@ public class AlBufferNativeTest {
 
         @Before
         public void init() {
+            Logger.disable();
             new OpenAlSoundEngine(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
         }
 
@@ -94,6 +98,7 @@ public class AlBufferNativeTest {
 
         @Before
         public void init() {
+            Logger.disable();
             new OpenAlSoundEngine(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
         }
 
