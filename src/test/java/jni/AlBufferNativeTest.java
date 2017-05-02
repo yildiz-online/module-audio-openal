@@ -44,8 +44,7 @@ public class AlBufferNativeTest {
 
         @Before
         public void init() {
-            Logger.disable();
-            new OpenAlSoundEngine(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
+            initEngine();
         }
 
         @Test
@@ -55,7 +54,6 @@ public class AlBufferNativeTest {
 
         @Test(expected = NativeException.class)
         public void fileNotExisting() {
-
             ALBufferNative.load("");
         }
 
@@ -69,8 +67,7 @@ public class AlBufferNativeTest {
 
         @Before
         public void init() {
-            Logger.disable();
-            new OpenAlSoundEngine(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
+            initEngine();
         }
 
         @Test
@@ -98,8 +95,7 @@ public class AlBufferNativeTest {
 
         @Before
         public void init() {
-            Logger.disable();
-            new OpenAlSoundEngine(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
+            initEngine();
         }
 
         @Test
@@ -110,6 +106,15 @@ public class AlBufferNativeTest {
         @Test
         public void withInvalidBuffer() {
 
+        }
+    }
+
+    private static void initEngine() {
+        Logger.disable();
+        try {
+            new OpenAlSoundEngine(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
+        } catch (NativeException e) {
+            Logger.error(e);
         }
     }
 }
