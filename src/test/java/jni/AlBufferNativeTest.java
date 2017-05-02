@@ -114,6 +114,7 @@ public class AlBufferNativeTest {
         try {
             new OpenAlSoundEngine(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
         } catch (NativeException e) {
+            //An exception is thrown on system without sound card, anyway, loading the engine is enough
             Logger.error(e);
         }
     }
