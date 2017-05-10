@@ -98,6 +98,7 @@ public final class ALSoundSource implements SoundSource, Runnable {
     @Override
     public synchronized void stop() {
         this.playing = false;
+        ALSoundSourceNative.stop(this.pointer.getPointerAddress());
     }
 
     /**

@@ -40,6 +40,16 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv* env, jobject o,
     }
 }
 
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv* env, jobject o, jlong pointer) {
+    LOG_FUNCTION
+    try {
+        yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+        stream->stop();
+    } catch (std::exception& e) {
+        throwException(env, e.what());
+    }
+}
+
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_stop(JNIEnv* env, jobject o, jlong pointer) {
     LOG_FUNCTION
     yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);

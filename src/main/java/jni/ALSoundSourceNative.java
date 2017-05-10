@@ -29,13 +29,18 @@ package jni;
  */
 public class ALSoundSourceNative {
 
+    private ALSoundSourceNative() {
+        super();
+    }
+
     /**
      * Start playing the file.
      *
      * @param pointerAddress Address to the native object.
-     * @return <code>true</code> if the sound is playing.
      */
-    public static native boolean play(final long pointerAddress);
+    public static native void play(final long pointerAddress);
+
+    public static native void stop(final long pointerAddress);
 
     /**
      * Call the native code to play the sound in loop.

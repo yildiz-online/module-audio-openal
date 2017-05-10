@@ -43,6 +43,8 @@ extern "C" {
  */
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv* env, jobject object, jlong pointer);
 
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_stop(JNIEnv* env, jobject o, jlong pointer);
+
 /**
  * Stop playing a sound source.
  * @param env Environment provided by the JVM.
