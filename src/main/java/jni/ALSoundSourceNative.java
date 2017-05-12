@@ -74,4 +74,6 @@ public class ALSoundSourceNative {
      * @param pointerAddress The pointer address to the native object(yz::AlSource*).
      */
     public static native void rewind(final long pointerAddress);
+
+    public static native void delete(final long pointerAddress);
 }

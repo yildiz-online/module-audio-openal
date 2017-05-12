@@ -75,3 +75,9 @@ JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_isPlaying(JNIEnv* env, j
     stream->isPlaying();
 }
 
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_delete(JNIEnv* env, jobject o, jlong pointer) {
+    LOG_FUNCTION
+    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    delete stream;
+}
+

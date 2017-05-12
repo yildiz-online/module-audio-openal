@@ -134,4 +134,10 @@ public final class ALSoundSource implements SoundSource, Runnable {
     public void rewind() {
         ALSoundSourceNative.rewind(this.pointer.getPointerAddress());
     }
+
+    @Override
+    public void delete() {
+        ALSoundSourceNative.delete(this.pointer.getPointerAddress());
+        this.pointer.delete();
+    }
 }

@@ -89,6 +89,8 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setPosition(
  */
 JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_isPlaying(JNIEnv* env, jobject o, jlong pointer);
 
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_delete(JNIEnv* env, jobject o, jlong pointer);
+
 #ifdef __cplusplus
 }
 #endif
