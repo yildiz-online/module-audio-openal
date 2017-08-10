@@ -38,6 +38,7 @@ yz::AlSoundSource::AlSoundSource(yz::AlBuffer* buffer) {
     alSource3f(this->source, AL_DIRECTION, 0.0, 0.0, 0.0);
     alSourcef(this->source, AL_ROLLOFF_FACTOR, 0.0);
     alSourcei(this->source, AL_SOURCE_RELATIVE, AL_TRUE);
+    this->movable = new NativeMovable();
 }
 
 yz::AlSoundSource::~AlSoundSource() {

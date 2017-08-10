@@ -57,6 +57,11 @@
       <version>1.0.10-SNAPSHOT</version>
     </dependency>
     <dependency>
+      <groupId>be.yildiz-games</groupId>
+      <artifactId>common-native</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
@@ -85,6 +90,29 @@
                 <source>src/main/c++</source>
                 <source>src/main/includes</source>
               </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>common-native-file-unpack</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>be.yildiz-games</groupId>
+                  <artifactId>common-native</artifactId>
+                  <outputDirectory>src/main/scripts/common-native/include</outputDirectory>
+                  <includes>*.hpp</includes>
+                </artifactItem>
+              </artifactItems>
             </configuration>
           </execution>
         </executions>

@@ -27,6 +27,8 @@
 #include "AlBuffer.h"
 #include "OpenAlException.h"
 #include "stdafx.h"
+#include "NativeMovable.hpp"
+#include "NativeMovableComponent.hpp"
 
 #include <AL/al.h>
 
@@ -35,7 +37,7 @@ namespace yz {
 /**
 * @author Grégory Van den Borre
 */
-class AlSoundSource {
+class AlSoundSource : NativeMovableComponent{
 
 public:
 
@@ -60,6 +62,13 @@ public:
     inline void setPosition(const float x, const float y, const float z) {
         LOG_FUNCTION
         alSource3f(this->source, AL_POSITION, x, y, z);
+        movable->setPosition(x, y, z);
+    }
+
+    inline void setDirection(const float x, const float y, const float z) {
+        LOG_FUNCTION
+        alSource3f(this->source, AL_DIRECTION, x, y, z);
+        movable->setDirection(x, y, z);
     }
 
     inline void rewind() {
@@ -76,6 +85,8 @@ private :
     static int const BUFFER_NUMBER = 3;
 
     yz::AlBuffer* buffer;
+
+    yz::NativeMovable* movable;
 
     ALuint source;
 
