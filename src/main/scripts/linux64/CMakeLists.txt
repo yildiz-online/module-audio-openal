@@ -12,6 +12,7 @@ find_package(LibSndFile REQUIRED)
 
 include_directories(${OpenAL_INCLUDE_DIRS})
 include_directories(${PhysFS_INCLUDE_DIRS})
+include_directories(${CMAKE_SOURCE_DIR}/../common-native/include)
 include_directories(${JNI_INCLUDE_DIRS})
 include_directories(${JNI_INCLUDE_DIRS}/linux)
 include_directories(${LibSndFile_INCLUDE_DIRS})
