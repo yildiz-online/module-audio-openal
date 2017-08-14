@@ -71,6 +71,10 @@ public:
         movable->setDirection(x, y, z);
     }
 
+    inline void setOrientation(const float x, const float y, const float z, const float w) {
+    }
+
+
     inline void rewind() {
         LOG_FUNCTION
         alSourceRewind(this->source);
