@@ -30,6 +30,7 @@ import be.yildiz.common.nativeresources.SystemLinux64;
 import be.yildiz.common.nativeresources.SystemWin32;
 import be.yildiz.module.sound.openal.OpenAlSoundEngine;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -37,6 +38,7 @@ import org.junit.runner.RunWith;
 /**
  * @author Grégory Van den Borre
  */
+@Ignore
 @RunWith(Enclosed.class)
 public class AlBufferNativeTest {
 
