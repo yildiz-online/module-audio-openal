@@ -86,6 +86,7 @@ void yz::AlSoundSource::empty() {
 
 void yz::AlSoundSource::stop() {
     LOG_FUNCTION
+    this->empty();
     alSourceStop(this->source);
 }
 
