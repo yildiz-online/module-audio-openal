@@ -140,6 +140,11 @@ public final class ALSoundSource implements SoundSource, Runnable {
     }
 
     @Override
+    public void setGain(final float gain) {
+        ALSoundSourceNative.setGain(this.pointer.getPointerAddress(), gain);
+    }
+
+    @Override
     public void delete() {
         ALSoundSourceNative.delete(this.pointer.getPointerAddress());
         this.pointer.delete();

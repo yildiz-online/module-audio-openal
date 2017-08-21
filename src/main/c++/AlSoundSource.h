@@ -82,6 +82,10 @@ public:
         movable->removeComponent(c);
     }
 
+    inline void setGain(float gain) {
+        LOG_FUNCTION
+        alSourcef(this->source, AL_GAIN, gain);
+    }
 
     inline void rewind() {
         LOG_FUNCTION

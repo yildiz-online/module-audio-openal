@@ -81,3 +81,9 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_delete(JNIEnv* env, jobject 
     delete stream;
 }
 
+JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setGain(JNIEnv* env, jobject o, jlong pointer, jfloat gain) {
+    LOG_FUNCTION
+    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    stream->setGain(gain);
+}
+

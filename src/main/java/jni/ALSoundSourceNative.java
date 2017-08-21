@@ -75,5 +75,7 @@ public class ALSoundSourceNative {
      */
     public static native void rewind(final long pointerAddress);
 
+    public static native void setGain(final long pointerAddress, final float gain);
+
     public static native void delete(final long pointerAddress);
 }
