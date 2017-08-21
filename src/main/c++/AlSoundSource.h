@@ -74,6 +74,14 @@ public:
     inline void setOrientation(const float x, const float y, const float z, const float w) {
     }
 
+    inline void addMovableComponent(NativeMovableComponent* c) {
+        movable->addComponent(c);
+    }
+
+    inline void removeMovableComponent(NativeMovableComponent* c) {
+        movable->removeComponent(c);
+    }
+
 
     inline void rewind() {
         LOG_FUNCTION
