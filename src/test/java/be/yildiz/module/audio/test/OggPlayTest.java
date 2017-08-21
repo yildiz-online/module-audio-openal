@@ -26,9 +26,9 @@ package be.yildiz.module.audio.test;
 import be.yildiz.common.nativeresources.NativeResourceLoader;
 import be.yildiz.common.nativeresources.SystemLinux64;
 import be.yildiz.common.resource.ResourcePath;
-import be.yildiz.module.sound.SoundEngine;
+import be.yildiz.module.sound.AudioEngine;
 import be.yildiz.module.sound.SoundSource;
-import be.yildiz.module.sound.openal.OpenAlSoundEngine;
+import be.yildiz.module.sound.openal.OpenAlAudioEngine;
 
 /**
  * @author Grégory Van den Borre
@@ -36,7 +36,7 @@ import be.yildiz.module.sound.openal.OpenAlSoundEngine;
 public class OggPlayTest {
 
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
-        try (SoundEngine engine = new OpenAlSoundEngine(NativeResourceLoader.inJar(new SystemLinux64()))) {
+        try (AudioEngine engine = new OpenAlAudioEngine(NativeResourceLoader.inJar(new SystemLinux64()))) {
             engine.addResourcePath(ResourcePath.directory(""));
             SoundSource s = engine.createSound("/home/moussa/test.ogg");
             s.play();

@@ -37,7 +37,7 @@ namespace yz {
 /**
 * @author Grégory Van den Borre
 */
-class AlSoundSource : NativeMovableComponent{
+class AlSoundSource : public NativeMovableComponent{
 
 public:
 

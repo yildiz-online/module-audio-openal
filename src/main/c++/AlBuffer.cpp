@@ -30,9 +30,8 @@
 *@author Grégory Van den Borre
 */
 
-yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
+yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) : this->number(number) {
     LOG_FUNCTION
-    this->number = number;
     SF_INFO fileInfo;
     SF_VIRTUAL_IO io;
     io.get_filelen = &yz::AlBuffer::Stream::getLength;
@@ -43,9 +42,8 @@ yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
     this->init(fileInfo);
 }
 
-yz::AlBuffer::AlBuffer(const char* file, const int number) {
+yz::AlBuffer::AlBuffer(const char* file, const int number) : this->number(number) {
     LOG_FUNCTION
-    this->number = number;
     SF_INFO fileInfo;
     this->soundFile = sf_open(file, SFM_READ, &fileInfo);
     this->init(fileInfo);

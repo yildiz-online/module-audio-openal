@@ -33,9 +33,9 @@ import be.yildiz.common.nativeresources.NativeResourceLoader;
 import be.yildiz.common.resource.FileResource.FileType;
 import be.yildiz.common.resource.ResourcePath;
 import be.yildiz.common.vector.Point3D;
+import be.yildiz.module.sound.AudioEngine;
 import be.yildiz.module.sound.Playlist;
 import be.yildiz.module.sound.SoundBuilder;
-import be.yildiz.module.sound.SoundEngine;
 import be.yildiz.module.sound.SoundSource;
 import be.yildiz.module.sound.exception.SoundCreationException;
 import jni.OpenAlSoundEngineNative;
@@ -50,7 +50,7 @@ import java.util.Optional;
  *
  * @author Grégory Van den Borre
  */
-public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder, Native {
+public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder, Native {
 
     /**
      * Object native pointer address.
@@ -68,7 +68,7 @@ public final class OpenAlSoundEngine extends SoundEngine implements SoundBuilder
      * Simple constructor, load all libraries and initialize the engine.
      * @param nativeResourceLoader Loader for the native code cannot be null.
      */
-    public OpenAlSoundEngine(NativeResourceLoader nativeResourceLoader) {
+    public OpenAlAudioEngine(NativeResourceLoader nativeResourceLoader) {
         super();
         assert nativeResourceLoader != null;
         Logger.info("Initializing OpenAL audio engine...");

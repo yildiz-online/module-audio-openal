@@ -28,7 +28,7 @@
 #include <AL/alc.h>
 #include "stdafx.h"
 extern "C" {
-    #include <sndfile.h>
+#include <sndfile.h>
 }
 #include "wrapperphysfs.hpp"
 

@@ -28,7 +28,7 @@ import be.yildiz.common.log.Logger;
 import be.yildiz.common.nativeresources.NativeResourceLoader;
 import be.yildiz.common.nativeresources.SystemLinux64;
 import be.yildiz.common.nativeresources.SystemWin32;
-import be.yildiz.module.sound.openal.OpenAlSoundEngine;
+import be.yildiz.module.sound.openal.OpenAlAudioEngine;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -114,7 +114,7 @@ public class AlBufferNativeTest {
     private static void initEngine() {
         Logger.disable();
         try {
-            new OpenAlSoundEngine(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
+            new OpenAlAudioEngine(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
         } catch (NativeException e) {
             //An exception is thrown on system without sound card, anyway, loading the engine is enough
             Logger.error(e);
