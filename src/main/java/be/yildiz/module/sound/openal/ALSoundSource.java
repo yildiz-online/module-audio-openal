@@ -75,6 +75,8 @@ public final class ALSoundSource implements SoundSource, Runnable {
     public void play() {
         if (!this.playing) {
             this.thread.start();
+        } else {
+            this.rewind();
         }
     }
 
@@ -83,8 +85,10 @@ public final class ALSoundSource implements SoundSource, Runnable {
      */
     @Override
     public void run() {
+        this.playing = true;
         ALSoundSourceNative.play(this.pointer.getPointerAddress());
         this.endPlayListeners.forEach(EndPlayListener::soundFinished);
+        this.playing = false;
     }
 
     @Override
