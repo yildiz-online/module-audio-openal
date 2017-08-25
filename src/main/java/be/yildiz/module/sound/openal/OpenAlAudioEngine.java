@@ -26,7 +26,6 @@ package be.yildiz.module.sound.openal;
 import be.yildiz.common.collections.Lists;
 import be.yildiz.common.collections.Maps;
 import be.yildiz.common.exeption.NativeException;
-import be.yildiz.common.log.Logger;
 import be.yildiz.common.nativeresources.Native;
 import be.yildiz.common.nativeresources.NativePointer;
 import be.yildiz.common.nativeresources.NativeResourceLoader;
@@ -39,6 +38,8 @@ import be.yildiz.module.sound.SoundBuilder;
 import be.yildiz.module.sound.SoundSource;
 import be.yildiz.module.sound.exception.SoundCreationException;
 import jni.OpenAlSoundEngineNative;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
@@ -51,6 +52,8 @@ import java.util.Optional;
  * @author Grégory Van den Borre
  */
 public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder, Native {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenAlAudioEngine.class);
 
     /**
      * Object native pointer address.
@@ -71,11 +74,11 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
     public OpenAlAudioEngine(NativeResourceLoader nativeResourceLoader) {
         super();
         assert nativeResourceLoader != null;
-        Logger.info("Initializing OpenAL audio engine...");
+        LOGGER.info("Initializing OpenAL audio engine...");
         nativeResourceLoader.loadBaseLibrary("libgcc_s_sjlj-1", "libstdc++-6", "libphysfs", "libsndfile-1", "OpenAL32");
         nativeResourceLoader.loadLibrary("libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
-        Logger.info("OpenAL audio engine initialized.");
+        LOGGER.info("OpenAL audio engine initialized.");
     }
 
     private void setListenerPosition(final Point3D pos) {
