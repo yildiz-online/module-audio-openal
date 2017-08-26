@@ -36,7 +36,7 @@ import be.yildiz.module.sound.openal.OpenAlAudioEngine;
 public class OggPlayTest {
 
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
-        try (AudioEngine engine = new OpenAlAudioEngine(NativeResourceLoader.inJar(new SystemLinux64()))) {
+        try (AudioEngine engine = OpenAlAudioEngine.create(NativeResourceLoader.inJar(new SystemLinux64()))) {
             engine.addResourcePath(ResourcePath.directory(""));
             SoundSource s = engine.createSound("/home/moussa/test.ogg");
             s.play();

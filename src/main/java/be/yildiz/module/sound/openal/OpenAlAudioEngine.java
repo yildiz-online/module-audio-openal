@@ -69,16 +69,27 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
 
     /**
      * Simple constructor, load all libraries and initialize the engine.
-     * @param nativeResourceLoader Loader for the native code cannot be null.
+     * @param loader Loader for the native libraries.
+     * @throws AssertionError if loader is null.
      */
-    public OpenAlAudioEngine(NativeResourceLoader nativeResourceLoader) {
+    private OpenAlAudioEngine(NativeResourceLoader loader) {
         super();
-        assert nativeResourceLoader != null;
+        assert loader != null;
         LOGGER.info("Initializing OpenAL audio engine...");
-        nativeResourceLoader.loadBaseLibrary("libgcc_s_sjlj-1", "libstdc++-6", "libphysfs", "libsndfile-1", "OpenAL32");
-        nativeResourceLoader.loadLibrary("libyildizopenal");
+        loader.loadBaseLibrary("libgcc_s_sjlj-1", "libstdc++-6", "libphysfs", "libsndfile-1", "OpenAL32");
+        loader.loadLibrary("libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
         LOGGER.info("OpenAL audio engine initialized.");
+    }
+
+    /**
+     * Create an openal audio engine.
+     * @param loader Loader for the native libraries.
+     * @return The created openal audio engine.
+     * @throws AssertionError if loader is null.
+     */
+    public static OpenAlAudioEngine create(NativeResourceLoader loader) {
+        return new OpenAlAudioEngine(loader);
     }
 
     private void setListenerPosition(final Point3D pos) {
