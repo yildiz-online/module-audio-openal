@@ -37,7 +37,7 @@ public class OggPlayTest {
 
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
         try (AudioEngine engine = OpenAlAudioEngine.create(NativeResourceLoader.inJar(new SystemLinux64()))) {
-            engine.addResourcePath(ResourcePath.directory(""));
+            engine.addResourcePath(ResourcePath.directory("test", ""));
             SoundSource s = engine.createSound("/home/moussa/test.ogg");
             s.play();
         }
