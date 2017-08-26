@@ -28,7 +28,6 @@
 #include "OpenAlException.h"
 #include "stdafx.h"
 #include "NativeMovable.hpp"
-#include "NativeMovableComponent.hpp"
 
 #include <AL/al.h>
 
@@ -37,7 +36,7 @@ namespace yz {
 /**
 * @author Grégory Van den Borre
 */
-class AlSoundSource : public NativeMovableComponent{
+class AlSoundSource : public NativeMovableComponent {
 
 public:
 
@@ -59,27 +58,27 @@ public:
         alSourcei(this->source, AL_LOOPING, AL_TRUE);
     }
 
-    inline void setPosition(const float x, const float y, const float z) {
+    inline virtual void setPosition(const float x, const float y, const float z) {
         LOG_FUNCTION
         alSource3f(this->source, AL_POSITION, x, y, z);
-        movable->setPosition(x, y, z);
+        this->movable->setPosition(x, y, z);
     }
 
-    inline void setDirection(const float x, const float y, const float z) {
+    inline virtual void setDirection(const float x, const float y, const float z) {
         LOG_FUNCTION
         alSource3f(this->source, AL_DIRECTION, x, y, z);
-        movable->setDirection(x, y, z);
+        this->movable->setDirection(x, y, z);
     }
 
-    inline void setOrientation(const float x, const float y, const float z, const float w) {
+    inline virtual void setOrientation(const float x, const float y, const float z, const float w) {
     }
 
-    inline void addMovableComponent(NativeMovableComponent* c) {
-        movable->addComponent(c);
+    inline virtual void addMovableComponent(NativeMovableComponent* c) {
+        this->movable->addComponent(c);
     }
 
-    inline void removeMovableComponent(NativeMovableComponent* c) {
-        movable->removeComponent(c);
+    inline virtual void removeMovableComponent(NativeMovableComponent* c) {
+        this->movable->removeComponent(c);
     }
 
     inline void setGain(float gain) {
@@ -102,9 +101,9 @@ private :
 
     yz::AlBuffer* buffer;
 
-    yz::NativeMovable* movable;
-
     ALuint source;
+
+    yz::NativeMovable* movable;
 
 	void empty();
 
