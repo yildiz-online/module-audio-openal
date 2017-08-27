@@ -84,6 +84,9 @@
               <directory>src/main/scripts/win32/java</directory>
             </fileset>
             <fileset>
+              <directory>src/main/scripts/win32/physfs</directory>
+            </fileset>
+            <fileset>
               <directory>src/main/scripts/win32</directory>
               <includes>
                 <include>libgcc_s_sjlj-1.dll</include>
