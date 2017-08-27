@@ -5,7 +5,6 @@ set(CMAKE_CXX_FLAGS "-O2 -std=gnu++11")
 
 include_directories("openal/include")
 include_directories("physfs/include")
-include_directories(${CMAKE_SOURCE_DIR}/../common-native/include)
 include_directories("java/include")
 include_directories("java/include/win32")
 include_directories("libsndfile/include")
@@ -17,6 +16,7 @@ file(
         source_files
         ${CMAKE_SOURCE_DIR}/../../c++/*.cpp
         ${CMAKE_SOURCE_DIR}/../../c++/*.hpp
+        ${CMAKE_SOURCE_DIR}/../../includes/*.hpp
         ${CMAKE_SOURCE_DIR}/../../c++/*.h
 )
 

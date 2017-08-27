@@ -27,7 +27,7 @@
 #include "AlBuffer.h"
 #include "OpenAlException.h"
 #include "stdafx.h"
-#include "NativeMovable.hpp"
+#include "../includes/NativeMovable.hpp"
 
 #include <AL/al.h>
 

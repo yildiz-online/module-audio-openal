@@ -12,7 +12,6 @@ find_package(LibSndFile REQUIRED)
 
 include_directories(${OpenAL_INCLUDE_DIRS})
 include_directories(${PhysFS_INCLUDE_DIRS})
-include_directories(${CMAKE_SOURCE_DIR}/../common-native/include)
 include_directories(${JNI_INCLUDE_DIRS})
 include_directories(${JNI_INCLUDE_DIRS}/linux)
 include_directories(${LibSndFile_INCLUDE_DIRS})
@@ -22,6 +21,7 @@ file(
         source_files
         ${CMAKE_SOURCE_DIR}/../../c++/*.cpp
         ${CMAKE_SOURCE_DIR}/../../c++/*.hpp
+        ${CMAKE_SOURCE_DIR}/../../includes/*.hpp
         ${CMAKE_SOURCE_DIR}/../../c++/*.h
 )
 

@@ -76,6 +76,24 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>src/main/scripts/win32/java</directory>
+            </fileset>
+            <fileset>
+              <directory>src/main/includes</directory>
+              <includes>
+                <include>NativeMovable.hpp</include>
+                <include>NativeMovableComponent.hpp</include>
+              </includes>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
         <executions>
@@ -99,7 +117,7 @@
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
           <execution>
-            <id>common-native-file-unpack</id>
+            <id>common-native-file-unpack-include</id>
             <phase>process-resources</phase>
             <goals>
               <goal>unpack</goal>
@@ -109,8 +127,8 @@
                 <artifactItem>
                   <groupId>be.yildiz-games</groupId>
                   <artifactId>common-native</artifactId>
-                  <outputDirectory>src/main/scripts/common-native/include</outputDirectory>
-                  <includes>*.hpp</includes>
+                  <outputDirectory>src/</outputDirectory>
+                  <includes>main/**/*.*</includes>
                 </artifactItem>
               </artifactItems>
             </configuration>
