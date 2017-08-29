@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-#include "JniOpenAl.h"
-#include "JniUtil.h"
-#include "OpenAlEngine.h"
+#include "../includes/JniOpenAl.h"
+#include "../includes/JniUtil.h"
+#include "../includes/OpenAlEngine.hpp"
 
 /**
 *@author Grégory Van den Borre

@@ -24,10 +24,10 @@
 #ifndef YZ_SOUND_SOURCE_H
 #define YZ_SOUND_SOURCE_H
 
-#include "AlBuffer.h"
-#include "OpenAlException.h"
+#include "AlBuffer.hpp"
+#include "OpenAlException.hpp"
 #include "stdafx.h"
-#include "../includes/NativeMovable.hpp"
+#include "NativeMovable.hpp"
 
 #include <AL/al.h>
 

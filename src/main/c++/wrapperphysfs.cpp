@@ -22,9 +22,9 @@
  */
 
 #include <iostream>
-#include "wrapperphysfs.hpp"
-#include "OpenAlException.h"
-#include "stdafx.h"
+#include "../includes/wrapperphysfs.hpp"
+#include "../includes/OpenAlException.hpp"
+#include "../includes/stdafx.h"
 
 /**
 *@author Grégory Van den Borre

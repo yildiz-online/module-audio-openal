@@ -22,9 +22,9 @@
  */
 
 #include <vector>
-#include "AlBuffer.h"
-#include "OpenAlException.h"
-#include "OpenAlFileLoadingException.h"
+#include "../includes/AlBuffer.hpp"
+#include "../includes/OpenAlException.hpp"
+#include "../includes/OpenAlFileLoadingException.hpp"
 
 /**
 *@author Grégory Van den Borre

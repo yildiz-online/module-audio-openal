@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-#include "JniAlSoundSource.h"
-#include "AlSoundSource.h"
-#include "JniUtil.h"
+#include "../includes/JniAlSoundSource.h"
+#include "../includes/AlSoundSource.hpp"
+#include "../includes/JniUtil.h"
 
 /**
  * Implementation for JniAlSoundSource.h

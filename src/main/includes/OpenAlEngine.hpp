@@ -27,7 +27,7 @@
 #include <AL/al.h>
 #include <AL/alc.h>
 #include <physfs.h>
-#include "OpenAlException.h"
+#include "OpenAlException.hpp"
 #include "stdafx.h"
 
 namespace yz {
