@@ -28,82 +28,85 @@ import be.yildiz.common.nativeresources.NativeResourceLoader;
 import be.yildiz.common.nativeresources.SystemLinux64;
 import be.yildiz.common.nativeresources.SystemWin32;
 import be.yildiz.module.sound.openal.OpenAlAudioEngine;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author Grégory Van den Borre
  */
-@RunWith(Enclosed.class)
-public class AlBufferNativeTest {
+class AlBufferNativeTest {
 
-    public static class Load {
+    @Nested
+    class Load {
 
-        @Before
-        public void init() {
+        @BeforeEach
+        void init() {
             initEngine();
         }
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
 
         }
 
-        @Test(expected = NativeException.class)
-        public void fileNotExisting() {
-            ALBufferNative.load("");
+        @Test
+        void fileNotExisting() {
+            assertThrows(NativeException.class, () -> ALBufferNative.load(""));
         }
 
-        @Test(expected = NativeException.class)
-        public void withNull() {
-            ALBufferNative.load(null);
+        @Test
+        void withNull() {
+            assertThrows(NativeException.class, () -> ALBufferNative.load(null));
         }
     }
 
-    public static class LoadFromVfs {
+    @Nested
+    class LoadFromVfs {
 
-        @Before
-        public void init() {
+        @BeforeEach
+        void init() {
             initEngine();
         }
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
 
         }
 
         @Test//(expected = NativeException.class)
-        public void vfsNotMounted() {
+        void vfsNotMounted() {
 
         }
 
         @Test//(expected = NativeException.class)
-        public void fileNotExisting() {
+        void fileNotExisting() {
         }
 
-        @Test(expected = NativeException.class)
-        public void withNull() {
-            ALBufferNative.loadFromVfs(null);
+        @Test
+        void withNull() {
+            assertThrows(NativeException.class, () -> ALBufferNative.loadFromVfs(null));
         }
 
     }
 
-    public static class CreateSource {
+    @Nested
+    class CreateSource {
 
-        @Before
-        public void init() {
+        @BeforeEach
+        void init() {
             initEngine();
         }
 
         @Test
-        public void happyFlow() {
+        void happyFlow() {
 
         }
 
         @Test
-        public void withInvalidBuffer() {
+        void withInvalidBuffer() {
 
         }
     }
