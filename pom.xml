@@ -54,6 +54,12 @@
     <dependency>
       <groupId>be.yildiz-games</groupId>
       <artifactId>common-native</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>be.yildiz-games</groupId>
+      <artifactId>common-geometry</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>

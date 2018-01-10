@@ -23,9 +23,9 @@
 
 package be.yildiz.module.sound.openal;
 
-import be.yildiz.common.nativeresources.NativePointer;
-import be.yildiz.common.resource.FileResource.FileType;
 import be.yildiz.module.sound.SoundSource;
+import be.yildizgames.common.file.FileResource;
+import be.yildizgames.common.nativeresources.NativePointer;
 import jni.ALBufferNative;
 
 /**
@@ -46,10 +46,10 @@ final class ALBuffer {
      * @param file File to load, must be wav format.
      * @param type Type of file to load.
      */
-    ALBuffer(final String file, final FileType type) {
+    ALBuffer(final String file, final FileResource.FileType type) {
         super();
         long address = 0;
-        if (type == FileType.VFS) {
+        if (type == FileResource.FileType.VFS) {
             address = ALBufferNative.loadFromVfs(file);
         } else {
             address = ALBufferNative.load(file);

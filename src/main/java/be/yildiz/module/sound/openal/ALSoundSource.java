@@ -23,11 +23,10 @@
 
 package be.yildiz.module.sound.openal;
 
-import be.yildiz.common.collections.Sets;
-import be.yildiz.common.nativeresources.NativePointer;
-import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.sound.EndPlayListener;
 import be.yildiz.module.sound.SoundSource;
+import be.yildizgames.common.geometry.Point3D;
+import be.yildizgames.common.nativeresources.NativePointer;
 import jni.ALSoundSourceNative;
 
 import java.util.Set;

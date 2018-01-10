@@ -24,10 +24,10 @@
 package jni;
 
 import be.yildiz.common.exeption.NativeException;
-import be.yildiz.common.nativeresources.NativeResourceLoader;
-import be.yildiz.common.nativeresources.SystemLinux64;
-import be.yildiz.common.nativeresources.SystemWin32;
 import be.yildiz.module.sound.openal.OpenAlAudioEngine;
+import be.yildizgames.common.nativeresources.NativeResourceLoader;
+import be.yildizgames.common.nativeresources.SystemLinux64;
+import be.yildizgames.common.nativeresources.SystemWin32;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
