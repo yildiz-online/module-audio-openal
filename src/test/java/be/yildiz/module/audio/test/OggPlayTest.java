@@ -23,10 +23,10 @@
 
 package be.yildiz.module.audio.test;
 
-import be.yildiz.common.resource.ResourcePath;
 import be.yildiz.module.sound.AudioEngine;
 import be.yildiz.module.sound.SoundSource;
 import be.yildiz.module.sound.openal.OpenAlAudioEngine;
+import be.yildizgames.common.file.ResourcePath;
 import be.yildizgames.common.nativeresources.NativeResourceLoader;
 import be.yildizgames.common.nativeresources.SystemLinux64;
 

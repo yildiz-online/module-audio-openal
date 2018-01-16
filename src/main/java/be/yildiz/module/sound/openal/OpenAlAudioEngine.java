@@ -23,17 +23,17 @@
 
 package be.yildiz.module.sound.openal;
 
-import be.yildiz.common.collections.Lists;
-import be.yildiz.common.collections.Maps;
-import be.yildiz.common.exeption.NativeException;
-import be.yildiz.common.resource.FileResource.FileType;
-import be.yildiz.common.resource.ResourcePath;
-import be.yildiz.common.vector.Point3D;
 import be.yildiz.module.sound.AudioEngine;
 import be.yildiz.module.sound.Playlist;
 import be.yildiz.module.sound.SoundBuilder;
 import be.yildiz.module.sound.SoundSource;
 import be.yildiz.module.sound.exception.SoundCreationException;
+import be.yildizgames.common.collection.Lists;
+import be.yildizgames.common.collection.Maps;
+import be.yildizgames.common.exception.technical.NativeException;
+import be.yildizgames.common.file.FileResource;
+import be.yildizgames.common.file.ResourcePath;
+import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.nativeresources.Native;
 import be.yildizgames.common.nativeresources.NativePointer;
 import be.yildizgames.common.nativeresources.NativeResourceLoader;
@@ -118,7 +118,7 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
                 .filter(p -> p.exists(file))
                 .findFirst();
         String toLoad = path.map(r -> r.getPath().isEmpty() ? file : r.getPath() + File.separator + file).orElse(file);
-        FileType type = path.isPresent() ? FileType.DIRECTORY : FileType.VFS;
+        FileResource.FileType type = path.isPresent() ? FileResource.FileType.DIRECTORY : FileResource.FileType.VFS;
         try {
             if (!this.bufferList.containsKey(toLoad)) {
                 this.bufferList.put(toLoad, new ALBuffer(toLoad, type));
@@ -131,9 +131,9 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
 
     @Override
     public void addResourcePath(ResourcePath path) {
-        if(path.getType() == FileType.VFS) {
+        if(path.getType() == FileResource.FileType.VFS) {
             OpenAlSoundEngineNative.addResourcePath(path.getPath());
-        } else if (path.getType() == FileType.DIRECTORY){
+        } else if (path.getType() == FileResource.FileType.DIRECTORY){
             this.paths.add(path);
         }
     }

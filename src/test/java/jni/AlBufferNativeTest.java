@@ -23,11 +23,11 @@
 
 package jni;
 
-import be.yildiz.common.exeption.NativeException;
 import be.yildiz.module.sound.openal.OpenAlAudioEngine;
+import be.yildizgames.common.exception.technical.NativeException;
 import be.yildizgames.common.nativeresources.NativeResourceLoader;
 import be.yildizgames.common.nativeresources.SystemLinux64;
-import be.yildizgames.common.nativeresources.SystemWin32;
+import be.yildizgames.common.nativeresources.SystemWin64;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -113,7 +113,7 @@ class AlBufferNativeTest {
 
     private static void initEngine() {
         try {
-            OpenAlAudioEngine.create(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin32()));
+            OpenAlAudioEngine.create(NativeResourceLoader.inTestPath(new SystemLinux64(), new SystemWin64()));
         } catch (NativeException e) {
             //An exception is thrown on system without sound card, anyway, loading the engine is enough
         }
