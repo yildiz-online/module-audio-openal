@@ -29,7 +29,7 @@
 #include "stdafx.h"
 #include "NativeMovable.hpp"
 
-#include <AL/al.h>
+#include <al.h>
 
 namespace yz {
 

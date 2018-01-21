@@ -24,8 +24,8 @@
 #ifndef _AL_ENGINE_H_
 #define _AL_ENGINE_H_
 
-#include <AL/al.h>
-#include <AL/alc.h>
+#include <al.h>
+#include <alc.h>
 #include <physfs.h>
 #include "OpenAlException.hpp"
 #include "stdafx.h"

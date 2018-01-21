@@ -69,7 +69,6 @@
     <dependency>
       <groupId>be.yildiz-games</groupId>
       <artifactId>common-native</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -90,36 +89,84 @@
 
   <profiles>
     <profile>
-      <id>noenv</id>
+      <id>linux64</id>
       <activation>
-        <activeByDefault>true</activeByDefault>
+        <property>
+          <name>env</name>
+          <value>linux64</value>
+        </property>
       </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <exclude>AlBufferNativeTest.java</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
+      <properties>
+        <nativeEnv>linux64</nativeEnv>
+      </properties>
     </profile>
     <profile>
-      <id>win32</id>
+      <id>win64</id>
+      <activation>
+        <property>
+          <name>env</name>
+          <value>win64</value>
+        </property>
+      </activation>
+      <properties>
+        <nativeEnv>win64</nativeEnv>
+      </properties>
+    </profile>
+    <profile>
+      <id>native</id>
+      <dependencies>
+        <dependency>
+          <groupId>be.yildiz-games</groupId>
+          <artifactId>component-native-openal</artifactId>
+          <version>1.18.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+          <groupId>be.yildiz-games</groupId>
+          <artifactId>component-native-libsndfile</artifactId>
+          <version>1.0.29-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+          <groupId>be.yildiz-games</groupId>
+          <artifactId>component-native-physicsfs</artifactId>
+          <version>2.0.3-SNAPSHOT</version>
+        </dependency>
+      </dependencies>
       <build>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes>
-                <exclude>AlBufferNativeTest.java</exclude>
-              </excludes>
-            </configuration>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>common-bullet-file-unpack-include</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>be.yildiz-games</groupId>
+                      <artifactId>component-native-openal</artifactId>
+                      <outputDirectory>src/main/scripts/${nativeEnv}/openal</outputDirectory>
+                      <includes>${nativeEnv}/**/*.*</includes>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>be.yildiz-games</groupId>
+                      <artifactId>component-native-libsndfile</artifactId>
+                      <outputDirectory>src/main/scripts/${nativeEnv}/libsndfile</outputDirectory>
+                      <includes>${nativeEnv}/**/*.*</includes>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>be.yildiz-games</groupId>
+                      <artifactId>component-native-physicsfs</artifactId>
+                      <outputDirectory>src/main/scripts/${nativeEnv}/physicsfs</outputDirectory>
+                      <includes>${nativeEnv}/**/*.*</includes>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>

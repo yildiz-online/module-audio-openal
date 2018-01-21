@@ -24,8 +24,9 @@
 #ifndef _AL_BUFFER_H_
 #define _AL_BUFFER_H_
 
-#include <AL/al.h>
-#include <AL/alc.h>
+#include <al.h>
+#include <alc.h>
+
 #include "stdafx.h"
 extern "C" {
 #include <sndfile.h>
