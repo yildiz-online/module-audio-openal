@@ -24,6 +24,7 @@
 package be.yildiz.module.sound.openal;
 
 import be.yildiz.module.sound.AudioEngine;
+import be.yildiz.module.sound.AudioFile;
 import be.yildiz.module.sound.Playlist;
 import be.yildiz.module.sound.SoundBuilder;
 import be.yildiz.module.sound.SoundSource;
@@ -37,6 +38,7 @@ import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.nativeresources.Native;
 import be.yildizgames.common.nativeresources.NativePointer;
 import be.yildizgames.common.nativeresources.NativeResourceLoader;
+import be.yildizgames.common.nativeresources.NativeUtil;
 import jni.OpenAlSoundEngineNative;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +69,8 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
 
     private final List<ResourcePath> paths = Lists.newList();
 
+    private boolean vfsAdded;
+
     /**
      * Simple constructor, load all libraries and initialize the engine.
      * @param loader Loader for the native libraries.
@@ -75,8 +79,12 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
     private OpenAlAudioEngine(NativeResourceLoader loader) {
         super();
         assert loader != null;
-        LOGGER.info("Initializing OpenAL audio engine...");
-        loader.loadBaseLibrary("libphysfs", "libsndfile-1", "OpenAL32");
+        LOGGER.info("Initializing OpenALLL audio engine...");
+        if(NativeUtil.isWindows()) {
+            loader.loadBaseLibrary("libphysfs", "libsndfile-1", "OpenAL32");
+        } else if(NativeUtil.isLinux()) {
+            loader.loadLibrary("libphysfs");
+        }
         loader.loadLibrary("libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
         LOGGER.info("OpenAL audio engine initialized.");
@@ -117,11 +125,15 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
                 .stream()
                 .filter(p -> p.exists(file))
                 .findFirst();
-        String toLoad = path.map(r -> r.getPath().isEmpty() ? file : r.getPath() + File.separator + file).orElse(file);
+        String toLoad = path.map(r -> r.getPath().isEmpty() ? new File(file).getAbsolutePath() : r.getPath() + File.separator + file).orElse(file);
         FileResource.FileType type = path.isPresent() ? FileResource.FileType.DIRECTORY : FileResource.FileType.VFS;
+        if(type == FileResource.FileType.VFS && !this.vfsAdded) {
+            throw new SoundCreationException("Trying to load a file from VFS while none had been mounted " +
+                    "or trying to load a non existing file on file system:" + toLoad);
+        }
         try {
             if (!this.bufferList.containsKey(toLoad)) {
-                this.bufferList.put(toLoad, new ALBuffer(toLoad, type));
+                this.bufferList.put(toLoad, new ALBuffer(new AudioFile(type, toLoad)));
             }
             return this.bufferList.get(toLoad).createSource();
         } catch (NativeException e) {
@@ -133,6 +145,7 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
     public void addResourcePath(ResourcePath path) {
         if(path.getType() == FileResource.FileType.VFS) {
             OpenAlSoundEngineNative.addResourcePath(path.getPath());
+            this.vfsAdded = true;
         } else if (path.getType() == FileResource.FileType.DIRECTORY){
             this.paths.add(path);
         }
