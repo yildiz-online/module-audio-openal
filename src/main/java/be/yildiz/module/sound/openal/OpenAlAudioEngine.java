@@ -125,7 +125,7 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
                 .stream()
                 .filter(p -> p.exists(file))
                 .findFirst();
-        String toLoad = path.map(r -> r.getPath().isEmpty() ? new File(file).getAbsolutePath() : r.getPath() + File.separator + file).orElse(file);
+        String toLoad = path.map(r -> r.getPath().isEmpty() ? file : r.getPath() + File.separator + file).orElse(file);
         FileResource.FileType type = path.isPresent() ? FileResource.FileType.DIRECTORY : FileResource.FileType.VFS;
         if(type == FileResource.FileType.VFS && !this.vfsAdded) {
             throw new SoundCreationException("Trying to load a file from VFS while none had been mounted " +
