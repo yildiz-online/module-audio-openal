@@ -40,6 +40,11 @@ public class ALSoundSourceNative {
      */
     public static native void play(final long pointerAddress);
 
+    /**
+     * Stop playing the file.
+     *
+     * @param pointerAddress Address to the native object.
+     */
     public static native void stop(final long pointerAddress);
 
     /**
