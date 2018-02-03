@@ -1,2 +1,7 @@
 module-audio-openal.iml
 target
+src/main/scripts/win64/java/*
+src/main/scripts/win64/libgcc_s_seh-1.dll
+src/main/scripts/win64/libstdc++-6.dll
+src/main/includes/NativeMovable.hpp
+src/main/includes/NativeMovableComponent.hpp
