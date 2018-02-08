@@ -116,11 +116,6 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
     }
 
     @Override
-    public Playlist createPlaylist(final String name) {
-        return new Playlist(name, this);
-    }
-
-    @Override
     public SoundSource createSound(final String file) {
         Optional<ResourcePath> path = this.paths
                 .stream()
