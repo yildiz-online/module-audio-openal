@@ -22,11 +22,11 @@
  *
  */
 
-package be.yildiz.module.sound.openal;
+package be.yildizgames.module.sound.openal;
 
-import be.yildiz.module.sound.AudioFile;
-import be.yildiz.module.sound.SoundSource;
 import be.yildizgames.common.nativeresources.NativePointer;
+import be.yildizgames.module.sound.AudioFile;
+import be.yildizgames.module.sound.SoundSource;
 import jni.ALBufferNative;
 
 /**

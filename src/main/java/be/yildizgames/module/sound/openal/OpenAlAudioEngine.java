@@ -22,14 +22,8 @@
  *
  */
 
-package be.yildiz.module.sound.openal;
+package be.yildizgames.module.sound.openal;
 
-import be.yildiz.module.sound.AudioEngine;
-import be.yildiz.module.sound.AudioFile;
-import be.yildiz.module.sound.Playlist;
-import be.yildiz.module.sound.SoundBuilder;
-import be.yildiz.module.sound.SoundSource;
-import be.yildiz.module.sound.exception.SoundCreationException;
 import be.yildizgames.common.collection.Lists;
 import be.yildizgames.common.collection.Maps;
 import be.yildizgames.common.exception.technical.NativeException;
@@ -40,6 +34,12 @@ import be.yildizgames.common.nativeresources.Native;
 import be.yildizgames.common.nativeresources.NativePointer;
 import be.yildizgames.common.nativeresources.NativeResourceLoader;
 import be.yildizgames.common.nativeresources.NativeUtil;
+import be.yildizgames.module.sound.AudioEngine;
+import be.yildizgames.module.sound.AudioFile;
+import be.yildizgames.module.sound.Playlist;
+import be.yildizgames.module.sound.SoundBuilder;
+import be.yildizgames.module.sound.SoundSource;
+import be.yildizgames.module.sound.exception.SoundCreationException;
 import jni.OpenAlSoundEngineNative;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +84,7 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
         if(NativeUtil.isWindows()) {
             loader.loadBaseLibrary("libphysfs", "libsndfile-1", "OpenAL32");
         } else if(NativeUtil.isLinux()) {
-            loader.loadLibrary("libphysfs", "libopenal");
+            loader.loadLibrary("libphysfs", "libsndfile-1", "libopenal");
         }
         loader.loadLibrary("libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
@@ -143,13 +143,14 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
     }
 
     @Override
-    public void addResourcePath(ResourcePath path) {
+    public OpenAlAudioEngine addResourcePath(ResourcePath path) {
         if(path.getType() == FileResource.FileType.VFS) {
             OpenAlSoundEngineNative.addResourcePath(path.getPath());
             this.vfsAdded = true;
         } else if (path.getType() == FileResource.FileType.DIRECTORY){
             this.paths.add(path);
         }
+        return this;
     }
 
     @Override

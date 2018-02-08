@@ -27,4 +27,4 @@
  *
  * @author Grégory Van den Borre
  */
-package be.yildiz.module.sound.openal;
+package be.yildizgames.module.sound.openal;
