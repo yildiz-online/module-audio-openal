@@ -26,8 +26,8 @@ package jni;
 
 import be.yildizgames.common.exception.technical.NativeException;
 import be.yildizgames.common.nativeresources.NativeResourceLoader;
-import be.yildizgames.common.nativeresources.SystemLinux64;
-import be.yildizgames.common.nativeresources.SystemWin64;
+import be.yildizgames.common.nativeresources.systems.SystemLinux64;
+import be.yildizgames.common.nativeresources.systems.SystemWin64;
 import be.yildizgames.module.sound.openal.OpenAlAudioEngine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;

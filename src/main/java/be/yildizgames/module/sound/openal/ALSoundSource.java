@@ -24,13 +24,13 @@
 
 package be.yildizgames.module.sound.openal;
 
-import be.yildizgames.common.collection.Sets;
 import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.nativeresources.NativePointer;
 import be.yildizgames.module.sound.EndPlayListener;
 import be.yildizgames.module.sound.SoundSource;
 import jni.ALSoundSourceNative;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -38,7 +38,7 @@ import java.util.Set;
  *
  * @author Grégory Van Den Borre
  */
-public final class ALSoundSource implements SoundSource, Runnable {
+final class ALSoundSource implements SoundSource, Runnable {
 
     /**
      * Pointer to the native object.
@@ -48,7 +48,7 @@ public final class ALSoundSource implements SoundSource, Runnable {
     /**
      * Listeners to notify when the source stop playing.
      */
-    private final Set<EndPlayListener> endPlayListeners = Sets.newSet();
+    private final Set<EndPlayListener> endPlayListeners = new HashSet<>();
 
     /**
      * Thread running to play the sound.

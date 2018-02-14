@@ -24,27 +24,26 @@
 
 package be.yildizgames.module.sound.openal;
 
-import be.yildizgames.common.collection.Lists;
-import be.yildizgames.common.collection.Maps;
 import be.yildizgames.common.exception.technical.NativeException;
 import be.yildizgames.common.file.FileResource;
 import be.yildizgames.common.file.ResourcePath;
 import be.yildizgames.common.geometry.Point3D;
+import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.common.nativeresources.Native;
 import be.yildizgames.common.nativeresources.NativePointer;
 import be.yildizgames.common.nativeresources.NativeResourceLoader;
 import be.yildizgames.common.nativeresources.NativeUtil;
 import be.yildizgames.module.sound.AudioEngine;
 import be.yildizgames.module.sound.AudioFile;
-import be.yildizgames.module.sound.Playlist;
 import be.yildizgames.module.sound.SoundBuilder;
+import be.yildizgames.module.sound.SoundCreationException;
 import be.yildizgames.module.sound.SoundSource;
-import be.yildizgames.module.sound.exception.SoundCreationException;
 import jni.OpenAlSoundEngineNative;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -56,7 +55,7 @@ import java.util.Optional;
  */
 public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder, Native {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenAlAudioEngine.class);
+    private static final Logger LOGGER = LogFactory.getInstance().getLogger(OpenAlAudioEngine.class);
 
     /**
      * Object native pointer address.
@@ -66,9 +65,9 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
     /**
      * List of existing buffers.
      */
-    private final Map<String, ALBuffer> bufferList = Maps.newMap();
+    private final Map<String, ALBuffer> bufferList = new HashMap<>();
 
-    private final List<ResourcePath> paths = Lists.newList();
+    private final List<ResourcePath> paths = new ArrayList<>();
 
     private boolean vfsAdded;
 
