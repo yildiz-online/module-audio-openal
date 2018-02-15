@@ -28,11 +28,11 @@ import be.yildizgames.common.exception.technical.NativeException;
 import be.yildizgames.common.file.FileResource;
 import be.yildizgames.common.file.ResourcePath;
 import be.yildizgames.common.geometry.Point3D;
+import be.yildizgames.common.jni.Native;
+import be.yildizgames.common.jni.NativePointer;
+import be.yildizgames.common.libloader.NativeResourceLoader;
 import be.yildizgames.common.logging.LogFactory;
-import be.yildizgames.common.nativeresources.Native;
-import be.yildizgames.common.nativeresources.NativePointer;
-import be.yildizgames.common.nativeresources.NativeResourceLoader;
-import be.yildizgames.common.nativeresources.NativeUtil;
+import be.yildizgames.common.os.SystemUtil;
 import be.yildizgames.module.sound.AudioEngine;
 import be.yildizgames.module.sound.AudioFile;
 import be.yildizgames.module.sound.SoundBuilder;
@@ -79,10 +79,10 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
     private OpenAlAudioEngine(NativeResourceLoader loader) {
         super();
         assert loader != null;
-        LOGGER.info("Initializing OpenALLL audio engine...");
-        if(NativeUtil.isWindows()) {
+        LOGGER.info("Initializing OpenAL audio engine...");
+        if(SystemUtil.isWindows()) {
             loader.loadBaseLibrary("libphysfs", "libsndfile-1", "OpenAL32");
-        } else if(NativeUtil.isLinux()) {
+        } else if(SystemUtil.isLinux()) {
             loader.loadLibrary("libphysfs", "libsndfile-1", "libopenal");
         }
         loader.loadLibrary("libyildizopenal");

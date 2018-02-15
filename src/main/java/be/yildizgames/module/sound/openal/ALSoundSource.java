@@ -25,7 +25,7 @@
 package be.yildizgames.module.sound.openal;
 
 import be.yildizgames.common.geometry.Point3D;
-import be.yildizgames.common.nativeresources.NativePointer;
+import be.yildizgames.common.jni.NativePointer;
 import be.yildizgames.module.sound.EndPlayListener;
 import be.yildizgames.module.sound.SoundSource;
 import jni.ALSoundSourceNative;

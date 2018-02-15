@@ -22,13 +22,18 @@
  */
 
 module be.yildizgames.module.audio.openal {
-    requires slf4j.api;
+
     requires be.yildizgames.common.logging;
     requires be.yildizgames.common.geometry;
     requires be.yildizgames.module.audio;
     requires be.yildizgames.common.file;
-    requires be.yildizgames.common.nativeresources;
+    requires be.yildizgames.common.jni;
     requires be.yildizgames.common.exception;
+    requires be.yildizgames.common.libloader;
+    requires be.yildizgames.common.gameobject;
+    requires be.yildizgames.common.os;
+
+    requires slf4j.api;
 
     exports be.yildizgames.module.sound.openal;
 }

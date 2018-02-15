@@ -24,7 +24,7 @@
 
 package be.yildizgames.module.sound.openal;
 
-import be.yildizgames.common.nativeresources.NativePointer;
+import be.yildizgames.common.jni.NativePointer;
 import be.yildizgames.module.sound.AudioFile;
 import be.yildizgames.module.sound.SoundSource;
 import jni.ALBufferNative;
@@ -45,7 +45,6 @@ final class ALBuffer {
      * Full constructor, build a buffer from a file.
      *
      * @param file File to load, must be wav format.
-     * @param type Type of file to load.
      */
     ALBuffer(final AudioFile file) {
         super();
