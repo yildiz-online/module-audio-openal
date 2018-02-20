@@ -22,48 +22,9 @@
  *
  */
 
-package be.yildizgames.module.sound.openal;
-
-import be.yildizgames.common.jni.NativePointer;
-import be.yildizgames.module.sound.AudioFile;
-import be.yildizgames.module.sound.SoundSource;
-import jni.ALBufferNative;
-
 /**
- * A buffer is the data loaded from a file to create OpenAL sources.
+ * Contains The openAL implementation classes for the audio engine.
  *
  * @author Grégory Van den Borre
  */
-final class ALBuffer {
-
-    /**
-     * Pointer to the native yz::AlBuffer* object.
-     */
-    private final NativePointer pointer;
-
-    /**
-     * Full constructor, build a buffer from a file.
-     *
-     * @param file File to load, must be wav format.
-     */
-    ALBuffer(final AudioFile file) {
-        super();
-        long address;
-        if (file.isVfs()) {
-            address = ALBufferNative.loadFromVfs(file.name);
-        } else {
-            address = ALBufferNative.load(file.name);
-        }
-        this.pointer = NativePointer.create(address);
-    }
-
-    /**
-     * Build a new source from the buffer.
-     * Ensures return != null.
-     * @return The built sound source.
-     */
-    SoundSource createSource() {
-        NativePointer sourcePointer = NativePointer.create(ALBufferNative.createSource(this.pointer.getPointerAddress()));
-        return new ALSoundSource(sourcePointer);
-    }
-}
+package be.yildizgames.module.audio.openal;

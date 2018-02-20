@@ -35,5 +35,5 @@ module be.yildizgames.module.audio.openal {
 
     requires slf4j.api;
 
-    exports be.yildizgames.module.sound.openal;
+    exports be.yildizgames.module.audio.openal;
 }

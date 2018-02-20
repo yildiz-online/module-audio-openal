@@ -22,12 +22,12 @@
  *
  */
 
-package be.yildizgames.module.sound.openal;
+package be.yildizgames.module.audio.openal;
 
 import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.jni.NativePointer;
-import be.yildizgames.module.sound.EndPlayListener;
-import be.yildizgames.module.sound.SoundSource;
+import be.yildizgames.module.audio.EndPlayListener;
+import be.yildizgames.module.audio.SoundSource;
 import jni.ALSoundSourceNative;
 
 import java.util.HashSet;
@@ -51,12 +51,12 @@ final class ALSoundSource implements SoundSource, Runnable {
     private final Set<EndPlayListener> endPlayListeners = new HashSet<>();
 
     /**
-     * Thread running to play the sound.
+     * Thread running to play the audio.
      */
     private final Thread thread;
 
     /**
-     * <code>true</code> if the sound is currently playing, <code>false</code>
+     * <code>true</code> if the audio is currently playing, <code>false</code>
      * otherwise.
      */
     private boolean playing;
@@ -68,9 +68,9 @@ final class ALSoundSource implements SoundSource, Runnable {
     }
 
     /**
-     * Start playing the sound in a specific thread. When the sound finishes playing,
+     * Start playing the audio in a specific thread. When the audio finishes playing,
      * the EndPlayListener are notified.
-     * If the sound was previously played then stopped, it is rewind before starting.
+     * If the audio was previously played then stopped, it is rewind before starting.
      */
     @Override
     public void play() {
@@ -98,7 +98,7 @@ final class ALSoundSource implements SoundSource, Runnable {
     }
 
     /**
-     * Stop playing the sound.
+     * Stop playing the audio.
      */
     @Override
     public synchronized void stop() {
@@ -107,7 +107,7 @@ final class ALSoundSource implements SoundSource, Runnable {
     }
 
     /**
-     * @return true if the sound is playing or paused, false otherwise.
+     * @return true if the audio is playing or paused, false otherwise.
      */
     @Override
     public boolean isPlaying() {
@@ -115,7 +115,7 @@ final class ALSoundSource implements SoundSource, Runnable {
     }
 
     /**
-     * Set the sound position in the 3d space.
+     * Set the audio position in the 3d space.
      *
      * @param pos New position.
      */
@@ -125,7 +125,7 @@ final class ALSoundSource implements SoundSource, Runnable {
     }
 
     /**
-     * The sound will be played in loop until stop is called.
+     * The audio will be played in loop until stop is called.
      */
     @Override
     public void loop() {
@@ -133,7 +133,7 @@ final class ALSoundSource implements SoundSource, Runnable {
     }
 
     /**
-     * Reset the sound at its beginning.
+     * Reset the audio at its beginning.
      */
     @Override
     public void rewind() {

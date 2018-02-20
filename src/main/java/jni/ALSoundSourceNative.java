@@ -49,14 +49,14 @@ public class ALSoundSourceNative {
     public static native void stop(final long pointerAddress);
 
     /**
-     * Call the native code to play the sound in loop.
+     * Call the native code to play the audio in loop.
      *
      * @param pointerAddress The pointer address to the native object(yz::AlSource*).
      */
     public static native void loop(final long pointerAddress);
 
     /**
-     * Call the native code to set the sound position.
+     * Call the native code to set the audio position.
      *
      * @param pointerAddress The pointer address to the native object(yz::AlSource*).
      * @param posX           Sound position X value.
@@ -75,7 +75,7 @@ public class ALSoundSourceNative {
     public static native boolean isPlaying(final long pointerAddress);
 
     /**
-     * Call the native code to restart the sound at the beginning.
+     * Call the native code to restart the audio at the beginning.
      *
      * @param pointerAddress The pointer address to the native object(yz::AlSource*).
      */

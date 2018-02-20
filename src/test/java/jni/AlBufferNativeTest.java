@@ -27,7 +27,7 @@ package jni;
 import be.yildizgames.common.exception.technical.NativeException;
 import be.yildizgames.common.libloader.NativeResourceLoader;
 import be.yildizgames.common.os.factory.OperatingSystems;
-import be.yildizgames.module.sound.openal.OpenAlAudioEngine;
+import be.yildizgames.module.audio.openal.OpenAlAudioEngine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
@@ -117,7 +117,7 @@ class AlBufferNativeTest {
         try {
             OpenAlAudioEngine.create(NativeResourceLoader.inTestPath(OperatingSystems.getAll()));
         } catch (NativeException e) {
-            //An exception is thrown on system without sound card, anyway, loading the engine is enough
+            //An exception is thrown on system without audio card, anyway, loading the engine is enough
         }
     }
 }

@@ -22,7 +22,7 @@
  *
  */
 
-package be.yildizgames.module.sound.openal;
+package be.yildizgames.module.audio.openal;
 
 import be.yildizgames.common.exception.technical.NativeException;
 import be.yildizgames.common.file.FileResource;
@@ -33,11 +33,11 @@ import be.yildizgames.common.jni.NativePointer;
 import be.yildizgames.common.libloader.NativeResourceLoader;
 import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.common.os.SystemUtil;
-import be.yildizgames.module.sound.AudioEngine;
-import be.yildizgames.module.sound.AudioFile;
-import be.yildizgames.module.sound.SoundBuilder;
-import be.yildizgames.module.sound.SoundCreationException;
-import be.yildizgames.module.sound.SoundSource;
+import be.yildizgames.module.audio.AudioEngine;
+import be.yildizgames.module.audio.AudioFile;
+import be.yildizgames.module.audio.SoundBuilder;
+import be.yildizgames.module.audio.SoundCreationException;
+import be.yildizgames.module.audio.SoundSource;
 import jni.OpenAlSoundEngineNative;
 import org.slf4j.Logger;
 
@@ -49,7 +49,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * OpenAL implementation for the sound engine.
+ * OpenAL implementation for the audio engine.
  *
  * @author Grégory Van den Borre
  */

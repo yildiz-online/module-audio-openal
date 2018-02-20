@@ -22,9 +22,18 @@
  *
  */
 
+package be.yildizgames.module.audio.openal;
+
+import be.yildizgames.common.libloader.NativeResourceLoader;
+import be.yildizgames.module.audio.AudioEngine;
+import be.yildizgames.module.audio.AudioEngineProvider;
+
 /**
- * Contains The openAL implementation classes for the sound engine.
- *
  * @author Grégory Van den Borre
  */
-package be.yildizgames.module.sound.openal;
+public class OpenAlAudioEngineProvider implements AudioEngineProvider {
+    @Override
+    public AudioEngine getAudioEngine() {
+        return OpenAlAudioEngine.create(NativeResourceLoader.inJar());
+    }
+}

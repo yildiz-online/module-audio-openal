@@ -22,34 +22,48 @@
  *
  */
 
-package jni;
+package be.yildizgames.module.audio.openal;
+
+import be.yildizgames.common.jni.NativePointer;
+import be.yildizgames.module.audio.AudioFile;
+import be.yildizgames.module.audio.SoundSource;
+import jni.ALBufferNative;
 
 /**
+ * A buffer is the data loaded from a file to create OpenAL sources.
+ *
  * @author Grégory Van den Borre
  */
-public class ALBufferNative {
+final class ALBuffer {
 
     /**
-     * Build the buffer from a audio file.
-     *
-     * @param file Sound file to use.
-     * @return The pointer address to the buffer.
+     * Pointer to the native yz::AlBuffer* object.
      */
-    public static native long load(final String file);
+    private final NativePointer pointer;
 
     /**
-     * Build the buffer from a audio virtual file.
+     * Full constructor, build a buffer from a file.
      *
-     * @param file Sound virtual file to use.
-     * @return The pointer address to the buffer.
+     * @param file File to load, must be wav format.
      */
-    public static native long loadFromVfs(final String file);
+    ALBuffer(final AudioFile file) {
+        super();
+        long address;
+        if (file.isVfs()) {
+            address = ALBufferNative.loadFromVfs(file.name);
+        } else {
+            address = ALBufferNative.load(file.name);
+        }
+        this.pointer = NativePointer.create(address);
+    }
 
     /**
-     * Build a source in native code.
-     *
-     * @param pointerAddress Buffer native address.
-     * @return The pointer address to the source.
+     * Build a new source from the buffer.
+     * Ensures return != null.
+     * @return The built audio source.
      */
-    public static native long createSource(final long pointerAddress);
+    SoundSource createSource() {
+        NativePointer sourcePointer = NativePointer.create(ALBufferNative.createSource(this.pointer.getPointerAddress()));
+        return new ALSoundSource(sourcePointer);
+    }
 }
