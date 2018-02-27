@@ -16,6 +16,9 @@ r1=$?
 cp openal/linux64/lib/libopenal.so ../../../../target/classes/linux64/libopenal.so
 cp physicsfs/linux64/lib/libphysfs.so ../../../../target/classes/linux64/libphysfs.so
 cp libsndfile/linux64/lib/libsndfile.so ../../../../target/classes/linux64/libsndfile.so
+cp libsndfile/linux64/lib/libFLAC.so ../../../../target/classes/linux64/libFLAC.so
+cp libsndfile/linux64/lib/libogg.so ../../../../target/classes/linux64/libogg.so
+cp sndio/linux64/lib/libsndio.so ../../../../target/classes/linux64/libsndio.so
 
 rm -R CMakeFiles
 rm CMakeCache.txt
@@ -24,5 +27,6 @@ rm Makefile
 rm -r libsndfile
 rm -r openal
 rm -r physicsfs
+rm -r sndio
 
 return $r1
