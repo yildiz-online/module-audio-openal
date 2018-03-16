@@ -83,7 +83,7 @@ public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder
         if(SystemUtil.isWindows()) {
             loader.loadBaseLibrary("libphysfs", "libsndfile-1", "OpenAL32");
         } else if(SystemUtil.isLinux()) {
-            loader.loadLibrary("libphysfs", "libogg", "libFLAC", /*"libsndfile",*/ "libopenal");
+            loader.loadLibrary("libphysfs", "libogg", "libFLAC", "libsndfile", "libopenal");
         }
         loader.loadLibrary("libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
