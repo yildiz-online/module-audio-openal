@@ -27,6 +27,6 @@ rm Makefile
 rm -r libsndfile
 rm -r openal
 rm -r physicsfs
-rm -r sndio
+rm -r alsa
 
 return $r1
