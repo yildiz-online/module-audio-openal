@@ -24,7 +24,7 @@
 
 package be.yildizgames.module.audio.openal;
 
-import be.yildizgames.common.libloader.NativeResourceLoader;
+import be.yildizgames.common.libloader.GlobalNativeResourceLoader;
 import be.yildizgames.module.audio.AudioEngine;
 import be.yildizgames.module.audio.AudioEngineProvider;
 
@@ -34,6 +34,6 @@ import be.yildizgames.module.audio.AudioEngineProvider;
 public class OpenAlAudioEngineProvider implements AudioEngineProvider {
     @Override
     public AudioEngine getAudioEngine() {
-        return OpenAlAudioEngine.create(NativeResourceLoader.inJar());
+        return OpenAlAudioEngine.create(GlobalNativeResourceLoader.getInstance().getLoader());
     }
 }
