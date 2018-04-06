@@ -30,6 +30,6 @@
 
 #include <iostream>
 
-#define LOG_FUNCTION //std::cout<<__PRETTY_FUNCTION__<<std::endl;
+#define LOG_FUNCTION std::cout<<__PRETTY_FUNCTION__<<std::endl;
 
 #endif
