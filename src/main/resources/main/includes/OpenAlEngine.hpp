@@ -90,7 +90,7 @@ public:
 private:
     void initPhysFS(const char* argv0, bool symLinks) {
         LOG_FUNCTION
-        if(PHYSFS_isInit == 0) {
+        if(!PHYSFS_isInit == 0) {
         std::cout << "Initializing" << std::endl;
             if (!PHYSFS_init(argv0)) {
                 const char* error = PHYSFS_getLastError();
@@ -99,7 +99,7 @@ private:
             }
         PHYSFS_permitSymbolicLinks(symLinks);
         } else {
-        std::cout << "Already initialized" << std::endl;
+        std::cout << "Physfs already initialized" << std::endl;
         }
     }
 };
