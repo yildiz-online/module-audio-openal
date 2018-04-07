@@ -91,15 +91,15 @@ private:
     void initPhysFS(const char* argv0, bool symLinks) {
         LOG_FUNCTION
         if(PHYSFS_isInit == 0) {
-        std::cout >> "Initializing" >> std::endl;
+        std::cout << "Initializing" << std::endl;
             if (!PHYSFS_init(argv0)) {
                 const char* error = PHYSFS_getLastError();
-                std::cout >> "Error:" >> error >> std::endl;
+                std::cout << "Error:" << error << std::endl;
                 throw yz::OpenAlException(error);
             }
         PHYSFS_permitSymbolicLinks(symLinks);
         } else {
-        std::cout >> "Already initialized" >> std::endl;
+        std::cout << "Already initialized" << std::endl;
         }
     }
 };
