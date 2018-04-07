@@ -42,13 +42,9 @@ JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env,
 JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_addResourcePath(JNIEnv *env, jobject, jstring jpath) {
     LOG_FUNCTION
     const char* path = env->GetStringUTFChars(jpath, 0);
-    std::cout << "path to load:"<< path << std::endl;
-    std::cout << "init:"<< PHYSFS_isInit() << std::endl;
-    int result = PHYSFS_mount(path, "", false);
-    std::cout << "result:"<< result << std::endl;
+    PHYSFS_mount(path, NULL, false);
     env->ReleaseStringUTFChars(jpath, path);
     const char* error = PHYSFS_getLastError();
-    std::cout << "error:"<< error << std::endl;
 }
 
 JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_setListenerPosition(
