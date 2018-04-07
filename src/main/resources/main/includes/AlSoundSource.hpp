@@ -74,10 +74,12 @@ public:
     }
 
     inline virtual void addMovableComponent(NativeMovableComponent* c) {
+        LOG_FUNCTION
         this->movable->addComponent(c);
     }
 
     inline virtual void removeMovableComponent(NativeMovableComponent* c) {
+        LOG_FUNCTION
         this->movable->removeComponent(c);
     }
 

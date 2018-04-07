@@ -22,6 +22,7 @@
  */
 
 #include <jni.h>
+#include "stdafx.h"
 
 #ifndef _JNI_UTIL_H_INCLUDED_
 #define _JNI_UTIL_H_INCLUDED_
@@ -30,7 +31,8 @@
 */
 
     inline void throwException(JNIEnv* env, const char* message) {
-        jclass exception = env->FindClass("be/yildiz/common/exeption/NativeException");
+        LOG_FUNCTION
+        jclass exception = env->FindClass("jni/OpenAlNativeException");
         env->ThrowNew(exception, message);
     }
 #endif

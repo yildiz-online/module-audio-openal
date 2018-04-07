@@ -30,6 +30,7 @@
 */
 
 JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env, jobject) {
+    LOG_FUNCTION
     try {
         return reinterpret_cast<jlong>(new TYPE());
     } catch (yz::OpenAlException& e) {
@@ -39,6 +40,7 @@ JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env,
 }
 
 JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_addResourcePath(JNIEnv *env, jobject, jstring jpath) {
+    LOG_FUNCTION
     const char* path = env->GetStringUTFChars(jpath, 0);
     PHYSFS_mount(path, NULL, true);
     env->ReleaseStringUTFChars(jpath, path);
@@ -52,6 +54,7 @@ JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_setListenerPosition(
     jfloat x,
     jfloat y,
     jfloat z) {
+    LOG_FUNCTION
     GET_POINTER->setListenerPosition(x, y, z);
 }
 
@@ -62,8 +65,10 @@ JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_setListenerOrientation(
     jfloat x,
     jfloat y,
     jfloat z) {
+    LOG_FUNCTION
 }
 
 JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_close(JNIEnv*, jobject, jlong pointer) {
+    LOG_FUNCTION
     delete GET_POINTER;
 }
