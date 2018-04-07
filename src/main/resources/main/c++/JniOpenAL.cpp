@@ -43,6 +43,7 @@ JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_addResourcePath(JNIEnv *
     LOG_FUNCTION
     const char* path = env->GetStringUTFChars(jpath, 0);
     std::cout << "path to load:"<< path << std::endl;
+    std::cout << "init:"<< PHYSFS_isInit() << std::endl;
     int result = PHYSFS_mount(path, "", false);
     std::cout << "result:"<< result << std::endl;
     env->ReleaseStringUTFChars(jpath, path);
