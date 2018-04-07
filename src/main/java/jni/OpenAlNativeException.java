@@ -26,4 +26,10 @@
 package jni;
 
 public class OpenAlNativeException extends RuntimeException {
+
+
+    public OpenAlNativeException(String message) {
+        super(message);
+    }
+
 }
