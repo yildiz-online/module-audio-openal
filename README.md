@@ -6,12 +6,14 @@ The openAl module is an implementation of the audio-module, based on OpenAl-soft
 ## Features
 
 * Ogg streaming.
+* FLAC streaming.
 * Wav sound file reading.
+* 3D audio position.
 * ...
 
 ## Requirements
 
-To build this module, you will need a java 9 JDK, and Maven 3.
+To build this module, you will need the latest java JDK, and Maven 3.
 
 ## Coding Style and other information
 

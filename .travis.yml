@@ -1,23 +1,15 @@
-env:
-  global:
-    - secure: "ICU39jnZPV4cD62ANxohr5F6OnPFm7/KYaT+vEoAQ1biziSQmwbeCiSYHg+UN6tYIx1nenpg0APsX6wUbBDlbOQp+9ZgGvrwvnroJZYJlCrJyHedC/zakiGlF4H59yFeaSvtpGIL6OxG8ffAz9ngWUWmlVxMczmZRJ2QjT8H+4Z/JRNP+rxpD9OzT9j0FPhMVLd1zYttvU1IX9xsL5/fnl/58vzfn5L0O56VU6BabFUg7nTk8uNeQXcezdAmegxNDVvIccFEdWqMVwgiKqnDY5/kPcWJ/X52C28eDysmYf4RTWmsGxyIJafydsguPOyf5S617BPRxFkkMxyLEbVdS3HMNKykvdSpHjn21YWsgjNhRWW0nERZY1/QB7ytH7J4/yTpmSrYDBGlOyGnYH6gVpZ9kbGKnEA+0+gfsWXVa0HZvy9ex++qvLiqTo1mzNsy+/3v8VV9PBm/sdKzsIJfTVBuB0qGuv6hlKyqpb1U8DmflSn/pXgilmT7vfXOZEeOU4L1eYv/VkuVJtcunECh+Fr8UVhRUvv/RJ92oQblI0Cn/1EuwYA302Q+HXmXzycUdH2FvBJ/mmBDXr4k+rHoidN36a+xzcLRGb4itNhBGlwomIWNLl6X1snV0PjdkhLP4E3op6+/yvYVPbEfNn3YM0MyZL+yocnA2VWi7JP0dE4="
-
 language: java
 
-jdk:
-  - oraclejdk9
-
-addons:
-  coverity_scan:
-    project:
-      name: "yildiz-online/module-audio-openal"
-      description: "Build submitted via Travis CI"
-    notification_email: vandenborre.gregory@hotmail.fr
-    build_command_prepend: "mvn clean"
-    build_command:   "mvn -DskipTests=true compile -s settings.xml"
-    branch_pattern: master
+before_install:
+  - wget https://bitbucket.org/yildiz-engine-team/build-application-binaries/downloads/openjdk_linux-x64.tar.gz
+  - tar -xzf openjdk_linux-x64.tar.gz
+  - wget https://bitbucket.org/yildiz-engine-team/build-application-binaries/downloads/apache-maven.zip
+  - unzip -qq apache-maven.zip
+  - export M2_HOME=$PWD/apache-maven
+  - export JAVA_HOME=$PWD/openjdk_linux-x64
+  - export PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
 
 script:
-  - mvn -V -B -s settings.xml test -DskipTests=true -Denv=linux64
+  - mvn -V -B -s settings.xml test
 install:
-  - mvn -V -B -s settings.xml clean install -DskipTests=true -Denv=linux64
+  - mvn -V -B -s settings.xml clean install
