@@ -34,9 +34,8 @@ import be.yildizgames.common.jni.NativePointer;
 import be.yildizgames.common.libloader.NativeResourceLoader;
 import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.common.os.SystemUtil;
-import be.yildizgames.module.audio.AudioEngine;
 import be.yildizgames.module.audio.AudioFile;
-import be.yildizgames.module.audio.SoundBuilder;
+import be.yildizgames.module.audio.BaseAudioEngine;
 import be.yildizgames.module.audio.SoundCreationException;
 import be.yildizgames.module.audio.SoundSource;
 import jni.OpenAlSoundEngineNative;
@@ -54,7 +53,7 @@ import java.util.Optional;
  *
  * @author Grégory Van den Borre
  */
-public final class OpenAlAudioEngine extends AudioEngine implements SoundBuilder, Native {
+public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
 
     private static final Logger LOGGER = LogFactory.getInstance().getLogger(OpenAlAudioEngine.class);
 
