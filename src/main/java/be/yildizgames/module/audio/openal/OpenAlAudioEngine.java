@@ -25,9 +25,9 @@
 package be.yildizgames.module.audio.openal;
 
 import be.yildizgames.common.exception.technical.NativeException;
-import be.yildizgames.common.exception.technical.ResourceMissingException;
 import be.yildizgames.common.file.FileResource;
 import be.yildizgames.common.file.ResourcePath;
+import be.yildizgames.common.file.exception.FileMissingException;
 import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.jni.Native;
 import be.yildizgames.common.jni.NativePointer;
@@ -139,7 +139,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
     @Override
     public OpenAlAudioEngine addResourcePath(ResourcePath path) {
         if(!new File(path.getPath()).exists()) {
-            throw new ResourceMissingException(path.getPath() + " Cannot be found.");
+            throw new FileMissingException(path.getPath() + " Cannot be found.");
         }
         if(path.getType() == FileResource.FileType.VFS) {
             OpenAlSoundEngineNative.addResourcePath(path.getPath());
