@@ -32,7 +32,6 @@ import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.jni.Native;
 import be.yildizgames.common.jni.NativePointer;
 import be.yildizgames.common.libloader.NativeResourceLoader;
-import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.common.os.SystemUtil;
 import be.yildizgames.module.audio.AudioFile;
 import be.yildizgames.module.audio.BaseAudioEngine;
@@ -40,6 +39,7 @@ import be.yildizgames.module.audio.SoundCreationException;
 import be.yildizgames.module.audio.SoundSource;
 import jni.OpenAlSoundEngineNative;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ import java.util.Optional;
  */
 public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
 
-    private static final Logger LOGGER = LogFactory.getInstance().getLogger(OpenAlAudioEngine.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenAlAudioEngine.class);
 
     /**
      * Object native pointer address.
