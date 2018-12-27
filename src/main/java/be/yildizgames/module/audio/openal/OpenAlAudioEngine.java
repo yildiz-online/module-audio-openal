@@ -25,14 +25,13 @@
 package be.yildizgames.module.audio.openal;
 
 import be.yildizgames.common.exception.technical.NativeException;
-import be.yildizgames.common.exception.technical.ResourceMissingException;
 import be.yildizgames.common.file.FileResource;
 import be.yildizgames.common.file.ResourcePath;
+import be.yildizgames.common.file.exception.FileMissingException;
 import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.jni.Native;
 import be.yildizgames.common.jni.NativePointer;
 import be.yildizgames.common.libloader.NativeResourceLoader;
-import be.yildizgames.common.logging.LogFactory;
 import be.yildizgames.common.os.SystemUtil;
 import be.yildizgames.module.audio.AudioFile;
 import be.yildizgames.module.audio.BaseAudioEngine;
@@ -40,6 +39,7 @@ import be.yildizgames.module.audio.SoundCreationException;
 import be.yildizgames.module.audio.SoundSource;
 import jni.OpenAlSoundEngineNative;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ import java.util.Optional;
  */
 public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
 
-    private static final Logger LOGGER = LogFactory.getInstance().getLogger(OpenAlAudioEngine.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OpenAlAudioEngine.class);
 
     /**
      * Object native pointer address.
@@ -139,7 +139,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
     @Override
     public OpenAlAudioEngine addResourcePath(ResourcePath path) {
         if(!new File(path.getPath()).exists()) {
-            throw new ResourceMissingException(path.getPath() + " Cannot be found.");
+            throw new FileMissingException(path.getPath() + " Cannot be found.");
         }
         if(path.getType() == FileResource.FileType.VFS) {
             OpenAlSoundEngineNative.addResourcePath(path.getPath());
