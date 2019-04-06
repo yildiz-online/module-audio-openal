@@ -42,6 +42,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,9 +83,9 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
         assert loader != null;
         LOGGER.info("Initializing OpenAL audio engine...");
         if(SystemUtil.isWindows()) {
-            loader.loadBaseLibrary("libphysfs", "libFLAC-8", "libsndfile-1", "OpenAL32");
+            loader.loadBaseLibrary("libyildizphysfs", "libFLAC-8", "libsndfile-1", "OpenAL32");
         } else if(SystemUtil.isLinux()) {
-            loader.loadLibrary("libphysfs", "libogg", "libFLAC", "libsndfile", "libopenal");
+            loader.loadLibrary("libyildizphysfs", "libogg", "libFLAC", "libsndfile", "libopenal");
         }
         loader.loadLibrary("libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
@@ -138,7 +140,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
 
     @Override
     public OpenAlAudioEngine addResourcePath(ResourcePath path) {
-        if(!new File(path.getPath()).exists()) {
+        if(Files.notExists(Paths.get(path.getPath()).toAbsolutePath())) {
             throw new FileMissingException(path.getPath() + " Cannot be found.");
         }
         if(path.getType() == FileResource.FileType.VFS) {
