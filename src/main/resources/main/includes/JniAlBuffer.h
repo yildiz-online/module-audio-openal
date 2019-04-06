@@ -40,7 +40,7 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(
 JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(
     JNIEnv *env,
     jobject object,
-    jstring jfile);
+    jlong file);
 
 JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createSource(
     JNIEnv *env,

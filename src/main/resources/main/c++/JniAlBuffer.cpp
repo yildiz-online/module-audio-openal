@@ -48,16 +48,14 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject, jstri
     return -1L;
 }
 
-JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject o, jstring jfile) {
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject o, jlong file) {
     LOG_FUNCTION
-    if(jfile == NULL) {
+    if(file == NULL) {
         throwException(env, "File is null.");
         return -1L;
     }
-    const char* file = env->GetStringUTFChars(jfile, 0);
     try {
-        yz::AlBuffer* buffer = new yz::AlBuffer(new yz::physfs(file), 3);
-        env->ReleaseStringUTFChars(jfile, file);
+        yz::AlBuffer* buffer = new yz::AlBuffer(reinterpret_cast<yz::physfs::File>(file), 3);
         return reinterpret_cast<jlong>(buffer);
     } catch(std::exception& e) {
         env->ReleaseStringUTFChars(jfile, file);

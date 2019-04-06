@@ -30,7 +30,7 @@
 *@author Grégory Van den Borre
 */
 
-yz::AlBuffer::AlBuffer(yz::physfs* file, const int number) {
+yz::AlBuffer::AlBuffer(yz::physfs::File* file, const int number) {
     LOG_FUNCTION
     this->number = number;
     SF_INFO fileInfo;
@@ -91,19 +91,19 @@ void yz::AlBuffer::read(ALuint buffer) {
 
 sf_count_t yz::AlBuffer::Stream::getLength(void* userData) {
     LOG_FUNCTION
-    yz::physfs* stream = static_cast<yz::physfs*>(userData);
+    yz::physfs::File* stream = static_cast<yz::physfs::File*>(userData);
     return stream->getSize();
 }
 
 sf_count_t yz::AlBuffer::Stream::read(void* ptr, sf_count_t count, void* userData) {
     LOG_FUNCTION
-    yz::physfs* stream = static_cast<yz::physfs*>(userData);
+    yz::physfs::File* stream = static_cast<yz::physfs::File*>(userData);
     return stream->read(reinterpret_cast<char*>(ptr), count);
 }
 
 sf_count_t yz::AlBuffer::Stream::seek(sf_count_t offset, int whence, void* userData) {
     LOG_FUNCTION
-    yz::physfs* stream = static_cast<yz::physfs*>(userData);
+    yz::physfs::File* stream = static_cast<yz::physfs::File*>(userData);
     switch (whence) {
         case SEEK_SET : return stream->seek(offset);
         case SEEK_CUR : return stream->seek(stream->tell() + offset);
@@ -114,6 +114,6 @@ sf_count_t yz::AlBuffer::Stream::seek(sf_count_t offset, int whence, void* userD
 
 sf_count_t yz::AlBuffer::Stream::tell(void* userData) {
     LOG_FUNCTION
-    yz::physfs* stream = static_cast<yz::physfs*>(userData);
+    yz::physfs::File* stream = static_cast<yz::physfs::File*>(userData);
     return stream->tell();
 }

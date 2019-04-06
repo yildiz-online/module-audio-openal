@@ -31,7 +31,7 @@
 extern "C" {
 #include <sndfile.h>
 }
-#include "wrapperphysfs.hpp"
+#include "File.hpp"
 
 namespace yz {
 
@@ -50,7 +50,7 @@ namespace yz {
         */
         AlBuffer(const char* file, const int number);
 
-        AlBuffer(yz::physfs* file, const int number);
+        AlBuffer(yz::physfs::File* file, const int number);
 
         /**
         * Destructor.
