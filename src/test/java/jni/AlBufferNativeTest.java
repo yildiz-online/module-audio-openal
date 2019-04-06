@@ -86,12 +86,6 @@ class AlBufferNativeTest {
         @Test//(expected = NativeException.class)
         void fileNotExisting() {
         }
-
-        @Test
-        void withNull() {
-            assertThrows(NativeException.class, () -> ALBufferNative.loadFromVfs(null));
-        }
-
     }
 
     @Nested
