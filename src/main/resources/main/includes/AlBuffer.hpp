@@ -31,7 +31,7 @@
 extern "C" {
 #include <sndfile.h>
 }
-#include "File.hpp"
+#include "yz_physfs_File.hpp"
 
 namespace yz {
 
