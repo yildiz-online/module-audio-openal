@@ -98,7 +98,7 @@ sf_count_t yz::AlBuffer::Stream::getLength(void* userData) {
 sf_count_t yz::AlBuffer::Stream::read(void* ptr, sf_count_t count, void* userData) {
     LOG_FUNCTION
     yz::physfs::File* stream = static_cast<yz::physfs::File*>(userData);
-    return stream->read(reinterpret_cast<char*>(ptr), count);
+    return stream->readBytes(reinterpret_cast<char*>(ptr), count);
 }
 
 sf_count_t yz::AlBuffer::Stream::seek(sf_count_t offset, int whence, void* userData) {
