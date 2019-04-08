@@ -21,16 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
+#ifndef _YZ_OPENAL_FILELOADINGEXCEPTION_H_
+#define _YZ_OPENAL_FILELOADINGEXCEPTION_H_
+
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 
 namespace yz {
 
+namespace openal {
+
 /**
 *@author Grégory Van den Borre
 */
-class OpenAlFileLoadingException : public std::exception {
+class FileLoadingException : public std::exception {
 public:
 	OpenAlFileLoadingException(const char* file) {
         std::ostringstream oss;
@@ -55,4 +60,6 @@ private:
 
     std::string message;
 };
-};
+}
+}
+#endif

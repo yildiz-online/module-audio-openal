@@ -22,15 +22,15 @@
  */
 
 #include <vector>
-#include "../includes/AlBuffer.hpp"
-#include "../includes/OpenAlException.hpp"
-#include "../includes/OpenAlFileLoadingException.hpp"
+#include "../includes/yz_openal_Buffer.hpp"
+#include "../includes/yz_openal_Exception.hpp"
+#include "../includes/yz_openal_FileLoadingException.hpp"
 
 /**
 *@author Grégory Van den Borre
 */
 
-yz::AlBuffer::AlBuffer(yz::physfs::File* file, const int number) {
+yz::openal::Buffer::Buffer(yz::physfs::File* file, const int number) {
     LOG_FUNCTION
     this->number = number;
     SF_INFO fileInfo;
@@ -43,7 +43,7 @@ yz::AlBuffer::AlBuffer(yz::physfs::File* file, const int number) {
     this->init(fileInfo);
 }
 
-yz::AlBuffer::AlBuffer(const char* file, const int number) {
+yz::openal::Buffer::AlBuffer(const char* file, const int number) {
     LOG_FUNCTION
     this->number = number;
     SF_INFO fileInfo;
@@ -51,7 +51,7 @@ yz::AlBuffer::AlBuffer(const char* file, const int number) {
     this->init(fileInfo);
 }
 
-void yz::AlBuffer::init(SF_INFO& fileInfo) {
+void yz::openal::Buffer::init(SF_INFO& fileInfo) {
     LOG_FUNCTION
     if (!soundFile) {
         throw OpenAlException("Error opening file.");
@@ -76,32 +76,32 @@ void yz::AlBuffer::init(SF_INFO& fileInfo) {
     }
 }
 
-yz::AlBuffer::~AlBuffer() {
+yz::openal::Buffer::~AlBuffer() {
     LOG_FUNCTION
     alDeleteBuffers(this->number, this->buffer);
 }
 
 
-void yz::AlBuffer::read(ALuint buffer) {
+void yz::openal::Buffer::read(ALuint buffer) {
     LOG_FUNCTION
     std::vector<ALshort> samples(this->nbSamples);
     ALsizei read(static_cast<ALsizei>(sf_read_short(this->soundFile, &samples[0], this->nbSamples)));
     alBufferData(buffer, this->format, &samples[0], read * sizeof(short), this->sampleRate);
 }
 
-sf_count_t yz::AlBuffer::Stream::getLength(void* userData) {
+sf_count_t yz::openal::Buffer::Stream::getLength(void* userData) {
     LOG_FUNCTION
     yz::physfs::File* stream = static_cast<yz::physfs::File*>(userData);
     return stream->getSize();
 }
 
-sf_count_t yz::AlBuffer::Stream::read(void* ptr, sf_count_t count, void* userData) {
+sf_count_t yz::openal::Buffer::Stream::read(void* ptr, sf_count_t count, void* userData) {
     LOG_FUNCTION
     yz::physfs::File* stream = static_cast<yz::physfs::File*>(userData);
     return stream->readBytes(reinterpret_cast<char*>(ptr), count);
 }
 
-sf_count_t yz::AlBuffer::Stream::seek(sf_count_t offset, int whence, void* userData) {
+sf_count_t yz::openal::Buffer::Stream::seek(sf_count_t offset, int whence, void* userData) {
     LOG_FUNCTION
     yz::physfs::File* stream = static_cast<yz::physfs::File*>(userData);
     switch (whence) {
@@ -112,7 +112,7 @@ sf_count_t yz::AlBuffer::Stream::seek(sf_count_t offset, int whence, void* userD
     }
 }
 
-sf_count_t yz::AlBuffer::Stream::tell(void* userData) {
+sf_count_t yz::openal::Buffer::Stream::tell(void* userData) {
     LOG_FUNCTION
     yz::physfs::File* stream = static_cast<yz::physfs::File*>(userData);
     return stream->tell();

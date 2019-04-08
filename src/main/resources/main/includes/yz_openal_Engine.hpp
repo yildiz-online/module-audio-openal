@@ -26,16 +26,17 @@
 
 #include <al.h>
 #include <alc.h>
-#include "OpenAlException.hpp"
+#include "yz_openal_Exception.hpp"
 #include "stdafx.h"
 
 namespace yz {
 
+namespace openal {
 /**
  * Initialize the openAl context and manage the listener.
  * @author Van den Borre Grégory.
  */
-class OpenAlEngine {
+class Engine {
 
 public:
 
@@ -43,22 +44,22 @@ public:
      * Full constructor initialize the openAl context.
      * @param deviceName Name of the device to use, optional parameter.
      */
-    OpenAlEngine(const char* deviceName = NULL) {
+    Engine(const char* deviceName = NULL) {
         LOG_FUNCTION
         ALCdevice* device = alcOpenDevice(deviceName);
         if (!device) {
-            throw yz::OpenAlException("Unable to open audio device");
+            throw yz::openal::Exception("Unable to open audio device");
         }
         ALCcontext* context = alcCreateContext(device, NULL);
         if (!context) {
             alcCloseDevice(device);
-            throw yz::OpenAlException("Unable to create the context.");
+            throw yz::openal::Exception("Unable to create the context.");
         }
         if (!alcMakeContextCurrent(context)) {
             alcMakeContextCurrent(NULL);
             alcDestroyContext(context);
             alcCloseDevice(device);
-            throw yz::OpenAlException("Unable to activate the context.");
+            throw yz::openal::Exception("Unable to activate the context.");
         }
     }
 
@@ -85,6 +86,8 @@ public:
         alListener3f(AL_POSITION, x, y, z);
     }
 };
+
+}
 
 }
 #endif
