@@ -46,8 +46,6 @@ extern "C" {
  */
 JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env, jobject object);
 
-JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_addResourcePath(JNIEnv *env, jobject, jstring jpath);
-
 /**
  * Set the engine listener position.
  * @param env JNI environment.

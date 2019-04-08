@@ -37,6 +37,7 @@ import be.yildizgames.module.audio.AudioFile;
 import be.yildizgames.module.audio.BaseAudioEngine;
 import be.yildizgames.module.audio.SoundCreationException;
 import be.yildizgames.module.audio.SoundSource;
+import be.yildizgames.module.vfs.Vfs;
 import jni.OpenAlSoundEngineNative;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,6 +72,8 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
 
     private final List<ResourcePath> paths = new ArrayList<>();
 
+    private final Vfs vfs;
+
     private boolean vfsAdded;
 
     /**
@@ -78,7 +81,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
      * @param loader Loader for the native libraries.
      * @throws AssertionError if loader is null.
      */
-    private OpenAlAudioEngine(NativeResourceLoader loader) {
+    private OpenAlAudioEngine(NativeResourceLoader loader, Vfs vfs) {
         super();
         assert loader != null;
         LOGGER.info("Initializing OpenAL audio engine...");
@@ -99,7 +102,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
      * @throws AssertionError if loader is null.
      */
     public static OpenAlAudioEngine create(NativeResourceLoader loader) {
-        return new OpenAlAudioEngine(loader);
+        return new OpenAlAudioEngine(loader, null);
     }
 
     private void setListenerPosition(final Point3D pos) {
@@ -144,7 +147,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
             throw new FileMissingException(path.getPath() + " Cannot be found.");
         }
         if(path.getType() == FileResource.FileType.VFS) {
-            OpenAlSoundEngineNative.addResourcePath(path.getPath());
+            this.vfs.registerContainer(Paths.get(path.getPath()));
             this.vfsAdded = true;
         } else if (path.getType() == FileResource.FileType.DIRECTORY){
             this.paths.add(path);

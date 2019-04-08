@@ -26,7 +26,6 @@
 
 #include <al.h>
 #include <alc.h>
-#include <physfs.h>
 #include "OpenAlException.hpp"
 #include "stdafx.h"
 
@@ -46,7 +45,6 @@ public:
      */
     OpenAlEngine(const char* deviceName = NULL) {
         LOG_FUNCTION
-        initPhysFS(NULL, false);
         ALCdevice* device = alcOpenDevice(deviceName);
         if (!device) {
             throw yz::OpenAlException("Unable to open audio device");
@@ -85,22 +83,6 @@ public:
     inline void setListenerPosition(const float x, const float y, const float z) {
         LOG_FUNCTION
         alListener3f(AL_POSITION, x, y, z);
-    }
-
-private:
-    void initPhysFS(const char* argv0, bool symLinks) {
-        LOG_FUNCTION
-        if(!PHYSFS_isInit == 0) {
-        std::cout << "Initializing" << std::endl;
-            if (!PHYSFS_init(argv0)) {
-                const char* error = PHYSFS_getLastError();
-                std::cout << "Error:" << error << std::endl;
-                throw yz::OpenAlException(error);
-            }
-        PHYSFS_permitSymbolicLinks(symLinks);
-        } else {
-        std::cout << "Physfs already initialized" << std::endl;
-        }
     }
 };
 

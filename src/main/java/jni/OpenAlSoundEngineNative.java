@@ -45,13 +45,6 @@ public class OpenAlSoundEngineNative {
     public static native void close(final long pointerAddress);
 
     /**
-     * Add the resource path to use with virtual file system.
-     *
-     * @param path Path to add.
-     */
-    public static native void addResourcePath(final String path);
-
-    /**
      * Set the listener(player) position.
      *
      * @param address The pointer address to the native object(yz::OpenAlEngine*)
