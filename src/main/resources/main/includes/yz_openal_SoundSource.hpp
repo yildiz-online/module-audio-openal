@@ -103,7 +103,7 @@ private :
 
     static int const BUFFER_NUMBER = 3;
 
-    yz::AlBuffer* buffer;
+    yz::openal::Buffer* buffer;
 
     ALuint source;
 
