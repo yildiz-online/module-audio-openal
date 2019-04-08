@@ -35,10 +35,10 @@ yz::openal::Buffer::Buffer(yz::physfs::File* file, const int number) {
     this->number = number;
     SF_INFO fileInfo;
     SF_VIRTUAL_IO io;
-    io.get_filelen = &yz::AlBuffer::Stream::getLength;
-    io.read = &yz::AlBuffer::Stream::read;
-    io.seek = &yz::AlBuffer::Stream::seek;
-    io.tell = &yz::AlBuffer::Stream::tell;
+    io.get_filelen = &yz::openal::Buffer::Stream::getLength;
+    io.read = &yz::openal::Buffer::Stream::read;
+    io.seek = &yz::openal::Buffer::Stream::seek;
+    io.tell = &yz::openal::Buffer::Stream::tell;
     this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, file);
     this->init(fileInfo);
 }
@@ -67,7 +67,7 @@ void yz::openal::Buffer::init(SF_INFO& fileInfo) {
             this->format = AL_FORMAT_STEREO16;
             break;
         default:
-            throw OpenAlException("Cannot define sound format.");
+            throw yz::openal::Exception("Cannot define sound format.");
     }
     this->buffer = new ALuint[this->number];
     alGenBuffers(this->number, this->buffer);
