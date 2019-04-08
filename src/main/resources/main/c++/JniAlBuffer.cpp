@@ -54,7 +54,6 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject
         yz::AlBuffer* buffer = new yz::AlBuffer(reinterpret_cast<yz::physfs::File>(file), 3);
         return reinterpret_cast<jlong>(buffer);
     } catch(std::exception& e) {
-        env->ReleaseStringUTFChars(jfile, file);
         throwException(env, e.what());
     }
     return -1L;
