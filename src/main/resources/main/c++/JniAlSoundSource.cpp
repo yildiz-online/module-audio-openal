@@ -33,7 +33,7 @@
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv* env, jobject o, jlong pointer) {
     LOG_FUNCTION
     try {
-        yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+        yz::openal::SoundSource* stream = reinterpret_cast<yz::openal::SoundSource*>(pointer);
         stream->play();
     } catch (std::exception& e) {
         throwException(env, e.what());
@@ -43,7 +43,7 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_play(JNIEnv* env, jobject o,
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_stop(JNIEnv* env, jobject o, jlong pointer) {
     LOG_FUNCTION
     try {
-        yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+        yz::openal::SoundSource* stream = reinterpret_cast<yz::openal::SoundSource*>(pointer);
         stream->stop();
     } catch (std::exception& e) {
         throwException(env, e.what());
@@ -52,13 +52,13 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_stop(JNIEnv* env, jobject o,
 
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_loop(JNIEnv* env, jobject o, jlong pointer) {
     LOG_FUNCTION
-    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    yz::openal::SoundSource* stream = reinterpret_cast<yz::openal::SoundSource*>(pointer);
     stream->loop();
 }
 
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_rewind(JNIEnv* env, jobject o, jlong pointer) {
     LOG_FUNCTION
-    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    yz::openal::SoundSource* stream = reinterpret_cast<yz::openal::SoundSource*>(pointer);
     stream->rewind();
 }
 
@@ -71,19 +71,19 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setPosition(
 
 JNIEXPORT jboolean JNICALL Java_jni_ALSoundSourceNative_isPlaying(JNIEnv* env, jobject o, jlong pointer) {
     LOG_FUNCTION
-    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    yz::openal::SoundSource* stream = reinterpret_cast<yz::openal::SoundSource*>(pointer);
     stream->isPlaying();
 }
 
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_delete(JNIEnv* env, jobject o, jlong pointer) {
     LOG_FUNCTION
-    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    yz::openal::SoundSource* stream = reinterpret_cast<yz::openal::SoundSource*>(pointer);
     delete stream;
 }
 
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setGain(JNIEnv* env, jobject o, jlong pointer, jfloat gain) {
     LOG_FUNCTION
-    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    yz::openal::SoundSource* stream = reinterpret_cast<yz::openal::SoundSource*>(pointer);
     stream->setGain(gain);
 }
 
