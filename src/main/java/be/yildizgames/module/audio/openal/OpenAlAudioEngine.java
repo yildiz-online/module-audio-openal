@@ -84,6 +84,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
     private OpenAlAudioEngine(NativeResourceLoader loader, Vfs vfs) {
         super();
         assert loader != null;
+        this.vfs = vfs;
         LOGGER.info("Initializing OpenAL audio engine...");
         if(SystemUtil.isWindows()) {
             loader.loadBaseLibrary("libyildizphysfs", "libFLAC-8", "libsndfile-1", "OpenAL32");
