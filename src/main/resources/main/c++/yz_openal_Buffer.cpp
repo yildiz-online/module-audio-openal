@@ -76,7 +76,7 @@ void yz::openal::Buffer::init(SF_INFO& fileInfo) {
     }
 }
 
-yz::openal::Buffer::~AlBuffer() {
+yz::openal::Buffer::~Buffer() {
     LOG_FUNCTION
     alDeleteBuffers(this->number, this->buffer);
 }
