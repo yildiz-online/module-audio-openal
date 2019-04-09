@@ -33,7 +33,7 @@ JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env,
     LOG_FUNCTION
     try {
         return reinterpret_cast<jlong>(new TYPE());
-    } catch (yz::OpenAlException& e) {
+    } catch (yz::openal::Exception& e) {
         throwException(env, e.what());
     }
     return -1L;
