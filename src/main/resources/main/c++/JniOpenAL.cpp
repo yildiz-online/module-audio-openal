@@ -23,7 +23,7 @@
 
 #include "../includes/JniOpenAl.h"
 #include "../includes/JniUtil.h"
-#include "../includes/OpenAlEngine.hpp"
+#include "../includes/yz_openal_Engine.hpp"
 
 /**
 *@author Grégory Van den Borre
