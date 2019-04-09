@@ -65,7 +65,7 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_rewind(JNIEnv* env, jobject 
 JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setPosition(
         JNIEnv* env, jobject o, jlong pointer, jfloat x, jfloat y, jfloat z) {
     LOG_FUNCTION
-    yz::AlSoundSource* stream = reinterpret_cast<yz::AlSoundSource*>(pointer);
+    yz::openal::SoundSource* stream = reinterpret_cast<yz::openal::SoundSource*>(pointer);
     stream->setPosition(x, y, z);
 }
 
