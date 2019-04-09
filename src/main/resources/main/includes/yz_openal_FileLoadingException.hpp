@@ -37,20 +37,20 @@ namespace openal {
 */
 class FileLoadingException : public std::exception {
 public:
-	OpenAlFileLoadingException(const char* file) {
+	FileLoadingException(const char* file) {
         std::ostringstream oss;
         oss << "Error loading file: " << file;
         this->message = oss.str();
     }
 
-    OpenAlFileLoadingException(const std::string& file) {
+    FileLoadingException(const std::string& file) {
 		std::ostringstream oss;
 		oss << "Error loading file: " << file;
 		this->message = oss.str();
 	}
 
 
-	~OpenAlFileLoadingException() throw () {}
+	~FileLoadingException() throw () {}
 
 	 virtual const char* what() const throw() {
         return this->message.c_str();

@@ -43,7 +43,7 @@ yz::openal::Buffer::Buffer(yz::physfs::File* file, const int number) {
     this->init(fileInfo);
 }
 
-yz::openal::Buffer::AlBuffer(const char* file, const int number) {
+yz::openal::Buffer::Buffer(const char* file, const int number) {
     LOG_FUNCTION
     this->number = number;
     SF_INFO fileInfo;
