@@ -66,7 +66,7 @@ public:
     /**
      * Destroy the context and close the device.
      */
-    ~OpenAlEngine() {
+    ~Engine() {
         LOG_FUNCTION
         ALCcontext* context = alcGetCurrentContext();
         ALCdevice* device = alcGetContextsDevice(context);
