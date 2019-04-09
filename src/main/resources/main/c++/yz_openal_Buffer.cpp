@@ -54,7 +54,7 @@ yz::openal::Buffer::Buffer(const char* file, const int number) {
 void yz::openal::Buffer::init(SF_INFO& fileInfo) {
     LOG_FUNCTION
     if (!soundFile) {
-        throw OpenAlException("Error opening file.");
+        throw yz::openal::Exception("Error opening file.");
     }
     this->sampleRate = fileInfo.samplerate;
     this->channelsCount = fileInfo.channels;
