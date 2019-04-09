@@ -22,7 +22,7 @@
  */
 
 #include "../includes/JniAlSoundSource.h"
-#include "../includes/AlSoundSource.hpp"
+#include "../includes/yz_openal_SoundSource.hpp"
 #include "../includes/JniUtil.h"
 
 /**
