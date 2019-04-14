@@ -87,9 +87,9 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
         this.vfs = vfs;
         LOGGER.info("Initializing OpenAL audio engine...");
         if(SystemUtil.isWindows()) {
-            loader.loadBaseLibrary("libyildizphysfs", "libFLAC-8", "libsndfile-1", "OpenAL32");
+            loader.loadBaseLibrary("libphysfs", "libyildizphysfs", "libFLAC-8", "libsndfile-1", "OpenAL32");
         } else if(SystemUtil.isLinux()) {
-            loader.loadLibrary("libyildizphysfs", "libogg", "libFLAC", "libsndfile", "libopenal");
+            loader.loadLibrary("libphysfs", "libyildizphysfs", "libogg", "libFLAC", "libsndfile", "libopenal");
         }
         loader.loadLibrary("libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
@@ -102,8 +102,8 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
      * @return The created openal audio engine.
      * @throws AssertionError if loader is null.
      */
-    public static OpenAlAudioEngine create(NativeResourceLoader loader) {
-        return new OpenAlAudioEngine(loader, null);
+    public static OpenAlAudioEngine create(NativeResourceLoader loader, Vfs vfs) {
+        return new OpenAlAudioEngine(loader, vfs);
     }
 
     private void setListenerPosition(final Point3D pos) {
