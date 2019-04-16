@@ -37,7 +37,7 @@ import be.yildizgames.module.audio.AudioFile;
 import be.yildizgames.module.audio.BaseAudioEngine;
 import be.yildizgames.module.audio.SoundCreationException;
 import be.yildizgames.module.audio.SoundSource;
-import be.yildizgames.module.vfs.Vfs;
+import be.yildizgames.module.vfs.physfs.PhysFsWrapper;
 import jni.OpenAlSoundEngineNative;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,7 +72,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
 
     private final List<ResourcePath> paths = new ArrayList<>();
 
-    private final Vfs vfs;
+    private final PhysFsWrapper vfs;
 
     private boolean vfsAdded;
 
@@ -81,7 +81,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
      * @param loader Loader for the native libraries.
      * @throws AssertionError if loader is null.
      */
-    private OpenAlAudioEngine(NativeResourceLoader loader, Vfs vfs) {
+    private OpenAlAudioEngine(NativeResourceLoader loader, PhysFsWrapper vfs) {
         super();
         assert loader != null;
         this.vfs = vfs;
@@ -102,7 +102,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
      * @return The created openal audio engine.
      * @throws AssertionError if loader is null.
      */
-    public static OpenAlAudioEngine create(NativeResourceLoader loader, Vfs vfs) {
+    public static OpenAlAudioEngine create(NativeResourceLoader loader, PhysFsWrapper vfs) {
         return new OpenAlAudioEngine(loader, vfs);
     }
 

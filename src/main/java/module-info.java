@@ -32,7 +32,7 @@ module be.yildizgames.module.audio.openal {
     requires be.yildizgames.common.libloader;
     requires be.yildizgames.common.gameobject;
     requires be.yildizgames.common.os;
-    requires be.yildizgames.module.vfs;
+    requires be.yildizgames.module.vfs.physfs;
 
     requires slf4j.api;
 

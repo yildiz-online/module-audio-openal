@@ -27,7 +27,7 @@ package be.yildizgames.module.audio.openal;
 import be.yildizgames.common.libloader.GlobalNativeResourceLoader;
 import be.yildizgames.module.audio.AudioEngineProvider;
 import be.yildizgames.module.audio.BaseAudioEngine;
-import be.yildizgames.module.vfs.Vfs;
+import be.yildizgames.module.vfs.physfs.VfsFactory;
 
 /**
  * @author Grégory Van den Borre
@@ -35,7 +35,7 @@ import be.yildizgames.module.vfs.Vfs;
 public class OpenAlAudioEngineProvider implements AudioEngineProvider {
 
     @Override
-    public BaseAudioEngine getAudioEngine(Vfs vfs) {
-        return OpenAlAudioEngine.create(GlobalNativeResourceLoader.getInstance().getLoader(), vfs);
+    public BaseAudioEngine getAudioEngine() {
+        return OpenAlAudioEngine.create(GlobalNativeResourceLoader.getInstance().getLoader(), VfsFactory.getVfs());
     }
 }
