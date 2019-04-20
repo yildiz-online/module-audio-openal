@@ -45,11 +45,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * OpenAL implementation for the audio engine.
@@ -83,13 +79,13 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
      */
     private OpenAlAudioEngine(NativeResourceLoader loader, PhysFsWrapper vfs) {
         super();
-        assert loader != null;
+        Objects.requireNonNull(vfs);
         this.vfs = vfs;
         LOGGER.info("Initializing OpenAL audio engine...");
         if(SystemUtil.isWindows()) {
-            loader.loadBaseLibrary("libphysfs", "libyildizphysfs", "libFLAC-8", "libsndfile-1", "OpenAL32");
+            loader.loadBaseLibrary( "libyildizphysfs", "libFLAC-8", "libsndfile-1", "OpenAL32");
         } else if(SystemUtil.isLinux()) {
-            loader.loadLibrary("libphysfs", "libyildizphysfs", "libogg", "libFLAC", "libsndfile", "libopenal");
+            loader.loadLibrary( "libyildizphysfs", "libogg", "libFLAC", "libsndfile", "libopenal");
         }
         loader.loadLibrary("libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
