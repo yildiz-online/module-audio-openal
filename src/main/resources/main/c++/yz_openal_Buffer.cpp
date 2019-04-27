@@ -39,8 +39,11 @@ yz::openal::Buffer::Buffer(const std::string& file, bool b, const int number) {
     io.read = &yz::openal::Buffer::Stream::read;
     io.seek = &yz::openal::Buffer::Stream::seek;
     io.tell = &yz::openal::Buffer::Stream::tell;
+    std::cout << "open virtual" << std::endl;
     this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, new yz::physfs::File(file));
+    std::cout << "init" << std::endl;
     this->init(fileInfo);
+    std::cout << "completed" << std::endl;
 }
 
 yz::openal::Buffer::Buffer(const char* file, const int number) {
