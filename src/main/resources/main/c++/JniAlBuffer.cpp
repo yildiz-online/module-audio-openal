@@ -50,8 +50,8 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject, jstri
 
 JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject o, jstring jfile) {
     LOG_FUNCTION
+    const char* file = env->GetStringUTFChars(jfile, 0);
     try {
-        const char* file = env->GetStringUTFChars(jfile, 0);
         yz::openal::Buffer* buffer = new yz::openal::Buffer(std::string(file), true, 3);
         env->ReleaseStringUTFChars(jfile, file);
         return reinterpret_cast<jlong>(buffer);
