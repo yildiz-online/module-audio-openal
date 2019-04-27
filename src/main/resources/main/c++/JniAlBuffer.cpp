@@ -48,12 +48,15 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject, jstri
     return -1L;
 }
 
-JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject o, jlong file) {
+JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject o, jstring jfile) {
     LOG_FUNCTION
     try {
-        yz::openal::Buffer* buffer = new yz::openal::Buffer(reinterpret_cast<yz::physfs::File*>(file), 3);
+        const char* file = env->GetStringUTFChars(jfile, 0);
+        yz::openal::Buffer* buffer = new yz::openal::Buffer(std::string(file), true, 3);
+        env->ReleaseStringUTFChars(jfile, file);
         return reinterpret_cast<jlong>(buffer);
     } catch(std::exception& e) {
+        env->ReleaseStringUTFChars(jfile, file);
         throwException(env, e.what());
     }
     return -1L;

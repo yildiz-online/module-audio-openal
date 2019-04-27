@@ -50,7 +50,7 @@ final class ALBuffer {
         super();
         long address;
         if (file.isVfs()) {
-            address = ALBufferNative.loadFromVfs(0);
+            address = ALBufferNative.loadFromVfs(file.name);
         } else {
             address = ALBufferNative.load(file.name);
         }

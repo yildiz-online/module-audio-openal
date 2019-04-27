@@ -52,7 +52,7 @@ namespace openal {
         */
         Buffer(const char* file, const int number);
 
-        Buffer(yz::physfs::File* file, const int number);
+        Buffer(const std::string& file, bool b, const int number);
 
         /**
         * Destructor.

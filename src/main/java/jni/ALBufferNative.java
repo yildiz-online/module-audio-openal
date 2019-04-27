@@ -43,7 +43,7 @@ public class ALBufferNative {
      * @param filePointer Sound virtual file to use.
      * @return The pointer address to the buffer.
      */
-    public static native long loadFromVfs(final long filePointer);
+    public static native long loadFromVfs(final String file);
 
     /**
      * Build a source in native code.

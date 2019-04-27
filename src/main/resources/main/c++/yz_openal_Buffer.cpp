@@ -30,7 +30,7 @@
 *@author Grégory Van den Borre
 */
 
-yz::openal::Buffer::Buffer(yz::physfs::File* file, const int number) {
+yz::openal::Buffer::Buffer(const std::string& file, bool b, const int number) {
     LOG_FUNCTION
     this->number = number;
     SF_INFO fileInfo;
@@ -39,7 +39,7 @@ yz::openal::Buffer::Buffer(yz::physfs::File* file, const int number) {
     io.read = &yz::openal::Buffer::Stream::read;
     io.seek = &yz::openal::Buffer::Stream::seek;
     io.tell = &yz::openal::Buffer::Stream::tell;
-    this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, file);
+    this->soundFile = sf_open_virtual(&io, SFM_READ, &fileInfo, new yz::physfs::File(file));
     this->init(fileInfo);
 }
 
