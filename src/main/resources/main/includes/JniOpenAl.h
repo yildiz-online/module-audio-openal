@@ -46,7 +46,7 @@ extern "C" {
  */
 JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env, jobject object);
 
-JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_registerVfsContainer(JNIEnv *env, jobject object, jlong pointer jstring jpath);
+JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_registerVfsContainer(JNIEnv *env, jobject object, jlong pointer, jstring jpath);
 
 /**
  * Set the engine listener position.
