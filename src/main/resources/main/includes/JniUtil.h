@@ -30,6 +30,29 @@
 *@author Grégory Van den Borre
 */
 
+class JniStringWrapper {
+
+    public:
+        JniStringWrapper(JNIEnv* env, jstring& jstr) {
+            this->env = env;
+            this->jstr = jstr;
+            this->str = env->GetStringUTFChars(jstr, 0);
+        }
+
+        ~JniStringWrapper() {
+            this->env->ReleaseStringUTFChars(this->jstr, this->str);
+        }
+
+        std::string getValue() const {
+            return this->str;
+        }
+
+    private:
+        jstring jstr;
+        const char* str;
+        JNIEnv* env;
+};
+
     inline void throwException(JNIEnv* env, const char* message) {
         LOG_FUNCTION
         jclass exception = env->FindClass("jni/OpenAlNativeException");

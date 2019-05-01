@@ -70,4 +70,6 @@ public class OpenAlSoundEngineNative {
      * @param address Address of the native object.
      */
     public static native void delete(final long address);
+
+    public static native void registerVfsContainer(long address, String path);
 }

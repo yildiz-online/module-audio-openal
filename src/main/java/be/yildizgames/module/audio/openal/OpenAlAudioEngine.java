@@ -37,8 +37,6 @@ import be.yildizgames.module.audio.AudioFile;
 import be.yildizgames.module.audio.BaseAudioEngine;
 import be.yildizgames.module.audio.SoundCreationException;
 import be.yildizgames.module.audio.SoundSource;
-import be.yildizgames.module.vfs.physfs.PhysFsWrapper;
-import be.yildizgames.module.vfs.physfs.VfsFactory;
 import jni.OpenAlSoundEngineNative;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,8 +67,6 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
 
     private final List<ResourcePath> paths = new ArrayList<>();
 
-    private final PhysFsWrapper vfs;
-
     private boolean vfsAdded;
 
     /**
@@ -84,10 +80,9 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
         if(SystemUtil.isWindows()) {
             loader.loadBaseLibrary( "libFLAC-8", "libsndfile-1", "OpenAL32");
         } else if(SystemUtil.isLinux()) {
-            loader.loadLibrary( "libogg", "libFLAC", "libsndfile", "libopenal");
+            loader.loadLibrary(  "libogg", "libFLAC", "libsndfile", "libopenal");
         }
-        loader.loadLibrary("libyildizopenal");
-        this.vfs = VfsFactory.getVfs(loader);
+        loader.loadLibrary("libyildizphysfs", "libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
         LOGGER.info("OpenAL audio engine initialized.");
     }
@@ -144,8 +139,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
             throw new FileMissingException(path.getPath() + " Cannot be found.");
         }
         if(path.getType() == FileResource.FileType.VFS) {
-            this.vfs.registerContainer(Paths.get(path.getPath()));
-            this.vfsAdded = true;
+            OpenAlSoundEngineNative.registerVfsContainer(this.pointer.getPointerAddress(), path.getPath());
         } else if (path.getType() == FileResource.FileType.DIRECTORY){
             this.paths.add(path);
         }

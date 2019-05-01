@@ -26,6 +26,7 @@
 
 #include <al.h>
 #include <alc.h>
+#include "yz_physfs_wrapper.hpp"
 #include "yz_openal_Exception.hpp"
 #include "stdafx.h"
 
@@ -61,6 +62,7 @@ public:
             alcCloseDevice(device);
             throw yz::openal::Exception("Unable to activate the context.");
         }
+        this->vfs = new yz::physfs::Wrapper();
     }
 
     /**
@@ -85,6 +87,14 @@ public:
         LOG_FUNCTION
         alListener3f(AL_POSITION, x, y, z);
     }
+
+    inline void registerVfsContainer(std::string& path) {
+        this->vfs->registerContainer(path);
+    }
+
+    private:
+
+    yz::physfs::Wrapper* vfs;
 };
 
 }
