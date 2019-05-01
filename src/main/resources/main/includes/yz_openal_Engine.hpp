@@ -26,7 +26,7 @@
 
 #include <al.h>
 #include <alc.h>
-#include "yz_physfs_wrapper.hpp"
+#include <yz_physfs_Wrapper.hpp>
 #include "yz_openal_Exception.hpp"
 #include "stdafx.h"
 
