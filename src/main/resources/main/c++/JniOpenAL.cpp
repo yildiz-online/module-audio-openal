@@ -42,7 +42,7 @@ JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env,
 JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_registerVfsContainer(JNIEnv *env, jobject object, jlong pointer, jstring jpath) {
     LOG_FUNCTION
     JniStringWrapper path = JniStringWrapper(env, jpath);
-    GET_POINTER->registerVfsContainer(path);
+    GET_POINTER->registerVfsContainer(path.getValue());
 }
 
 JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_setListenerPosition(
