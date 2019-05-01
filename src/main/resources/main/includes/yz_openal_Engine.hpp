@@ -88,7 +88,7 @@ public:
         alListener3f(AL_POSITION, x, y, z);
     }
 
-    inline void registerVfsContainer(std::string& path) {
+    inline void registerVfsContainer(const std::string& path) {
         this->vfs->registerContainer(path);
     }
 
