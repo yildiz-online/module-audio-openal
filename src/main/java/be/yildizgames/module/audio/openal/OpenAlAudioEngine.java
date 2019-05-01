@@ -140,6 +140,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
         }
         if(path.getType() == FileResource.FileType.VFS) {
             OpenAlSoundEngineNative.registerVfsContainer(this.pointer.getPointerAddress(), path.getPath());
+            this.vfsAdded = true;
         } else if (path.getType() == FileResource.FileType.DIRECTORY){
             this.paths.add(path);
         }
