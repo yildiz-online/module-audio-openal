@@ -27,7 +27,6 @@ package be.yildizgames.module.audio.openal;
 import be.yildizgames.common.libloader.GlobalNativeResourceLoader;
 import be.yildizgames.module.audio.AudioEngineProvider;
 import be.yildizgames.module.audio.BaseAudioEngine;
-import be.yildizgames.module.vfs.physfs.VfsFactory;
 
 /**
  * @author Grégory Van den Borre
