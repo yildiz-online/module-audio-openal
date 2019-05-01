@@ -36,6 +36,6 @@ public class OpenAlAudioEngineProvider implements AudioEngineProvider {
 
     @Override
     public BaseAudioEngine getAudioEngine() {
-        return OpenAlAudioEngine.create(GlobalNativeResourceLoader.getInstance().getLoader(), VfsFactory.getVfs());
+        return OpenAlAudioEngine.create(GlobalNativeResourceLoader.getInstance().getLoader());
     }
 }

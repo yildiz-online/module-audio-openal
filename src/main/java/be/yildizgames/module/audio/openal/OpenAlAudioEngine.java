@@ -38,6 +38,7 @@ import be.yildizgames.module.audio.BaseAudioEngine;
 import be.yildizgames.module.audio.SoundCreationException;
 import be.yildizgames.module.audio.SoundSource;
 import be.yildizgames.module.vfs.physfs.PhysFsWrapper;
+import be.yildizgames.module.vfs.physfs.VfsFactory;
 import jni.OpenAlSoundEngineNative;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,17 +78,16 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
      * @param loader Loader for the native libraries.
      * @throws AssertionError if loader is null.
      */
-    private OpenAlAudioEngine(NativeResourceLoader loader, PhysFsWrapper vfs) {
+    private OpenAlAudioEngine(NativeResourceLoader loader) {
         super();
-        Objects.requireNonNull(vfs);
-        this.vfs = vfs;
         LOGGER.info("Initializing OpenAL audio engine...");
         if(SystemUtil.isWindows()) {
-            loader.loadBaseLibrary( "libyildizphysfs", "libFLAC-8", "libsndfile-1", "OpenAL32");
+            loader.loadBaseLibrary( "libFLAC-8", "libsndfile-1", "OpenAL32");
         } else if(SystemUtil.isLinux()) {
-            loader.loadLibrary( "libyildizphysfs", "libogg", "libFLAC", "libsndfile", "libopenal");
+            loader.loadLibrary( "libogg", "libFLAC", "libsndfile", "libopenal");
         }
         loader.loadLibrary("libyildizopenal");
+        this.vfs = VfsFactory.getVfs(loader);
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
         LOGGER.info("OpenAL audio engine initialized.");
     }
@@ -98,8 +98,8 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
      * @return The created openal audio engine.
      * @throws AssertionError if loader is null.
      */
-    public static OpenAlAudioEngine create(NativeResourceLoader loader, PhysFsWrapper vfs) {
-        return new OpenAlAudioEngine(loader, vfs);
+    public static OpenAlAudioEngine create(NativeResourceLoader loader) {
+        return new OpenAlAudioEngine(loader);
     }
 
     private void setListenerPosition(final Point3D pos) {
