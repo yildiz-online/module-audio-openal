@@ -26,17 +26,18 @@
 
 #include <al.h>
 #include <alc.h>
-#include <physfs.h>
-#include "OpenAlException.hpp"
+#include <yz_physfs_Wrapper.hpp>
+#include "yz_openal_Exception.hpp"
 #include "stdafx.h"
 
 namespace yz {
 
+namespace openal {
 /**
  * Initialize the openAl context and manage the listener.
  * @author Van den Borre Grégory.
  */
-class OpenAlEngine {
+class Engine {
 
 public:
 
@@ -44,30 +45,30 @@ public:
      * Full constructor initialize the openAl context.
      * @param deviceName Name of the device to use, optional parameter.
      */
-    OpenAlEngine(const char* deviceName = NULL) {
+    Engine(const char* deviceName = NULL) {
         LOG_FUNCTION
-        initPhysFS(NULL, false);
         ALCdevice* device = alcOpenDevice(deviceName);
         if (!device) {
-            throw yz::OpenAlException("Unable to open audio device");
+            throw yz::openal::Exception("Unable to open audio device");
         }
         ALCcontext* context = alcCreateContext(device, NULL);
         if (!context) {
             alcCloseDevice(device);
-            throw yz::OpenAlException("Unable to create the context.");
+            throw yz::openal::Exception("Unable to create the context.");
         }
         if (!alcMakeContextCurrent(context)) {
             alcMakeContextCurrent(NULL);
             alcDestroyContext(context);
             alcCloseDevice(device);
-            throw yz::OpenAlException("Unable to activate the context.");
+            throw yz::openal::Exception("Unable to activate the context.");
         }
+        this->vfs = new yz::physfs::Wrapper();
     }
 
     /**
      * Destroy the context and close the device.
      */
-    ~OpenAlEngine() {
+    ~Engine() {
         LOG_FUNCTION
         ALCcontext* context = alcGetCurrentContext();
         ALCdevice* device = alcGetContextsDevice(context);
@@ -87,22 +88,16 @@ public:
         alListener3f(AL_POSITION, x, y, z);
     }
 
-private:
-    void initPhysFS(const char* argv0, bool symLinks) {
-        LOG_FUNCTION
-        if(!PHYSFS_isInit == 0) {
-        std::cout << "Initializing" << std::endl;
-            if (!PHYSFS_init(argv0)) {
-                const char* error = PHYSFS_getLastError();
-                std::cout << "Error:" << error << std::endl;
-                throw yz::OpenAlException(error);
-            }
-        PHYSFS_permitSymbolicLinks(symLinks);
-        } else {
-        std::cout << "Physfs already initialized" << std::endl;
-        }
+    inline void registerVfsContainer(const std::string& path) {
+        this->vfs->registerContainer(path);
     }
+
+    private:
+
+    yz::physfs::Wrapper* vfs;
 };
+
+}
 
 }
 #endif

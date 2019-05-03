@@ -1,9 +1,9 @@
 /*
  * This file is part of the Yildiz-Engine project, licenced under the MIT License  (MIT)
  *
- *  Copyright (c) 2018 Grégory Van den Borre
+ *  Copyright (c) 2019 Grégory Van den Borre
  *
- *  More infos available: https://www.yildiz-games.be
+ *  More infos available: https://engine.yildiz-games.be
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  *  documentation files (the "Software"), to deal in the Software without restriction, including without
@@ -45,13 +45,6 @@ public class OpenAlSoundEngineNative {
     public static native void close(final long pointerAddress);
 
     /**
-     * Add the resource path to use with virtual file system.
-     *
-     * @param path Path to add.
-     */
-    public static native void addResourcePath(final String path);
-
-    /**
      * Set the listener(player) position.
      *
      * @param address The pointer address to the native object(yz::OpenAlEngine*)
@@ -77,4 +70,6 @@ public class OpenAlSoundEngineNative {
      * @param address Address of the native object.
      */
     public static native void delete(final long address);
+
+    public static native void registerVfsContainer(long address, String path);
 }

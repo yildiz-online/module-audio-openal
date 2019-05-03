@@ -1,7 +1,7 @@
 /*
  * This file is part of the Yildiz-Engine project, licenced under the MIT License  (MIT)
  *
- * Copyright (c) 2018 Grégory Van den Borre
+ * Copyright (c) 2019 Grégory Van den Borre
  *
  * More infos available: https://www.yildiz-games.be
  *
@@ -22,9 +22,9 @@
  */
 
 #include "../includes/JniAlBuffer.h"
-#include "../includes/AlBuffer.hpp"
 #include "../includes/JniUtil.h"
-#include "../includes/AlSoundSource.hpp"
+#include "../includes/yz_openal_Buffer.hpp"
+#include "../includes/yz_openal_SoundSource.hpp"
 
 /**
 *@author Grégory Van den Borre
@@ -38,7 +38,7 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject, jstri
     }
     const char* file = env->GetStringUTFChars(jfile, 0);
 	try {
-	    yz::AlBuffer* buffer = new yz::AlBuffer(file, 3);
+	    yz::openal::Buffer* buffer = new yz::openal::Buffer(file, 3);
 	    env->ReleaseStringUTFChars(jfile, file);
 	    return reinterpret_cast<jlong>(buffer);
     } catch(std::exception& e) {
@@ -50,13 +50,9 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_load(JNIEnv *env, jobject, jstri
 
 JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject o, jstring jfile) {
     LOG_FUNCTION
-    if(jfile == NULL) {
-        throwException(env, "File is null.");
-        return -1L;
-    }
     const char* file = env->GetStringUTFChars(jfile, 0);
     try {
-        yz::AlBuffer* buffer = new yz::AlBuffer(new yz::physfs(file), 3);
+        yz::openal::Buffer* buffer = new yz::openal::Buffer(std::string(file), true, 3);
         env->ReleaseStringUTFChars(jfile, file);
         return reinterpret_cast<jlong>(buffer);
     } catch(std::exception& e) {
@@ -68,6 +64,6 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_loadFromVfs(JNIEnv *env, jobject
 
 JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createSource(JNIEnv*, jobject, jlong pointer) {
     LOG_FUNCTION
-	yz::AlBuffer* buffer = reinterpret_cast<yz::AlBuffer*>(pointer);
-	return reinterpret_cast<jlong>(new yz::AlSoundSource(buffer));
+	yz::openal::Buffer* buffer = reinterpret_cast<yz::openal::Buffer*>(pointer);
+	return reinterpret_cast<jlong>(new yz::openal::SoundSource(buffer));
 }

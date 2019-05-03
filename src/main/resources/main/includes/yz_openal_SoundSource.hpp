@@ -24,8 +24,8 @@
 #ifndef YZ_SOUND_SOURCE_H
 #define YZ_SOUND_SOURCE_H
 
-#include "AlBuffer.hpp"
-#include "OpenAlException.hpp"
+#include "yz_openal_Buffer.hpp"
+#include "yz_openal_Exception.hpp"
 #include "stdafx.h"
 #include "NativeMovable.hpp"
 
@@ -33,10 +33,12 @@
 
 namespace yz {
 
+namespace openal {
+
 /**
 * @author Grégory Van den Borre
 */
-class AlSoundSource : public NativeMovableComponent {
+class SoundSource : public NativeMovableComponent {
 
 public:
 
@@ -44,9 +46,9 @@ public:
     * Constructor, initialize the sound from a shared buffer.
     * @param buffer Buffer containing the sound data.
     */
-    AlSoundSource(yz::AlBuffer* buffer);
+    SoundSource(yz::openal::Buffer* buffer);
 
-    ~AlSoundSource();
+    ~SoundSource();
 
     bool play();
 
@@ -101,7 +103,7 @@ private :
 
     static int const BUFFER_NUMBER = 3;
 
-    yz::AlBuffer* buffer;
+    yz::openal::Buffer* buffer;
 
     ALuint source;
 
@@ -117,10 +119,11 @@ private :
         LOG_FUNCTION
         int error = alGetError();
         if(error != AL_NO_ERROR) {
-            throw yz::OpenAlException(error);
+            throw yz::openal::Exception(error);
         }
     }
 };
+}
 }
 
 #endif

@@ -21,31 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
+#ifndef _YZ_OPENAL_FILELOADINGEXCEPTION_H_
+#define _YZ_OPENAL_FILELOADINGEXCEPTION_H_
+
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 
 namespace yz {
 
+namespace openal {
+
 /**
 *@author Grégory Van den Borre
 */
-class OpenAlFileLoadingException : public std::exception {
+class FileLoadingException : public std::exception {
 public:
-	OpenAlFileLoadingException(const char* file) {
+	FileLoadingException(const char* file) {
         std::ostringstream oss;
         oss << "Error loading file: " << file;
         this->message = oss.str();
     }
 
-    OpenAlFileLoadingException(const std::string& file) {
+    FileLoadingException(const std::string& file) {
 		std::ostringstream oss;
 		oss << "Error loading file: " << file;
 		this->message = oss.str();
 	}
 
 
-	~OpenAlFileLoadingException() throw () {}
+	~FileLoadingException() throw () {}
 
 	 virtual const char* what() const throw() {
         return this->message.c_str();
@@ -55,4 +60,6 @@ private:
 
     std::string message;
 };
-};
+}
+}
+#endif

@@ -1,7 +1,7 @@
 /*
  * This file is part of the Yildiz-Engine project, licenced under the MIT License  (MIT)
  *
- * Copyright (c) 2018 Grégory Van den Borre
+ * Copyright (c) 2019 Grégory Van den Borre
  *
  * More infos available: https://www.yildiz-games.be
  *
@@ -21,13 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
-#include "../includes/AlSoundSource.hpp"
+#include "../includes/yz_openal_SoundSource.hpp"
 
 /**
 *@author Grégory Van den Borre
 */
 
-yz::AlSoundSource::AlSoundSource(yz::AlBuffer* buffer) {
+yz::openal::SoundSource::SoundSource(yz::openal::Buffer* buffer) {
     LOG_FUNCTION
     this->buffer = buffer;
     alGenSources(1, &this->source);
@@ -41,7 +41,7 @@ yz::AlSoundSource::AlSoundSource(yz::AlBuffer* buffer) {
     this->movable = new NativeMovable();
 }
 
-yz::AlSoundSource::~AlSoundSource() {
+yz::openal::SoundSource::~SoundSource() {
     LOG_FUNCTION
     alSourceStop(this->source);
     this->empty();
@@ -49,7 +49,7 @@ yz::AlSoundSource::~AlSoundSource() {
     this->check();
 }
 
-bool yz::AlSoundSource::play() {
+bool yz::openal::SoundSource::play() {
     LOG_FUNCTION
     alSourcePlay(this->source);
     ALenum state;
@@ -67,14 +67,14 @@ bool yz::AlSoundSource::play() {
     return true;
 }
 
-bool yz::AlSoundSource::isPlaying() {
+bool yz::openal::SoundSource::isPlaying() {
     LOG_FUNCTION
     ALenum state;
     alGetSourcei(this->source, AL_SOURCE_STATE, &state);
     return (state == AL_PLAYING);
 }
 
-void yz::AlSoundSource::empty() {
+void yz::openal::SoundSource::empty() {
     LOG_FUNCTION
     int queued;
     alGetSourcei(this->source, AL_BUFFERS_QUEUED, &queued);
@@ -84,7 +84,7 @@ void yz::AlSoundSource::empty() {
     }
 }
 
-void yz::AlSoundSource::stop() {
+void yz::openal::SoundSource::stop() {
     LOG_FUNCTION
     this->empty();
     alSourceStop(this->source);

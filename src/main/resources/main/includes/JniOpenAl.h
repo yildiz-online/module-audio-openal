@@ -26,7 +26,7 @@
 #ifndef _JNI_OPENAL_H_
 #define _JNI_OPENAL_H_
 
-#define TYPE yz::OpenAlEngine
+#define TYPE yz::openal::Engine
 #define GET_POINTER reinterpret_cast <TYPE*>(pointer)
 
 #ifdef __cplusplus
@@ -46,7 +46,7 @@ extern "C" {
  */
 JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env, jobject object);
 
-JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_addResourcePath(JNIEnv *env, jobject, jstring jpath);
+JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_registerVfsContainer(JNIEnv *env, jobject object, jlong pointer, jstring jpath);
 
 /**
  * Set the engine listener position.

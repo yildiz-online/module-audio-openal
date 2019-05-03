@@ -21,63 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  */
 
+ #ifndef _YZ_OPENAL_EXCEPTION_H_
+ #define _YZ_OPENAL_EXCEPTION_H_
+
 #include <iostream>
-#include "../includes/wrapperphysfs.hpp"
-#include "../includes/OpenAlException.hpp"
-#include "../includes/stdafx.h"
+#include <sstream>
+#include <stdexcept>
+
+namespace yz {
+
+namespace openal {
 
 /**
 *@author Grégory Van den Borre
 */
+class Exception : public std::exception {
+public:
+	Exception(const char* msg) {
+		this->message = msg;
+	}
 
-yz::physfs::physfs(const char* filename){
-    LOG_FUNCTION
-    this->fileName = filename;
-    this->file = PHYSFS_openRead(this->fileName);
-    if (this->file == NULL){
-        throw yz::OpenAlException("File not found");
+	Exception(const std::string& msg) {
+		this->message = msg.c_str();
+	}
+
+	Exception(const int errorCode) {
+		std::ostringstream os;
+		os << "Error code:" << errorCode;
+		this->message = os.str().c_str();
+	}
+
+	~Exception() throw () {}
+
+	 virtual const char* what() const throw() {
+        return this->message;
     }
+
+private:
+
+	const char* message;
+};
+}
 }
 
-yz::physfs::~physfs(){
-    LOG_FUNCTION
-    if (PHYSFS_close(file) == 0 ){
-        std::cout << PHYSFS_getLastError() << std::endl;
-    }
-}
-
-int yz::physfs::read(char* data, int count){
-    LOG_FUNCTION
-    PHYSFS_sint64 read = PHYSFS_read(file, data, 1, count);
-    if (read == -1){
-        throw yz::OpenAlException("Error reading file");
-    }
-    return read;
-}
-
-int yz::physfs::seek(int position){
-    LOG_FUNCTION
-    if ( PHYSFS_seek(file, position) == 0 ){
-        std::cout << PHYSFS_getLastError() << std::endl;
-        return -1;
-    }
-    return position;
-}
-
-int yz::physfs::tell(){
-    LOG_FUNCTION
-    int position = PHYSFS_tell(this->file);
-    if (position == -1){
-        std::cout << PHYSFS_getLastError() << std::endl;
-    }
-    return position;
-}
-
-int yz::physfs::getSize(){
-    LOG_FUNCTION
-    int size = PHYSFS_fileLength(file);
-    if (size == -1){
-        std::cout << PHYSFS_getLastError() << std::endl;
-    }
-    return size;
-}
+#endif

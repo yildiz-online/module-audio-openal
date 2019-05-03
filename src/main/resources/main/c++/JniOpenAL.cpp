@@ -23,7 +23,7 @@
 
 #include "../includes/JniOpenAl.h"
 #include "../includes/JniUtil.h"
-#include "../includes/OpenAlEngine.hpp"
+#include "../includes/yz_openal_Engine.hpp"
 
 /**
 *@author Grégory Van den Borre
@@ -33,18 +33,16 @@ JNIEXPORT jlong JNICALL Java_jni_OpenAlSoundEngineNative_initialize(JNIEnv *env,
     LOG_FUNCTION
     try {
         return reinterpret_cast<jlong>(new TYPE());
-    } catch (yz::OpenAlException& e) {
+    } catch (yz::openal::Exception& e) {
         throwException(env, e.what());
     }
     return -1L;
 }
 
-JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_addResourcePath(JNIEnv *env, jobject, jstring jpath) {
+JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_registerVfsContainer(JNIEnv *env, jobject object, jlong pointer, jstring jpath) {
     LOG_FUNCTION
-    const char* path = env->GetStringUTFChars(jpath, 0);
-    PHYSFS_mount(path, NULL, false);
-    env->ReleaseStringUTFChars(jpath, path);
-    const char* error = PHYSFS_getLastError();
+    JniStringWrapper path = JniStringWrapper(env, jpath);
+    GET_POINTER->registerVfsContainer(path.getValue());
 }
 
 JNIEXPORT void JNICALL Java_jni_OpenAlSoundEngineNative_setListenerPosition(

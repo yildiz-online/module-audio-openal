@@ -31,15 +31,17 @@
 extern "C" {
 #include <sndfile.h>
 }
-#include "wrapperphysfs.hpp"
+#include "yz_physfs_File.hpp"
 
 namespace yz {
+
+namespace openal {
 
     /**
     * Create and wrap an OpenAL buffer object.
     * @author Van Den Borre Grégory
     */
-    class AlBuffer {
+    class Buffer {
 
     public:
 
@@ -48,14 +50,14 @@ namespace yz {
         * @param file Path of the file to load.
         * @param number Number of buffers to use.
         */
-        AlBuffer(const char* file, const int number);
+        Buffer(const char* file, const int number);
 
-        AlBuffer(yz::physfs* file, const int number);
+        Buffer(const std::string& file, bool b, const int number);
 
         /**
         * Destructor.
         */
-        ~AlBuffer();
+        ~Buffer();
 
         void read(const ALuint bufferNumber);
 
@@ -104,6 +106,7 @@ namespace yz {
 
         void init(SF_INFO& fileInfo);
     };
-};
+}
+}
 
 #endif
