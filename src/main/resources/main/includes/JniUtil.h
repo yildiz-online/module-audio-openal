@@ -23,7 +23,7 @@
 
 #include <jni.h>
 #include "stdafx.h"
-#include <string.h>
+#include <string>
 
 #ifndef _JNI_UTIL_H_INCLUDED_
 #define _JNI_UTIL_H_INCLUDED_
