@@ -28,8 +28,8 @@
 #ifndef STDAFX_H
 #define STDAFX_H
 
-#include <iostream>
+//#include <iostream>
 
-#define LOG_FUNCTION std::cout<<__PRETTY_FUNCTION__<<std::endl;
+#define LOG_FUNCTION //std::cout<<__PRETTY_FUNCTION__<<std::endl;
 
 #endif
