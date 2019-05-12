@@ -35,7 +35,7 @@ namespace yz {
 namespace openal {
 /**
  * Initialize the openAl context and manage the listener.
- * @author Van den Borre Grégory.
+ * @author Grégory Van den Borre
  */
 class Engine {
 

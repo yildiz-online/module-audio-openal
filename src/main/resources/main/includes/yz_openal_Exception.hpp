@@ -33,7 +33,7 @@ namespace yz {
 namespace openal {
 
 /**
-*@author Grégory Van den Borre
+* @author Grégory Van den Borre
 */
 class Exception : public std::exception {
 public:

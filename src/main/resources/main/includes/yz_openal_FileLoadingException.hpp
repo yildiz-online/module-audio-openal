@@ -33,9 +33,10 @@ namespace yz {
 namespace openal {
 
 /**
-*@author Grégory Van den Borre
+* @author Grégory Van den Borre
 */
 class FileLoadingException : public std::exception {
+
 public:
 	FileLoadingException(const char* file) {
         std::ostringstream oss;

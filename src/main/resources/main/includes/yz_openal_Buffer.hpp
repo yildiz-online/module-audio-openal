@@ -39,7 +39,7 @@ namespace openal {
 
     /**
     * Create and wrap an OpenAL buffer object.
-    * @author Van Den Borre Grégory
+    * @author Grégory Van den Borre
     */
     class Buffer {
 

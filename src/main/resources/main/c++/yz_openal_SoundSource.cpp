@@ -24,7 +24,7 @@
 #include "../includes/yz_openal_SoundSource.hpp"
 
 /**
-*@author Grégory Van den Borre
+* @author Grégory Van den Borre
 */
 
 yz::openal::SoundSource::SoundSource(yz::openal::Buffer* buffer) {

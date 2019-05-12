@@ -48,6 +48,9 @@ public:
     */
     SoundSource(yz::openal::Buffer* buffer);
 
+    /**
+     * Destructor.
+     */
     ~SoundSource();
 
     bool play();
