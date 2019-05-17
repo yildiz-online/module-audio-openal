@@ -75,6 +75,5 @@ public:
 private:
    std::vector<NativeMovableComponent*> list;
 };
-
 }
 #endif
