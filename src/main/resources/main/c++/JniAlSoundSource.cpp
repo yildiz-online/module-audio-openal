@@ -86,4 +86,3 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setGain(JNIEnv* env, jobject
     yz::openal::SoundSource* stream = reinterpret_cast<yz::openal::SoundSource*>(pointer);
     stream->setGain(gain);
 }
-

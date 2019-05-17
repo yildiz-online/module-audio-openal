@@ -59,3 +59,4 @@ class JniStringWrapper {
         env->ThrowNew(exception, message);
     }
 #endif
+

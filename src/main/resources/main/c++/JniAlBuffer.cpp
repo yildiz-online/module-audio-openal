@@ -67,3 +67,4 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createSource(JNIEnv*, jobject, j
 	yz::openal::Buffer* buffer = reinterpret_cast<yz::openal::Buffer*>(pointer);
 	return reinterpret_cast<jlong>(new yz::openal::SoundSource(buffer));
 }
+

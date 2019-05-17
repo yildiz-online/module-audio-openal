@@ -97,3 +97,4 @@ JNIEXPORT void JNICALL Java_jni_ALSoundSourceNative_setGain(JNIEnv* env, jobject
 }
 #endif
 #endif
+
