@@ -38,8 +38,6 @@ import be.yildizgames.module.audio.BaseAudioEngine;
 import be.yildizgames.module.audio.SoundCreationException;
 import be.yildizgames.module.audio.SoundSource;
 import jni.OpenAlSoundEngineNative;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -53,7 +51,7 @@ import java.util.*;
  */
 public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OpenAlAudioEngine.class);
+    private static final System.Logger LOGGER = System.getLogger(OpenAlAudioEngine.class.getName());
 
     /**
      * Object native pointer address.
@@ -76,7 +74,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
      */
     private OpenAlAudioEngine(NativeResourceLoader loader) {
         super();
-        LOGGER.info("Initializing OpenAL audio engine...");
+        LOGGER.log(System.Logger.Level.INFO, "Initializing OpenAL audio engine...");
         if(SystemUtil.isWindows()) {
             loader.loadBaseLibrary( "libFLAC-8", "libsndfile-1", "OpenAL32");
         } else if(SystemUtil.isLinux()) {
@@ -84,7 +82,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
         }
         loader.loadLibrary("libyildizphysfs", "libyildizopenal");
         this.pointer = NativePointer.create(OpenAlSoundEngineNative.initialize());
-        LOGGER.info("OpenAL audio engine initialized.");
+        LOGGER.log(System.Logger.Level.INFO, "Initializing OpenAL audio engine complete.");
     }
 
     /**
@@ -125,7 +123,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
         }
         try {
             if (!this.bufferList.containsKey(toLoad)) {
-                this.bufferList.put(toLoad, new ALBuffer(new AudioFile(type, toLoad)));
+                this.bufferList.put(toLoad, new ALBuffer(type == FileResource.FileType.VFS ? AudioFile.vfs(toLoad): AudioFile.file(toLoad)));
             }
             return this.bufferList.get(toLoad).createSource();
         } catch (NativeException e) {

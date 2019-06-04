@@ -73,12 +73,13 @@ final class ALSoundSource implements SoundSource, Runnable {
      * If the audio was previously played then stopped, it is rewind before starting.
      */
     @Override
-    public void play() {
+    public ALSoundSource play() {
         if (!this.playing) {
             this.thread.start();
         } else {
             this.rewind();
         }
+        return this;
     }
 
     /**
@@ -93,17 +94,19 @@ final class ALSoundSource implements SoundSource, Runnable {
     }
 
     @Override
-    public void addEndPlayListener(final EndPlayListener listener) {
+    public ALSoundSource addEndPlayListener(final EndPlayListener listener) {
         this.endPlayListeners.add(listener);
+        return this;
     }
 
     /**
      * Stop playing the audio.
      */
     @Override
-    public synchronized void stop() {
+    public synchronized ALSoundSource stop() {
         this.playing = false;
         ALSoundSourceNative.stop(this.pointer.getPointerAddress());
+        return this;
     }
 
     /**
@@ -120,34 +123,39 @@ final class ALSoundSource implements SoundSource, Runnable {
      * @param pos New position.
      */
     @Override
-    public void setPosition(Point3D pos) {
+    public ALSoundSource setPosition(Point3D pos) {
         ALSoundSourceNative.setPosition(this.pointer.getPointerAddress(), pos.x, pos.y, pos.z);
+        return this;
     }
 
     /**
      * The audio will be played in loop until stop is called.
      */
     @Override
-    public void loop() {
+    public ALSoundSource loop() {
         ALSoundSourceNative.loop(this.pointer.getPointerAddress());
+        return this;
     }
 
     /**
      * Reset the audio at its beginning.
      */
     @Override
-    public void rewind() {
+    public ALSoundSource rewind() {
         ALSoundSourceNative.rewind(this.pointer.getPointerAddress());
+        return this;
     }
 
     @Override
-    public void setGain(final float gain) {
+    public ALSoundSource setGain(final float gain) {
         ALSoundSourceNative.setGain(this.pointer.getPointerAddress(), gain);
+        return this;
     }
 
     @Override
-    public void delete() {
+    public ALSoundSource delete() {
         ALSoundSourceNative.delete(this.pointer.getPointerAddress());
         this.pointer.delete();
+        return this;
     }
 }

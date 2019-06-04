@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2019 Grégory Van den Borre
  *
- * More infos available: https://www.yildiz-games.be
+ * More infos available: https://engine.yildiz-games.be
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without
@@ -67,3 +67,4 @@ JNIEXPORT jlong JNICALL Java_jni_ALBufferNative_createSource(JNIEnv*, jobject, j
 	yz::openal::Buffer* buffer = reinterpret_cast<yz::openal::Buffer*>(pointer);
 	return reinterpret_cast<jlong>(new yz::openal::SoundSource(buffer));
 }
+
