@@ -123,7 +123,7 @@ public final class OpenAlAudioEngine extends BaseAudioEngine implements Native {
         }
         try {
             if (!this.bufferList.containsKey(toLoad)) {
-                this.bufferList.put(toLoad, new ALBuffer(new AudioFile(type, toLoad)));
+                this.bufferList.put(toLoad, new ALBuffer(type == FileResource.FileType.VFS ? AudioFile.vfs(toLoad): AudioFile.file(toLoad)));
             }
             return this.bufferList.get(toLoad).createSource();
         } catch (NativeException e) {
