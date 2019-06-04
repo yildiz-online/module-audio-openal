@@ -73,12 +73,13 @@ final class ALSoundSource implements SoundSource, Runnable {
      * If the audio was previously played then stopped, it is rewind before starting.
      */
     @Override
-    public void play() {
+    public ALSoundSource play() {
         if (!this.playing) {
             this.thread.start();
         } else {
             this.rewind();
         }
+        return this;
     }
 
     /**
