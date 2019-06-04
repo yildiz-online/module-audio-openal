@@ -23,7 +23,6 @@
 
 module be.yildizgames.module.audio.openal {
 
-    requires be.yildizgames.common.logging;
     requires be.yildizgames.common.geometry;
     requires be.yildizgames.module.audio;
     requires be.yildizgames.common.file;
