@@ -27,7 +27,6 @@ module be.yildizgames.module.audio.openal {
     requires be.yildizgames.module.audio;
     requires be.yildizgames.common.file;
     requires be.yildizgames.common.jni;
-    requires be.yildizgames.common.exception;
     requires be.yildizgames.common.libloader;
     requires be.yildizgames.common.gameobject;
     requires be.yildizgames.common.os;
