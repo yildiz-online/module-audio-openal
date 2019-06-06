@@ -24,12 +24,12 @@
 
 package be.yildizgames.module.audio.openal;
 
-import be.yildizgames.common.exception.technical.NativeException;
 import be.yildizgames.common.file.FileResource;
 import be.yildizgames.common.file.ResourcePath;
 import be.yildizgames.common.file.exception.FileMissingException;
 import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.jni.Native;
+import be.yildizgames.common.jni.NativeException;
 import be.yildizgames.common.jni.NativePointer;
 import be.yildizgames.common.libloader.NativeResourceLoader;
 import be.yildizgames.common.os.SystemUtil;
@@ -42,7 +42,11 @@ import jni.OpenAlSoundEngineNative;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * OpenAL implementation for the audio engine.
