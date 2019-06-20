@@ -40,7 +40,7 @@ public class ALBufferNative {
     /**
      * Build the buffer from a audio virtual file.
      *
-     * @param filePointer Sound virtual file to use.
+     * @param file Sound virtual file to use.
      * @return The pointer address to the buffer.
      */
     public static native long loadFromVfs(final String file);
