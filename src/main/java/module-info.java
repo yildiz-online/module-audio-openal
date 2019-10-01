@@ -31,5 +31,8 @@ module be.yildizgames.module.audio.openal {
     requires be.yildizgames.common.gameobject;
     requires be.yildizgames.common.os;
 
+    provides be.yildizgames.module.audio.AudioEngineProvider
+            with be.yildizgames.module.audio.openal.OpenAlAudioEngineProvider;
+
     exports be.yildizgames.module.audio.openal;
 }
