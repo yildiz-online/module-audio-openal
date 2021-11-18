@@ -40,14 +40,10 @@
   <parent>
     <groupId>be.yildiz-games</groupId>
     <artifactId>parent</artifactId>
-    <version>4.0.2</version>
+    <version>5.0.2</version>
   </parent>
 
   <packaging>jar</packaging>
-
-  <properties>
-    <java.version>11</java.version>
-  </properties>
 
   <scm>
     <connection>scm:git:https://github.com/yildiz-online/module-audio-openal</connection>
@@ -69,12 +65,12 @@
     <dependency>
       <groupId>be.yildiz-games</groupId>
       <artifactId>common-libloader</artifactId>
-      <version>2.0.8</version>
+      <version>3.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>be.yildiz-games</groupId>
       <artifactId>common-os</artifactId>
-      <version>1.2.0</version>
+      <version>1.2.1</version>
     </dependency>
     <dependency>
       <groupId>be.yildiz-games</groupId>
